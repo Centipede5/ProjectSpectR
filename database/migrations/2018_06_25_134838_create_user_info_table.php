@@ -16,8 +16,6 @@ class CreateUserInfoTable extends Migration
         Schema::create('user_info', function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('user_id');
-            $table->string('name', 255)->nullable();
-            $table->string('display_name', 255)->nullable();
             $table->string('bio', 255)->nullable();
             $table->string('social_meta', 255)->nullable();
             $table->ipAddress('ip_address')->nullable();
