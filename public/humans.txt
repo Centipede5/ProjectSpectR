@@ -1,0 +1,36 @@
+ /* PROJECT */
+  Site Name: ProjectSpectR
+  Site URL: http://bansheejacked.com
+  Created: 2018/07/01
+  Last Updated: 2018/07/01
+  Built Using: PhpStorm / Sublime Text
+  Standards: HTML5, CSS3
+  Components: jQuery
+  Purpose: Secret Project developed on the open web in secret
+  Web Designer: Brandon Plentl aka MrPlentl
+
+/* AUTHOR */
+  Name: Brandon Plentl
+  Nickname: ThaBamboozler
+  Title: Master of the Web (Webmaster)
+  Location: DFW/Texas
+  Site: http://mrplentl.com
+  Blog: http://thabamboozler.com/blog
+  Contact: http://mrplentl.com/contact
+  About.me: https://about.me/brandon.plentl
+  Donation: https://www.paypal.me/mrplentl
+
+/* SOCIAL */
+  GitHub: https://github.com/MrPlentl
+  WordPress: https://profiles.wordpress.org/mrplentl 
+  Linkedin: https://www.linkedin.com/in/brandon-plentl-a55aa43
+  Twitter: https://twitter.com/mrplentl
+  Facebook: https://facebook.com/mrplentl
+  Google+: https://plus.google.com/u/0/113063829567507079400
+  Tumblr: http://mrplentl.tumblr.com/
+
+/* META */
+  Built with: PHP, HTML5, CSS3, jQuery, JavaScript, Laravel 5.5, and MySQL :)
+
+/* THANKS */
+  To everyone who keeps this a secret while in development!
