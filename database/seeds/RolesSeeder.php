@@ -12,7 +12,8 @@ class RolesSeeder extends Seeder
             'slug' => 'pending',
             'permissions' => [
                 'update-profile' => true
-            ]
+            ],
+            'description' => 'Your account is in Pending status because you have not verified your email yet. Verify your email or reset your password to become verified.'
         ]);
         $basic = Role::create([
             'name' => 'Basic',
@@ -20,7 +21,8 @@ class RolesSeeder extends Seeder
             'permissions' => [
                 'update-profile' => true,
                 'comment-on-post' => true
-            ]
+            ],
+            'description' => 'Can create and have access to your profile, ratings and inventory. You can also read and comment on posts and pages. You must Level Up to Contributor if you want to create posts.'
         ]);
         $contributor = Role::create([
             'name' => 'Contributor',
@@ -32,7 +34,8 @@ class RolesSeeder extends Seeder
                 'update-post' => true,
                 'publish-post' => true,
                 'post-limit' =>  true
-            ]
+            ],
+            'description' => 'As a contributor, you have no publishing or uploading capabilities (content is moderated), but you can write and edit your own posts until they are published by a site Moderator. You will be limited to 3 posts at a time in the moderation queue. Level Up to an Author to unlock Unlimited Posting.'
         ]);
         $author = Role::create([
             'name' => 'Author',
@@ -44,7 +47,8 @@ class RolesSeeder extends Seeder
                 'update-post' => true,
                 'publish-post' => true,
                 'post-limit' =>  false
-            ]
+            ],
+            'description' => 'As an Author, you can write, upload photos to, edit, and publish your own posts and reviews without moderation.  Level Up to an Editor to unlock Site Moderation and save the world from evil posters.'
         ]);
         $editor = Role::create([
             'name' => 'Editor',
@@ -57,7 +61,8 @@ class RolesSeeder extends Seeder
                 'publish-post' => true,
                 'post-limit' =>  false,
                 'site-moderator' => true
-            ]
+            ],
+            'description' => 'As an Editor, you have access to all posts, pages, comments, categories, tags, and links. You also has the power to suspend and remove users. All changes are logged and the actions areeasily reverted if an Editor goes Rogue. Level Up to an Admin to unlock Site Moderation and save the world from evil posters.'
         ]);
         $admin = Role::create([
             'name' => 'Admin',
@@ -71,7 +76,8 @@ class RolesSeeder extends Seeder
                 'post-limit' =>  false,
                 'site-moderator' => true,
                 'site-admin' => true
-            ]
+            ],
+            'description' => 'As an Administrator, nothing is off limits. Reserved for Elite Team members that have shown their valor and commitment to the site. You will be able to suspend, remove and even elevate users and you can also help with support tickets. All updates and changes are logged and reversible in the event an Admin becomes a Rogue Agent.'
         ]);
         $superAdmin = Role::create([
             'name' => 'Super Admin',
@@ -86,7 +92,8 @@ class RolesSeeder extends Seeder
                 'site-moderator' => true,
                 'site-admin' => true,
                 'god-mode' => true
-            ]
+            ],
+            'description' => 'How did you hear about this? No one knows about this access. This is reserved for one person, ThaBamboozler. If you somehow got access to this level, please alert an Administrator ASAP. This is a very dangerous role and it should be handled with discretion.'
         ]);
     }
 }

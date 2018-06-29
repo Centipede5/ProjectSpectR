@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Access Denied is for whenever a logged in user tries to access something they shouldn't
+Route::get('/access-denied', function () {
+    return view('errors.access-denied');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -52,7 +56,6 @@ Route::prefix('demo/posts')->group(
 );
 
 /* SUPER ADMIN */
-
-Route::get('/super-admin', function () {
-    return view('super-admin.manage-roles');
-});
+Route::get('/super-admin', 'SuperAdminController@index')
+    ->name('super_admin')
+    ->middleware('auth');

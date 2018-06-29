@@ -42,5 +42,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('see-all-drafts', function ($user) {
             return $user->inRole(['editor','admin']);
         });
+        Gate::define('god-mode', function ($user) {
+            return $user->inRole(['super']);
+        });
     }
 }
