@@ -50,3 +50,9 @@ Route::prefix('demo/posts')->group(
             ->middleware('can:publish-post');
         }
 );
+
+/* SUPER ADMIN */
+
+Route::get('/super-admin', function () {
+    return view('super-admin.manage-roles');
+});
