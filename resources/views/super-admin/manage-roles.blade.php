@@ -148,6 +148,12 @@
 									</div>
 								</div>
 								<!--end::Section-->
+								@foreach($roles as $role)
+
+									<div class="col-sm-6 col-md-4">
+										{{ $role->name }} <br>
+									</div>
+								@endforeach
 							</div>
 						</div>
 						<!--end::Portlet-->
