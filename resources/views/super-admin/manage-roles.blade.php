@@ -31,129 +31,103 @@
 											<div class="m-demo__preview">
 												<!--begin::Form-->
 												<form class="m-form">
-													<div class="m-form__group form-group">
-														<label for="">
-															Administrator
-														</label>
-														<div class="m-checkbox-inline">
-															<label class="m-checkbox">
-																<input type="checkbox">
+														<table class="table table-striped- table-bordered table-hover table-checkable" id="m_table_1">
+														<thead>
+														<tr>
+															<th>
+																Role
+															</th>
+															<th style="text-align: center">
 																Update Profile
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
+															</th>
+															<th style="text-align: center">
 																Comment on Post
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
+															</th>
+															<th style="text-align: center">
 																Create Post
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
+															</th>
+															<th style="text-align: center">
 																Update Post
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
+															</th>
+															<th style="text-align: center">
 																Publish Post
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
-																Update Post
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
-																Post Limit
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
+															</th>
+															<th style="text-align: center">
+																Post Unlimited
+															</th>
+															<th style="text-align: center">
 																Site Moderator
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
+															</th>
+															<th style="text-align: center">
 																Site Admin
-																<span></span>
-															</label>
-														</div>
-														<span class="m-form__help">
-															 Nothing is off limits. Reserved for Elite Team members. Able to remove and elevate users. They can also help with support tickets. All updates and changes are logged and reversible.
-														</span>
-													</div>
-													<div class="m-form__group form-group">
-														<label for="">
-															Editor / Site Moderator
-														</label>
-														<div class="m-checkbox-inline">
-															<label class="m-checkbox">
-																<input type="checkbox">
-																Update Profile
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
-																Comment on Post
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
-																Create Post
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
-																Update Post
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
-																Publish Post
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
-																Update Post
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
-																Post Limit
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
-																Site Moderator
-																<span></span>
-															</label>
-															<label class="m-checkbox">
-																<input type="checkbox">
-																Site Admin
-																<span></span>
-															</label>
-														</div>
-														<span class="m-form__help">
-															 Nothing is off limits. Reserved for Elite Team members. Able to remove and elevate users. They can also help with support tickets. All updates and changes are logged and reversible.
-														</span>
-													</div>
+															</th>
+														</tr>
+														</thead>
+														<tbody>
+														@foreach($roles as $role)
+														<tr>
+															<td>
+																{{ $role->name }}
+															</td>
+															<td style="text-align: center"><label class="m-checkbox">
+																<input type="checkbox" @if ( $role->permissions['update-profile'] ) checked="checked" @endif>
+																	<span></span>
+																</label>
+															</td>
+															<td style="text-align: center"><label class="m-checkbox">
+																<input type="checkbox" @if ( $role->permissions['comment-on-post'] ) checked="checked" @endif>
+																	<span></span>
+																</label>
+															</td>
+															<td style="text-align: center"><label class="m-checkbox">
+																<input type="checkbox" @if ( $role->permissions['create-post'] ) checked="checked" @endif>
+																	<span></span>
+																</label>
+															</td>
+															<td style="text-align: center"><label class="m-checkbox">
+																<input type="checkbox" @if ( $role->permissions['update-post'] ) checked="checked" @endif>
+																	<span></span>
+																</label>
+															</td>
+															<td style="text-align: center"><label class="m-checkbox">
+																<input type="checkbox" @if ( $role->permissions['publish-post'] ) checked="checked" @endif>
+																	<span></span>
+																</label>
+															</td>
+															<td style="text-align: center"><label class="m-checkbox">
+																<input type="checkbox" @if ( $role->permissions['post-unlimited'] ) checked="checked" @endif>
+																	<span></span>
+																</label>
+															</td>
+															<td style="text-align: center"><label class="m-checkbox">
+																<input type="checkbox" @if ( $role->permissions['site-moderator'] ) checked="checked" @endif>
+																	<span></span>
+																</label>
+															</td>
+															<td style="text-align: center"><label class="m-checkbox">
+																<input type="checkbox" @if ( $role->permissions['site-admin'] ) checked="checked" @endif>
+																	<span></span>
+																</label>
+															</td>
+														</tr>
+															@endforeach
+														</tbody>
+													</table>
+													<input type="submit" value="Update" />
 												</form>
 												<!--end::Form-->
 											</div>
 										</div>
-									</div>
+									</div><!--begin: Datatable -->
+									@foreach($roles as $role)
+										<div><h4>{{ $role->name }}</h4>
+											<p>
+											{{ $role->description }}
+											</p>
+										</div>
+									@endforeach
 								</div>
 								<!--end::Section-->
-								@foreach($roles as $role)
-
-									<div class="col-sm-6 col-md-4">
-										{{ $role->name }} <br>
-									</div>
-								@endforeach
 							</div>
 						</div>
 						<!--end::Portlet-->
