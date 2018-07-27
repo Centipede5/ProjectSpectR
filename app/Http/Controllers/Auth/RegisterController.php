@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
+
 class RegisterController extends Controller
 {
     /*
@@ -68,9 +71,13 @@ class RegisterController extends Controller
             'display_name'  => $data['display_name'],
             'email'         => $data['email'],
             'password'      => bcrypt($data['password']),
+            'uniqid'         => uniqid(),
         ]);
 
         $user->roles()->attach(1);
+
+        Mail::to($data['email'])->send(new WelcomeMail($user));
+        
         return $user;
     }
 

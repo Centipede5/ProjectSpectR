@@ -22,6 +22,8 @@ Route::get('/access-denied', function () {
     return view('errors.access-denied');
 });
 
+Route::get('/registration/{email}/{uniqid}', 'HomeController@validateEmail');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/demo', 'PostController@index');
