@@ -14,12 +14,14 @@ class CreateUserInfoTable extends Migration
     public function up()
     {
         Schema::create('user_info', function (Blueprint $table) {
-            $table->increments('id');
-            $table->bigInteger('user_id');
+            $table->unsignedInteger('id');
             $table->string('bio', 255)->nullable();
-            $table->string('social_meta', 255)->nullable();
+            $table->jsonb('social_meta')->default('{}')->nullable();
             $table->ipAddress('ip_address')->nullable();
             $table->timestamps();
+
+            $table->unique('id');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

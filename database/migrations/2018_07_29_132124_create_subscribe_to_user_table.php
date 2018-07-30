@@ -15,10 +15,13 @@ class CreateSubscribeToUserTable extends Migration
     {
         Schema::create('subscribe_to_user', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('subscription_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedInteger('subscription_id');
+            $table->unsignedInteger('user_id');
             $table->tinyinteger('vote')->default(0);
             $table->timestamps();
+
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

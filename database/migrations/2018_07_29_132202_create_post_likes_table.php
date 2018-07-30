@@ -15,10 +15,15 @@ class CreatePostLikesTable extends Migration
     {
         Schema::create('post_likes', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('post_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedInteger('post_id');
+            $table->unsignedInteger('user_id');
             $table->tinyinteger('vote')->default(0);
             $table->timestamps();
+
+
+            $table->unique(['post_id','user_id']);
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

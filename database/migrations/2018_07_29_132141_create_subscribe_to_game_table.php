@@ -15,9 +15,12 @@ class CreateSubscribeToGameTable extends Migration
     {
         Schema::create('subscribe_to_game', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('game_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedInteger('game_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
