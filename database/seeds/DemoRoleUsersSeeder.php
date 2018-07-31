@@ -53,5 +53,14 @@ class DemoRoleUsersSeeder extends Seeder
             "created_at" =>  \Carbon\Carbon::now(),
             "updated_at" => \Carbon\Carbon::now()
         ]);
+
+        for($id=8;$id<48;$id++){
+            DB::table('role_users')->insert([
+                'user_id' => $id,
+                'role_id' => 2,
+                "created_at" =>  \Carbon\Carbon::now(),
+                "updated_at" => \Carbon\Carbon::now()
+            ]);
+        }
     }
 }
