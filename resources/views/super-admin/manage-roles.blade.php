@@ -31,6 +31,7 @@
 											<div class="m-demo__preview">
 												<!--begin::Form-->
 												<form class="m-form">
+													{{ csrf_field() }}
 														<table class="table table-striped- table-bordered table-hover table-checkable" id="m_table_1">
 														<thead>
 														<tr>
