@@ -28,16 +28,16 @@
                                 </div>
                             @endforeach
                         </div>
-                    </div>
-                    <div>
-                        <p>update-profile: @can('update-profile')YES</p>@endcan
-                        <p>comment-on-post: @can('comment-on-post')YES</p>@endcan
-                        <p>create-post: @can('create-post')YES</p>@endcan
-                        <p>publish-post: @can('publish-post')YES</p>@endcan
-                        <p>post-unlimited: @can('post-unlimited')YES</p>@endcan
-                        <p>site-moderator: @can('site-moderator')YES</p>@endcan
-                        <p>site-admin: @can('site-admin')YES</p>@endcan
-                        <p>god-mode: @can('god-mode')YES</p>@endcan
+                        <div>
+                            <p>update-profile: @can('update-profile')YES</p>@endcan
+                            <p>comment-on-post: @can('comment-on-post')YES</p>@endcan
+                            <p>create-post: @can('create-post')YES</p>@endcan
+                            <p>publish-post: @can('publish-post')YES</p>@endcan
+                            <p>post-unlimited: @can('post-unlimited')YES</p>@endcan
+                            <p>site-moderator: @can('site-moderator')YES</p>@endcan
+                            <p>site-admin: @can('site-admin')YES</p>@endcan
+                            <p>god-mode: @can('god-mode')YES</p>@endcan
+                        </div>
                     </div>
                 </div>
             </div>
