@@ -46,13 +46,13 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAccess(['publish-post']);
         });
         Gate::define('post-unlimited', function ($user) {
-            return $user->hasAccess(['publish-post']);
+            return $user->hasAccess(['post-unlimited']);
         });
         Gate::define('site-moderator', function ($user) {
-            return $user->hasAccess(['publish-post']);
+            return $user->hasAccess(['site-moderator']);
         });
         Gate::define('site-admin', function ($user) {
-            return $user->hasAccess(['publish-post']);
+            return $user->hasAccess(['site-admin']);
         });
         Gate::define('god-mode', function ($user) {
             return $user->inRole(['super']);
