@@ -30,6 +30,12 @@ class AuthServiceProvider extends ServiceProvider
 
     public function registerPostPolicies()
     {
+        Gate::define('update-profile', function ($user) {
+            return $user->hasAccess(['update-profile']);
+        });
+        Gate::define('comment-on-post', function ($user) {
+            return $user->hasAccess(['comment-on-post']);
+        });
         Gate::define('create-post', function ($user) {
             return $user->hasAccess(['create-post']);
         });
@@ -39,11 +45,22 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('publish-post', function ($user) {
             return $user->hasAccess(['publish-post']);
         });
-        Gate::define('see-all-drafts', function ($user) {
-            return $user->inRole(['editor','admin']);
+        Gate::define('post-unlimited', function ($user) {
+            return $user->hasAccess(['publish-post']);
+        });
+        Gate::define('site-moderator', function ($user) {
+            return $user->hasAccess(['publish-post']);
+        });
+        Gate::define('site-admin', function ($user) {
+            return $user->hasAccess(['publish-post']);
         });
         Gate::define('god-mode', function ($user) {
             return $user->inRole(['super']);
+        });
+
+
+        Gate::define('see-all-drafts', function ($user) {
+            return $user->inRole(['editor','admin']);
         });
     }
 }
