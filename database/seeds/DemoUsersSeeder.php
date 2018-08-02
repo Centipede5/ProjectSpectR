@@ -251,14 +251,14 @@ class DemoUsersSeeder extends Seeder
             'uniqid' => '5b5f1716e820f34'
         ]);
         $user35 = User::create([
-            'name' => 'Cornet Aurum',
-            'display_name' => 'Cornet Aurum',
-            'email' => 'corn@this.com',
+            'name' => 'Cindy Aurum',
+            'display_name' => 'Cindy Aurum',
+            'email' => 'cind@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '5b5f1716e821d35'
         ]);
         $user36 = User::create([
-            'name' => 'Truss Merigold',
+            'name' => 'Triss Merigold',
             'display_name' => 'Truss Merigold',
             'email' => 'trus@this.com',
             'password' => bcrypt('Avi123?'),
