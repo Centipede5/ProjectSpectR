@@ -1,8 +1,10 @@
 <?php
 
 namespace Tests\Unit;
+use App\User;
 
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ExampleTest extends TestCase
@@ -12,7 +14,7 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    public function testBasicTest()
+    public function testExample()
     {
         $this->assertTrue(true);
     }
