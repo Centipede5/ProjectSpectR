@@ -1,69 +1,65 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+@section('page-title')Login @endsection
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
+@section('main-content')
+    <!-- main -->
+    <section class="bg-image bg-image-sm" style="background-image: url('img/bg/bg-login.jpg');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-sm-8 col-md-4 mx-auto">
+            <div class="card m-b-0">
+              <div class="card-header">
+                <h4 class="card-title"><i class="fa fa-sign-in"></i> Login to your account</h4>
+              </div>
+              <div class="card-block">
+                <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+                {{ csrf_field() }}
+                <!--<a class="btn btn-social btn-facebook btn-block btn-icon-left" href="" role="button"><i class="fa fa-facebook"></i> Connect with Facebook</a>
+                <div class="divider">
+                  <span>or</span>
+                </div>-->
+                  <div class="form-group input-icon-left m-b-10 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                    <i class="fa fa-user"></i>
+                    <input id="email" name="email" type="email" class="form-control form-control-secondary" placeholder="E-Mail Address"  value="{{ old('email') }}" required autofocus>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                    @if ($errors->has('email'))
+                      <span class="help-block">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                    @endif
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                  </div>
+                  <div class="form-group input-icon-left m-b-15 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                    <i class="fa fa-lock"></i>
+                    <input id="password" name="password" type="password" class="form-control form-control-secondary" placeholder="Password" required>
+                    @if ($errors->has('password'))
+                      <span class="help-block">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                    @endif
+                  </div>
+                  <label class="custom-control custom-checkbox custom-checkbox-primary">
+                    <input type="checkbox" name="remember" class="custom-control-input" {{ old('remember') ? 'checked' : '' }}>
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">Remember me</span>
+                  </label>
+                  <button type="submit" class="btn btn-primary btn-block m-t-10">Login <i class="fa fa-sign-in"></i></button>
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                  <a class="btn btn-link" href="{{ route('password.request') }}">
+                    Forgot Your Password?
+                  </a>
+                  <div class="divider">
+                    <span>Don't have an account?</span>
+                  </div>
+                  <a class="btn btn-secondary btn-block" href="/register" role="button">Register</a>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-</div>
+      </div>
+    </section>
+  <!-- /main -->
 @endsection

@@ -11,11 +11,18 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('coming-soon');
- });
+});
 
-Auth::routes();
+Route::get('/test', function () {
+    return view('index');
+});
+Route::get('/blank', function () {
+    return view('blank-page');
+});
 
 // Access Denied is for whenever a logged in user tries to access something they shouldn't
 Route::get('/access-denied', function () {

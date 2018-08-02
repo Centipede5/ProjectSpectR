@@ -1,25 +1,34 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
-@section('content')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/js/form-logger-plus/ajax_log2file.js"></script>
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+@section('page-title')Home Page @endsection
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    You are logged in!
-                </div>
-                <div><p>{{ isset($msg) ? $msg : '' }}</p></div>
-            </div>
+@section('main-content')
+    <!-- main -->
+    <section class="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Blank Page</li>
+            </ol>
         </div>
-    </div>
-</div>
+    </section>
+
+    <section>
+        <div class="container blank">
+
+            <div class="panel-heading">Dashboard</div>
+
+            <div class="panel-body">
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+                You are logged in!
+            </div>
+            <div><p>{{ isset($msg) ? $msg : '' }}</p></div>
+
+        </div>
+    </section>
+    <!-- /main -->
 @endsection
