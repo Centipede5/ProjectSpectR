@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
-@section('content')
+@section('page-title')Edit @endsection
+
+@section('main-content')
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -11,28 +13,28 @@
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('update_post', ['post_id' => $post->id]) }}">
                             {{ csrf_field() }}
 
-                            <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('post_title') ? ' has-error' : '' }}">
                                 <label for="title" class="col-md-4 control-label">Title</label>
 
                                 <div class="col-md-6">
-                                    <input id="title" type="text" class="form-control" name="title" value="{{ old('title', $post->title) }}" required autofocus>
+                                    <input id="post_title" type="text" class="form-control" name="post_title" value="{{ old('post_title', $post->post_title) }}" required autofocus>
 
-                                    @if ($errors->has('title'))
+                                    @if ($errors->has('post_title'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('title') }}</strong>
+                                        <strong>{{ $errors->first('post_title') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('post_content') ? ' has-error' : '' }}">
                                 <label for="body" class="col-md-4 control-label">Body</label>
 
                                 <div class="col-md-6">
-                                    <textarea name="body" id="body" cols="30" rows="10" class="form-control" required>{{ old('body', $post->body) }}</textarea>
-                                    @if ($errors->has('body'))
+                                    <textarea name="post_content" id="post_content" cols="30" rows="10" class="form-control" required>{{ old('post_content', $post->post_content) }}</textarea>
+                                    @if ($errors->has('post_content'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('body') }}</strong>
+                                        <strong>{{ $errors->first('post_content') }}</strong>
                                     </span>
                                     @endif
                                 </div>

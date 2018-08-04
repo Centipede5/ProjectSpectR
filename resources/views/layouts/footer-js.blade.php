@@ -1,11 +1,11 @@
 <!-- vendor js -->
-<script src="plugins/jquery/jquery-3.2.1.min.js"></script>
-<script src="plugins/popper/popper.min.js"></script>
-<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
+<script src="/plugins/popper/popper.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- plugins js -->
-<script src="plugins/lightbox/lightbox.js"></script>
-<script src="plugins/owl-carousel/js/owl.carousel.min.js"></script>
+<script src="/plugins/lightbox/lightbox.js"></script>
+<script src="/plugins/owl-carousel/js/owl.carousel.min.js"></script>
 <script>
     (function($) {
         "use strict";
@@ -45,4 +45,4 @@
 </script>
 
 <!-- theme js -->
-<script src="js/theme.min.js"></script>
+<script src="/js/theme.min.js"></script>

@@ -4,11 +4,11 @@
 
     <!-- vendor css -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="plugins/animate/animate.min.css">
+    <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/plugins/animate/animate.min.css">
     <!-- plugins css -->
-    <link href="plugins/owl-carousel/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="/plugins/owl-carousel/css/owl.carousel.min.css" rel="stylesheet">
     <!-- theme css -->
-    <link rel="stylesheet" href="css/theme.min.css">
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="/css/theme.min.css">
+    <link rel="stylesheet" href="/css/custom.css">

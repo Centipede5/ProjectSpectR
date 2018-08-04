@@ -20,7 +20,7 @@
                 <div class="divider"><span>or</span></div>-->
                 <div class="form-group input-icon-left m-b-10">
                   <i class="fa fa-user"></i>
-                  <input type="text" class="form-control form-control-secondary form-group{{ $errors->has('display_name') ? ' has-error' : '' }}" placeholder="Username" id="display_name" name="display_name" value="{{ old('display_name') }}" maxlength="50" required autofocus>
+                  <input type="text" class="form-control form-control-secondary form-group{{ $errors->has('display_name') ? ' has-error' : '' }}" placeholder="Username" id="display_name" name="display_name" value="{{ old('display_name') }}" maxlength="20" required autofocus>
                   @if ($errors->has('display_name'))
                     <span class="help-block">
                         <strong>{{ $errors->first('display_name') }}</strong>
@@ -54,9 +54,9 @@
                   <div class="form-group input-icon-left m-b-10">
                     <i class="fa fa-rebel"></i>
                     <input type="text" id="code" name="code" class="form-control form-control-secondary form-group{{ $errors->has('code') ? ' has-error' : '' }}" placeholder="Invitation Code" value="{{ old('code') }}" maxlength="12" required>
-                    @if ($errors->has('display_name'))
+                    @if ($errors->has('code'))
                       <span class="help-block">
-                        <strong>{{ $errors->first('display_name') }}</strong>
+                        <strong>{{ $errors->first('code') }}</strong>
                     </span>
                     @endif
                   </div>

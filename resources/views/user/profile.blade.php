@@ -1,317 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- meta -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Gameforest - Gaming Theme HTML</title>
-  <!-- vendor css -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-  <link rel="stylesheet" href="../../../public/plugins/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../../../public/plugins/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../../public/plugins/animate/animate.min.css">
-  <!-- theme css -->
-  <link rel="stylesheet" href="../../../public/css/theme.min.css">
-  <link rel="stylesheet" href="../../../public/css/custom.css">
-</head>
-<body class="fixed-header">
-  <!-- header -->
-  <header id="header">
-    <div class="container">
-      <div class="navbar-backdrop">
-        <div class="navbar">
-          <div class="navbar-left">
-            <a class="navbar-toggle"><i class="fa fa-bars"></i></a>
-            <a href="index.html" class="logo"><img src="../../../public/img/logo.png" alt="Gameforest - Game Theme HTML"></a>
-            <nav class="nav">
-              <ul>
-                <li class="has-dropdown">
-                  <a href="index.html">Home</a>
-                  <ul>
-                    <li><a href="home-magazine.html">Home Magazine</a></li>
-                    <li><a href="home-blog.html">Home Blog</a></li>
-                    <li><a href="index.html">Home Games</a></li>
-                    <li><a href="home-videos.html">Home Videos</a></li>
-                    <li><a href="home-streamer.html">Home Streamer</a></li>
-                    <li><a href="home-coming-soon.html">Home Coming Soon</a></li>
-                  </ul>
-                </li>
-                <li class="has-dropdown mega-menu mega-games">
-                  <a href="games.html">Games</a>
-                  <ul>
-                    <li>
-                      <div class="container">
-                        <div class="row">
-                          <div class="col">
-                            <div class="img">
-                              <a href="game-post.html"><img src="../../../public/img/menu/menu-1.jpg" alt="Last of Us: Part 2"></a>
-                              <span class="badge badge-ps4">PS4</span>
-                            </div>
-                            <h4><a href="game-post.html">Grand Theft Auto V</a></h4>
-                            <span>Jun 29, 2019</span>
-                          </div>
-                          <div class="col">
-                            <div class="img">
-                              <a href="game-post.html"><img src="../../../public/img/menu/menu-2.jpg" alt="Injustice 2"></a>
-                              <span class="badge badge-steam">Steam</span>
-                            </div>
-                            <h4><a href="game-post.html">Injustice 2</a></h4>
-                            <span>June 10, 2017</span>
-                          </div>
-                          <div class="col">
-                            <div class="img">
-                              <a href="game-post.html"><img src="../../../public/img/menu/menu-3.jpg" alt="Bioshock: Infinite"></a>
-                              <span class="badge badge-xbox-one">Xbox One</span>
-                            </div>
-                            <h4><a href="game-post.html">Bioshock: Infinite</a></h4>
-                            <span>May 16, 2017</span>
-                          </div>
-                          <div class="col">
-                            <div class="img">
-                              <a href="game-post.html"><img src="../../../public/img/menu/menu-4.jpg" alt="Batman: Arkham Knight"></a>
-                              <span class="badge badge-ps4">PS4</span>
-                            </div>
-                            <h4><a href="game-post.html">Batman: Arkham Knight</a></h4>
-                            <span>May 10, 2017</span>
-                          </div>
-                          <div class="col">
-                            <div class="img">
-                              <a href="game-post.html"><img src="../../../public/img/menu/menu-5.jpg" alt="Bioshock: Infinite"></a>
-                              <span class="badge badge-pc">PC</span>
-                            </div>
-                            <h4><a href="game-post.html">Hitman Absolution</a></h4>
-                            <span>May 10, 2017</span>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li class="has-dropdown">
-                  <a href="blog.html">Blog</a>
-                  <ul>
-                    <li class="has-dropdown">
-                      <a href="blog.html">Blog Default</a>
-                      <ul>
-                        <li><a href="blog.html">Blog Lists</a></li>
-                        <li><a href="blog-sidebar.html">Sidebar</a></li>
-                        <li><a href="blog-post.html">Single Post</a></li>
-                      </ul>
-                    </li>
-                    <li class="has-dropdown">
-                      <a href="blog-medium.html">Blog Medium</a>
-                      <ul>
-                        <li><a href="blog-medium.html">Blog Lists</a></li>
-                        <li><a href="blog-post-medium.html">Single Post</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="blog-cards.html">Blog Cards</a></li>
-                    <li><a href="blog-columns.html">Blog Columns</a></li>
-                    <li><a href="blog-timeline.html">Blog Timeline</a></li>
-                    <li class="has-dropdown">
-                      <a href="blog-post.html">Blog Single</a>
-                      <ul>
-                        <li><a href="blog-post.html">Image Post</a></li>
-                        <li><a href="blog-post-carousel.html">Carousel Post</a></li>
-                        <li><a href="blog-post-video.html">Video Post</a></li>
-                        <li><a href="blog-post-audio.html">Audio Post</a></li>
-                        <li><a href="blog-post-disqus.html">Disqus Comments</a></li>
-                        <li><a href="blog-post-facebook.html">Facebook Comments</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li><a href="videos.html">Videos</a></li>
-                <li class="has-dropdown">
-                  <a href="forums.html">Forums</a>
-                  <ul>
-                    <li><a href="forums.html">Forum</a></li>
-                    <li><a href="forum-topic.html">Forum Topic</a></li>
-                    <li><a href="forum-post.html">Forum Post</a></li>
-                    <li><a href="forum-create.html">Forum Create</a></li>
-                  </ul>
-                </li>
-                <li class="has-dropdown">
-                  <a href="#">Pages</a>
-                  <ul>
-                    <li class="has-dropdown">
-                      <a href="games.html">Games</a>
-                      <ul>
-                        <li><a href="games.html">Game Lists</a></li>
-                        <li><a href="game-post.html">Game Post</a></li>
-                      </ul>
-                    </li>
-                    <li class="has-dropdown">
-                      <a href="reviews.html">Reviews</a>
-                      <ul>
-                        <li><a href="reviews.html">Review Lists</a></li>
-                        <li><a href="review-post.html">Review Post</a></li>
-                      </ul>
-                    </li>
-                    <li class="has-dropdown">
-                      <a href="forums.html">Forums</a>
-                      <ul>
-                        <li><a href="forums.html">Forum</a></li>
-                        <li><a href="forum-topic.html">Forum Topic</a></li>
-                        <li><a href="forum-post.html">Forum Post</a></li>
-                        <li><a href="forum-create.html">Forum Create</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li class="has-dropdown">
-                      <a href="videos.html">Videos</a>
-                      <ul>
-                        <li><a href="videos.html">Video Lists</a></li>
-                        <li><a href="video-post.html">Video Post</a></li>
-                      </ul>
-                    </li>
-                    <li class="has-dropdown">
-                      <a href="#">User</a>
-                      <ul>
-                        <li><a href="profile.html">Profile</a></li>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="login-2.html">Login 2</a></li>
-                        <li><a href="register.html">Register</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="faq.html">Faq</a></li>
-                    <li><a href="404.html">404</a></li>
-                    <li><a href="full-width.html">Full Width</a></li>
-                    <li><a href="blank-page.html">Blank Page</a></li>
-                  </ul>
-                </li>
-                <li class="has-dropdown mega-menu">
-                  <a href="#">Components</a>
-                  <ul style="background-image: url('../../../public/img/menu/mega-menu.png');">
-                    <li>
-                      <div class="container">
-                        <div class="row">
-                          <div class="col">
-                            <span class="title">General</span>
-                            <a href="components-typography.html"><i class="fa fa-text-width"></i> Typography</a>
-                            <a href="components-utilities.html"><i class="fa fa-medkit"></i> Utilities</a>
-                            <a href="components-alerts.html"><i class="fa fa-bell-o"></i> Alerts</a>
-                            <a href="components-badges.html"><i class="fa fa-bookmark-o"></i> Badges</a>
-                            <a href="components-columns.html"><i class="fa fa-columns"></i> Columns</a>
-                            <a href="components-pagination.html"><i class="fa fa-arrows-h"></i> Pagination</a>
-                            <a href="components-popovers.html"><i class="fa fa-hdd-o"></i> Popovers &amp; Tooltips</a>
-                            <a href="components-media-player.html"><i class="fa fa-film"></i> Media Player</a>
-                          </div>
-                          <div class="col">
-                            <span class="title">Buttons &amp; Icons</span>
-                            <a href="components-buttons.html"><i class="fa fa-hand-pointer-o"></i> Buttons</a>
-                            <a href="components-dropdowns.html"><i class="fa fa-magnet"></i> Dropdowns</a>
-                            <a href="components-icons.html"><i class="fa fa-smile-o"></i> Icons</a>
-                            <a href="components-social.html"><i class="fa fa-facebook"></i> Social</a>
-                            <a href="components-hero.html"><i class="fa fa-thumb-tack"></i> Hero</a>
-                            <a href="components-cards.html"><i class="fa fa-sticky-note-o"></i> Cards</a>
-                            <a href="components-widgets.html"><i class="fa fa-th-large"></i> Widgets</a>
-                            <a href="components-notifications.html"><i class="fa fa-snowflake-o"></i> Notifications</a>
-                          </div>
-                          <div class="col">
-                            <span class="title">Elements</span>
-                            <a href="components-progress-bars.html"><i class="fa fa-battery-3"></i> Progress Bars</a>
-                            <a href="components-modals.html"><i class="fa fa-window-maximize"></i> Modals</a>
-                            <a href="components-lightbox.html"><i class="fa fa-clone"></i> Lightbox</a>
-                            <a href="components-charts.html"><i class="fa fa-bar-chart"></i> Charts</a>
-                            <a href="components-tables.html"><i class="fa fa-table"></i> Tables</a>
-                            <a href="components-data-tables.html"><i class="fa fa-list-alt"></i> Data Tables</a>
-                            <a href="components-tabs.html"><i class="fa fa-th"></i> Tabs</a>
-                            <a href="components-accordions.html"><i class="fa fa-th-list"></i> Accordions</a>
-                          </div>
-                          <div class="col">
-                            <span class="title">Forms &amp; Info</span>
-                            <a href="components-form-controls.html"><i class="fa fa-pencil"></i> Form Controls</a>
-                            <a href="components-form-plugins.html"><i class="fa fa-calendar-o"></i> Form Plugins</a>
-                            <a href="components-form-layouts.html"><i class="fa fa-file-o"></i> Form Layouts</a>
-                            <a href="components-text-editor.html"><i class="fa fa-file-text"></i> Text Editor</a>
-                            <a href="components-carousel.html"><i class="fa fa-picture-o"></i> Carousel</a>
-                            <a href="components-google-maps.html"><i class="fa fa-map-marker"></i> Google Maps</a>
-                            <a href="components-promo-boxes.html"><i class="fa fa-unlink"></i> Promo Boxes</a>
-                            <a href="components-video-background.html"><i class="fa fa-video-camera"></i> Video Background</a>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <div class="nav navbar-right">
-            <ul>
-              <li class="dropdown dropdown-profile">
-                <a href="login.html" data-toggle="dropdown"><img src="../../../public/img/user/avatar-sm.jpg" alt=""> <span>Nathan Drake</span></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item active" href="#"><i class="fa fa-user"></i> Profile</a>
-                  <a class="dropdown-item" href="#"><i class="fa fa-envelope-open"></i> Inbox</a>
-                  <a class="dropdown-item" href="#"><i class="fa fa-heart"></i> Games</a>
-                  <a class="dropdown-item" href="#"><i class="fa fa-cog"></i> Settings</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out"></i> Logout</a>
-                </div>
-              </li>
-              <li class="dropdown dropdown-notification">
-                <a href="register.html" data-toggle="dropdown">
-                <i class="fa fa-bell"></i>
-                <span class="badge badge-danger">2</span>
-              </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <h5 class="dropdown-header"><i class="fa fa-bell"></i> Notifications</h5>
-                  <div class="dropdown-block">
-                    <a class="dropdown-item" href="#">
-                    <span class="badge badge-info"><i class="fa fa-envelope-open"></i></span> new email
-                    <span class="date">just now</span>
-                  </a>
-                    <a class="dropdown-item" href="#">
-                    <span class="badge badge-danger"><i class="fa fa-thumbs-up"></i></span> liked your post
-                    <span class="date">5 mins</span>
-                  </a>
-                    <a class="dropdown-item" href="#">
-                    <span class="badge badge-primary"><i class="fa fa-user-plus"></i></span> friend request
-                    <span class="date">2 hours</span>
-                  </a>
-                    <a class="dropdown-item" href="#">
-                    <span class="badge badge-info"><i class="fa fa-envelope"></i></span> new email
-                    <span class="date">3 days</span>
-                  </a>
-                    <a class="dropdown-item" href="#">
-                    <span class="badge badge-info"><i class="fa fa-video-camera"></i></span> sent a video
-                    <span class="date">5 days</span>
-                  </a>
-                    <a class="dropdown-item" href="#">
-                    <span class="badge badge-danger"><i class="fa fa-thumbs-up"></i></span> liked your post
-                    <span class="date">8 days</span>
-                  </a>
-                  </div>
-                </div>
-              </li>
-              <li><a data-toggle="search"><i class="fa fa-search"></i></a></li>
-            </ul>
+@extends('layouts.master')
 
-          </div>
-        </div>
-      </div>
-      <div class="navbar-search">
-        <div class="container">
-          <form method="post">
-            <input type="text" class="form-control" placeholder="Search...">
-            <i class="fa fa-times close"></i>
-          </form>
-        </div>
-      </div>
-    </div>
-  </header>
-  <!-- /header -->
+@section('page-title'){{ $user->display_name }} @endsection
 
+
+@section('main-content')
   <!-- main -->
   <section class="hero hero-profile" style="background-image: url('https://img.youtube.com/vi/D3pYbbA1kfk/maxresdefault.jpg');">
     <div class="overlay"></div>
     <div class="container">
       <div class="hero-block">
-        <h5>Nathan Drake</h5>
+        <h5>{{ $user->display_name }}</h5>
         <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="#" data-toggle="tooltip" title="Add friend" role="button"><i class="fa fa-user-plus"></i></a>
       </div>
     </div>
@@ -320,11 +18,11 @@
   <section class="toolbar toolbar-profile" data-fixed="true">
     <div class="container">
       <div class="profile-avatar">
-        <a href="#"><img src="../../../public/img/user/avatar.jpg" alt=""></a>
+        <a href="#"><img src="/img/user/avatar.jpg" alt=""></a>
         <div class="sticky">
-          <a href="#"><img src="../../../public/img/user/avatar-sm.jpg" alt=""></a>
+          <a href="#"><img src="/img/user/avatar-sm.jpg" alt=""></a>
           <div class="profile-info">
-            <h5>Nathan Drake</h5>
+            <h5>{{ $user->display_name }}</h5>
             <span>@nathan</span>
           </div>
         </div>
@@ -371,14 +69,14 @@
           <div class="widget widget-friends">
             <h5 class="widget-title">Friends <span>(628)</span></h5>
             <ul>
-              <li><a href="#" data-toggle="tooltip" title="Elizabeth"><img src="../../../public/img/widget/widget-user-1.jpg" alt=""></a></li>
-              <li><a href="#" data-toggle="tooltip" title="Clark"><img src="../../../public/img/widget/widget-user-2.jpg" alt=""></a></li>
-              <li><a href="#" data-toggle="tooltip" title="Trevor"><img src="../../../public/img/widget/widget-user-3.jpg" alt=""></a></li>
-              <li><a href="#" data-toggle="tooltip" title="Franklin"><img src="../../../public/img/widget/widget-user-4.jpg" alt=""></a></li>
-              <li><a href="#" data-toggle="tooltip" title="John"><img src="../../../public/img/widget/widget-user-5.jpg" alt=""></a></li>
-              <li><a href="#" data-toggle="tooltip" title="Bruce"><img src="../../../public/img/widget/widget-user-6.jpg" alt=""></a></li>
-              <li><a href="#" data-toggle="tooltip" title="Sherlock"><img src="../../../public/img/widget/widget-user-7.jpg" alt=""></a></li>
-              <li><a href="#" data-toggle="tooltip" title="Clara"><img src="../../../public/img/widget/widget-user-8.jpg" alt=""></a></li>
+              <li><a href="#" data-toggle="tooltip" title="Elizabeth"><img src="/img/widget/widget-user-1.jpg" alt=""></a></li>
+              <li><a href="#" data-toggle="tooltip" title="Clark"><img src="/img/widget/widget-user-2.jpg" alt=""></a></li>
+              <li><a href="#" data-toggle="tooltip" title="Trevor"><img src="/img/widget/widget-user-3.jpg" alt=""></a></li>
+              <li><a href="#" data-toggle="tooltip" title="Franklin"><img src="/img/widget/widget-user-4.jpg" alt=""></a></li>
+              <li><a href="#" data-toggle="tooltip" title="John"><img src="/img/widget/widget-user-5.jpg" alt=""></a></li>
+              <li><a href="#" data-toggle="tooltip" title="Bruce"><img src="/img/widget/widget-user-6.jpg" alt=""></a></li>
+              <li><a href="#" data-toggle="tooltip" title="Sherlock"><img src="/img/widget/widget-user-7.jpg" alt=""></a></li>
+              <li><a href="#" data-toggle="tooltip" title="Clara"><img src="/img/widget/widget-user-8.jpg" alt=""></a></li>
             </ul>
           </div>
 
@@ -438,12 +136,12 @@
           <div class="widget widget-images">
             <h5 class="widget-title">Images</h5>
             <ul>
-              <li><a href="#"><img src="../../../public/img/widget/widget-images-1.jpg" alt=""></a></li>
-              <li><a href="#"><img src="../../../public/img/widget/widget-images-2.jpg" alt=""></a></li>
-              <li><a href="#"><img src="../../../public/img/widget/widget-images-3.jpg" alt=""></a></li>
-              <li><a href="#"><img src="../../../public/img/widget/widget-images-4.jpg" alt=""></a></li>
-              <li><a href="#"><img src="../../../public/img/widget/widget-images-5.jpg" alt=""></a></li>
-              <li><a href="#"><img src="../../../public/img/widget/widget-images-6.jpg" alt=""></a></li>
+              <li><a href="#"><img src="/img/widget/widget-images-1.jpg" alt=""></a></li>
+              <li><a href="#"><img src="/img/widget/widget-images-2.jpg" alt=""></a></li>
+              <li><a href="#"><img src="/img/widget/widget-images-3.jpg" alt=""></a></li>
+              <li><a href="#"><img src="/img/widget/widget-images-4.jpg" alt=""></a></li>
+              <li><a href="#"><img src="/img/widget/widget-images-5.jpg" alt=""></a></li>
+              <li><a href="#"><img src="/img/widget/widget-images-6.jpg" alt=""></a></li>
             </ul>
             <a class="" href="#" role="button"></a>
           </div>
@@ -455,8 +153,8 @@
             <div class="post-header">
               <div>
                 <a href="profile.html">
-                <img src="../../../public/img/user/avatar-sm.jpg" alt="">
-              </a>
+                  <img src="/img/user/avatar-sm.jpg" alt="">
+                </a>
               </div>
               <div>
                 <h2 class="post-title">
@@ -480,7 +178,7 @@
             </div>
             <p>Injustice 2 is getting a brand new character, and EA reveal the games that they’ll be talking about in their E3 Press Conference! Power up and build the ultimate version of your favorite DC legends in Injustice 2.</p>
             <div class="post-thumbnail">
-              <img src="../../../public/img/profile/profile-1.jpg" alt="">
+              <img src="/img/profile/profile-1.jpg" alt="">
             </div>
             <div class="post-footer">
               <a href="#"><i class="fa fa-reply"></i> 34 shares</a>
@@ -494,8 +192,8 @@
             <div class="post-header">
               <div>
                 <a href="profile.html">
-                <img src="../../../public/img/user/user-2.jpg" alt="">
-              </a>
+                  <img src="/img/user/user-2.jpg" alt="">
+                </a>
               </div>
               <div>
                 <h2 class="post-title">
@@ -542,8 +240,8 @@
             <div class="post-header">
               <div>
                 <a href="profile.html">
-                <img src="../../../public/img/user/avatar-sm.jpg" alt="">
-              </a>
+                  <img src="/img/user/avatar-sm.jpg" alt="">
+                </a>
               </div>
               <div>
                 <h2 class="post-title">
@@ -581,8 +279,8 @@
             <div class="post-header">
               <div>
                 <a href="profile.html">
-                <img src="../../../public/img/user/avatar-sm.jpg" alt="">
-              </a>
+                  <img src="/img/user/avatar-sm.jpg" alt="">
+                </a>
               </div>
               <div>
                 <h2 class="post-title">
@@ -606,7 +304,7 @@
             </div>
             <p>The Witcher 3: Wild Hunt is a story-driven, next-generation open world role-playing game, set in a visually stunning fantasy universe, full of meaningful choices and impactful consequences.</p>
             <div class="post-thumbnail">
-              <img src="../../../public/img/profile/profile-2.jpg" alt="">
+              <img src="/img/profile/profile-2.jpg" alt="">
             </div>
             <div class="post-footer">
               <a href="#"><i class="fa fa-reply"></i> 27 shares</a>
@@ -620,8 +318,8 @@
             <div class="post-header">
               <div>
                 <a href="profile.html">
-                <img src="../../../public/img/user/avatar-sm.jpg" alt="">
-              </a>
+                  <img src="/img/user/avatar-sm.jpg" alt="">
+                </a>
               </div>
               <div>
                 <h2 class="post-title">
@@ -660,81 +358,17 @@
     </div>
   </section>
   <!-- /main -->
+@endsection
 
-  <!-- footer -->
-  <footer id="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 col-md-5">
-          <h4 class="footer-title">About Gameforest</h4>
-          <p>Gameforest is a Bootstrap Gaming theme. Build your own gaming theme with gameforest and you will love to use it. Clean and pure coded HTML, CSS files what is included in your downloaded package.</p>
-          <p>Attached more then 60+ HTML pages and customized elements. Copy and paste your favourite section or build your own so easily.</p>
-        </div>
-        <div class="col-sm-12 col-md-3">
-          <h4 class="footer-title">Platform</h4>
-          <div class="row">
-            <div class="col">
-              <ul>
-                <li><a href="#">Playstation 4</a></li>
-                <li><a href="#">Xbox One</a></li>
-                <li><a href="#">PC</a></li>
-                <li><a href="#">Steam</a></li>
-              </ul>
-            </div>
-            <div class="col">
-              <ul>
-                <li><a href="games.html">Games</a></li>
-                <li><a href="reviews.html">Reviews</a></li>
-                <li><a href="videos.html">Videos</a></li>
-                <li><a href="forums.html">Forums</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-4">
-          <h4 class="footer-title">Subscribe</h4>
-          <p>Subscribe to our newsletter and get notification when new games are available.</p>
-          <div class="input-group m-t-25">
-            <input type="text" class="form-control" placeholder="Email">
-            <span class="input-group-btn">
-            <button class="btn btn-primary" type="button">Subscribe</button>
-          </span>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div class="footer-social">
-          <a href="https://facebook.com/yakuthemes" target="_blank" data-toggle="tooltip" title="facebook"><i class="fa fa-facebook"></i></a>
-          <a href="https://twitter.com/yakuthemes" target="_blank" data-toggle="tooltip" title="twitter"><i class="fa fa-twitter"></i></a>
-          <a href="https://steamcommunity.com/id/yakuzi" target="_blank" data-toggle="tooltip" title="steam"><i class="fa fa-steam"></i></a>
-          <a href="https://www.twitch.tv/" target="_blank" data-toggle="tooltip" title="twitch"><i class="fa fa-twitch"></i></a>
-          <a href="https://www.youtube.com/user/1YAKUZI" target="_blank" data-toggle="tooltip" title="youtube"><i class="fa fa-youtube"></i></a>
-        </div>
-        <p>Copyright &copy; 2017 <a href="https://themeforest.net/item/gameforest-responsive-gaming-html-theme/5007730" target="_blank">Gameforest</a>. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-  <!-- /footer -->
-
-  <!-- vendor js -->
-  <script src="../../../public/plugins/jquery/jquery-3.2.1.min.js"></script>
-  <script src="../../../public/plugins/popper/popper.min.js"></script>
-  <script src="../../../public/plugins/bootstrap/js/bootstrap.min.js"></script>
-
-  <!-- plugins js -->
-  <script src="../../../public/plugins/sticky/jquery.sticky.js"></script>
-  <script src="../../../public/plugins/lightbox/lightbox.js"></script>
+@section('footer-js')
+  <script src="/plugins/sticky/jquery.sticky.js"></script>
   <script>
-    (function($) {
-      "use strict";
-      // lightbox
-      $('[data-lightbox]').lightbox({
-        disqus: 'gameforestyakuzieu'
-      });
-    })(jQuery);
+      (function($) {
+          "use strict";
+          // lightbox
+          $('[data-lightbox]').lightbox({
+              disqus: 'gameforestyakuzieu'
+          });
+      })(jQuery);
   </script>
-
-  <!-- theme js -->
-  <script src="../../../public/js/theme.min.js"></script>
-</body>
-</html>
+@endsection

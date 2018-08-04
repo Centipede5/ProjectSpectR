@@ -2,11 +2,11 @@
         <div class="navbar">
             <div class="navbar-left">
                 <a class="navbar-toggle"><i class="fa fa-bars"></i></a>
-                <a href="index.html" class="logo"><img src="img/title_logo_white.png" alt="Gameforest - Game Theme HTML"></a>
+                <a href="/" class="logo"><img src="/img/title_logo_white.png" alt="ProjectSpectR"></a>
                 <nav class="nav">
                     <ul>
                         <li class="has-dropdown">
-                            <a href="index.html">Home</a>
+                            <a href="/">Home</a>
                             <ul>
                                 <li><a href="home-magazine.html">Home Magazine</a></li>
                                 <li><a href="home-blog.html">Home Blog</a></li>
@@ -24,7 +24,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img src="img/menu/menu-1.jpg" alt="Last of Us: Part 2"></a>
+                                                    <a href="game-post.html"><img src="/img/menu/menu-1.jpg" alt="Last of Us: Part 2"></a>
                                                     <span class="badge badge-ps4">PS4</span>
                                                 </div>
                                                 <h4><a href="game-post.html">Grand Theft Auto V</a></h4>
@@ -32,7 +32,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img src="img/menu/menu-2.jpg" alt="Injustice 2"></a>
+                                                    <a href="game-post.html"><img src="/img/menu/menu-2.jpg" alt="Injustice 2"></a>
                                                     <span class="badge badge-steam">Steam</span>
                                                 </div>
                                                 <h4><a href="game-post.html">Injustice 2</a></h4>
@@ -40,7 +40,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img src="img/menu/menu-3.jpg" alt="Bioshock: Infinite"></a>
+                                                    <a href="game-post.html"><img src="/img/menu/menu-3.jpg" alt="Bioshock: Infinite"></a>
                                                     <span class="badge badge-xbox-one">Xbox One</span>
                                                 </div>
                                                 <h4><a href="game-post.html">Bioshock: Infinite</a></h4>
@@ -48,7 +48,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img src="img/menu/menu-4.jpg" alt="Batman: Arkham Knight"></a>
+                                                    <a href="game-post.html"><img src="/img/menu/menu-4.jpg" alt="Batman: Arkham Knight"></a>
                                                     <span class="badge badge-ps4">PS4</span>
                                                 </div>
                                                 <h4><a href="game-post.html">Batman: Arkham Knight</a></h4>
@@ -56,7 +56,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img src="img/menu/menu-5.jpg" alt="Bioshock: Infinite"></a>
+                                                    <a href="game-post.html"><img src="/img/menu/menu-5.jpg" alt="Bioshock: Infinite"></a>
                                                     <span class="badge badge-pc">PC</span>
                                                 </div>
                                                 <h4><a href="game-post.html">Hitman Absolution</a></h4>
@@ -218,16 +218,13 @@
                     </ul>
                 </nav>
             </div>
+            @guest
             <div class="nav navbar-right">
                 <ul>
                     <li class="hidden-xs-down"><a href="/login">Login</a></li>
                     <li class="hidden-xs-down"><a href="/register">Register</a></li>
                     <li><a data-toggle="search"><i class="fa fa-search"></i></a></li>
                     <li>
-                        <a href="{{ route('list_drafts') }}">Drafts</a>
-                        @can('god-mode')
-                            <a href="{{ route('super_admin') }}">Super Admin</a>
-                        @endcan
                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>
@@ -237,6 +234,67 @@
                     </li>
                 </ul>
             </div>
+            @else
+            <div class="nav navbar-right">
+                <ul>
+                    <li class="dropdown dropdown-profile">
+                        <a data-toggle="dropdown"><img src="/img/profile/avatar-sm.jpg" alt=""> <span>{{ Auth::user()->display_name }}</span></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item active"  href="/u/{{ Auth::user()->uniqid }}"><i class="fa fa-user"></i> Profile</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-envelope-open"></i> <del>Inbox</del></a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-heart"></i> <del>Games</del></a>
+                            <a href="{{ route('list_drafts') }}" class="dropdown-item"><i class="fa fa-cog"></i> Drafts</a>
+                            @can('god-mode')
+                                <a href="{{ route('super_admin') }}" class="dropdown-item"><i class="fa fa-cog"></i> Super Admin</a>
+                            @endcan
+                            <a class="dropdown-item" href="#"><i class="fa fa-cog"></i> <del>Settings</del></a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i> Logout</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </div>
+                    </li>
+                    <li class="dropdown dropdown-notification">
+                        <a href="register.html" data-toggle="dropdown">
+                            <i class="fa fa-bell"></i>
+                            <span class="badge badge-danger">2</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <h5 class="dropdown-header"><i class="fa fa-bell"></i> Notifications</h5>
+                            <div class="dropdown-block">
+                                <a class="dropdown-item" href="#">
+                                    <span class="badge badge-info"><i class="fa fa-envelope-open"></i></span> new email
+                                    <span class="date">just now</span>
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <span class="badge badge-danger"><i class="fa fa-thumbs-up"></i></span> liked your post
+                                    <span class="date">5 mins</span>
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <span class="badge badge-primary"><i class="fa fa-user-plus"></i></span> friend request
+                                    <span class="date">2 hours</span>
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <span class="badge badge-info"><i class="fa fa-envelope"></i></span> new email
+                                    <span class="date">3 days</span>
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <span class="badge badge-info"><i class="fa fa-video-camera"></i></span> sent a video
+                                    <span class="date">5 days</span>
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <span class="badge badge-danger"><i class="fa fa-thumbs-up"></i></span> liked your post
+                                    <span class="date">8 days</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a data-toggle="search"><i class="fa fa-search"></i></a></li>
+                </ul>
+
+            </div>
+            @endguest
         </div>
     </div>
     <div class="navbar-search">

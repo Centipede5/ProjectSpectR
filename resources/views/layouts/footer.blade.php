@@ -3,9 +3,9 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-5">
-                <h4 class="footer-title">About Gameforest</h4>
-                <p>Gameforest is a Bootstrap Gaming theme. Build your own gaming theme with gameforest and you will love to use it. Clean and pure coded HTML, CSS files what is included in your downloaded package.</p>
-                <p>Attached more then 60+ HTML pages and customized elements. Copy and paste your favourite section or build your own so easily.</p>
+                <h4 class="footer-title">About Project SpectR</h4>
+                <p>This site is still under going construction. Please be patient.</p>
+                <p>When this is done, you'll love it. We promise!</p>
             </div>
             <div class="col-sm-12 col-md-3">
                 <h4 class="footer-title">Platform</h4>
@@ -30,7 +30,7 @@
             </div>
             <div class="col-sm-12 col-md-4">
                 <h4 class="footer-title">Subscribe</h4>
-                <p>Subscribe to our newsletter and get notification when new games are available.</p>
+                <p>This doesn't work, but you can try to Subscribe to our newsletter and get notification when new games are available.</p>
                 <div class="input-group m-t-25">
                     <input type="text" class="form-control" placeholder="Email">
                     <span class="input-group-btn">
