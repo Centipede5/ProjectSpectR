@@ -15,7 +15,7 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('post_parent');
+            $table->unsignedInteger('post_parent')->nullable();
             $table->unsignedInteger('user_id');
             $table->string('post_type')->nullable();
             $table->string('post_title');
@@ -25,7 +25,7 @@ class CreatePostsTable extends Migration
             $table->tinyinteger('post_status')->default(0);
             $table->boolean('published')->default(false);
             $table->string('featured_image')->nullable();
-            $table->unsignedInteger('comment_count');
+            $table->unsignedInteger('comment_count')->default(0);
             $table->tinyinteger('spam_flag')->default(0);
             $table->timestamps();
 

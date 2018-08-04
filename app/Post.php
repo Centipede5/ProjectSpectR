@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = [
-        'title', 'slug', 'body', 'user_id',
-    ];
+    ### fillable: lists only the fields to use
+    ### guarded: lists the fields never to be used
+
+//    protected $fillable = [
+//        'name', 'slug', 'permissions','description'
+//    ];
+    protected $guarded = ['id'];
 
     public function owner()
     {

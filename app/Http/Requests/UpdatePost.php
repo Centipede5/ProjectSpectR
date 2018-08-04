@@ -26,11 +26,11 @@ class UpdatePost extends FormRequest
     {
         $id = $this->route('post')->id;
         return [
-            'title' => [
+            'post_title' => [
                 'required',
                 Rule::unique('posts')->where('id', '<>', $id),
             ],
-            'body' => 'required',
+            'post_content' => 'required',
         ];
     }
 }

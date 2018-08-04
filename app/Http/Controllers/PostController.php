@@ -7,6 +7,7 @@ use App\Post;
 
 use App\Http\Requests\StorePost as StorePostRequest;
 use App\Http\Requests\UpdatePost as UpdatePostRequest;
+
 use Auth;
 use Gate;
 
@@ -26,9 +27,9 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        $data = $request->only('title', 'body');
-        $data['slug'] = str_slug($data['title']);
-        $data['user_id'] = Auth::user()->id;
+        $data = $request->all();
+        $data['slug'] = str_slug($data['post_title']);
+        $data['user_id'] = Auth::user()->id;            // Set the user_id of the post to the current logged in user
         $post = Post::create($data);
         return redirect()->route('edit_post', ['id' => $post->id]);
     }
@@ -50,8 +51,8 @@ class PostController extends Controller
 
     public function update(Post $post, UpdatePostRequest $request)
     {
-        $data = $request->only('title', 'body');
-        $data['slug'] = str_slug($data['title']);
+        $data = $request->only('post_title', 'post_content');
+        $data['slug'] = str_slug($data['post_title']);
         $post->fill($data)->save();
         return back();
     }

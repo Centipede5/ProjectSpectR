@@ -153,8 +153,8 @@ class DemoUsersSeeder extends Seeder
             'uniqid' => '5b5f1716e812f20'
         ]);
         $user21 = User::create([
-            'name' => 'Garry’s Vakarian',
-            'display_name' => 'Garry’s Vakarian',
+            'name' => 'Garrus Vakarian',
+            'display_name' => 'Garrus Vakarian',
             'email' => 'garr@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '5b5f1716e813e21'
