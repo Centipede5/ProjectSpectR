@@ -40,6 +40,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+        // Only allows Guests (non-logged in users) to Load the
+        // Registration page, They need to logout first to see it
         $this->middleware('guest');
     }
 

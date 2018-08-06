@@ -10,6 +10,26 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+/// Testing
+///
+Route::get('/test', function () {
+    return view('index');
+});
+
+Route::get('/test-home', function () {
+    return view('demo.index');
+});
+
+Route::get('/carousel', function () {
+    return view('demo.carousel');
+});
+
+Route::get('/icons', function () {
+    return view('demo.icons');
+});
+
+// End testing
+
 
 Auth::routes();
 
@@ -17,9 +37,6 @@ Route::get('/', function () {
     return view('coming-soon');
 });
 
-Route::get('/test', function () {
-    return view('index');
-});
 Route::get('/blank', function () {
     return view('blank-page');
 });

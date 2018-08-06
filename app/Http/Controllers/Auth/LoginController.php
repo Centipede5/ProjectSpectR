@@ -34,6 +34,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        // Only allows Guests (non-logged in users) to Load the login page
         $this->middleware('guest')->except('logout');
     }
 }
