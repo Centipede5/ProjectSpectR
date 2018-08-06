@@ -12,6 +12,11 @@
 */
 /// Testing
 ///
+
+Route::get('/demo/{page}.html', function ($page) {
+    return view('demo.'.$page);
+});
+
 Route::get('/test', function () {
     return view('index');
 });
