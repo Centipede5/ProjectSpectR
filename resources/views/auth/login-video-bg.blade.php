@@ -8,9 +8,9 @@
   <title>Gameforest - Gaming Theme HTML</title>
   <!-- vendor css -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-  <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="plugins/animate/animate.min.css">
+  <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/plugins/animate/animate.min.css">
   <!-- plugins css -->
   <link href="plugins/ytplayer/jquery.mb.YTPlayer.min.css" rel="stylesheet">
   <!-- theme css -->
@@ -364,10 +364,10 @@
   <!-- vendor js -->
   <script src="plugins/jquery/jquery-3.2.1.min.js"></script>
   <script src="plugins/popper/popper.min.js"></script>
-  <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
 
   <!-- plugins js -->
-  <script src="plugins/ytplayer/jquery.mb.YTPlayer.min.js"></script>
+  <script src="/plugins/ytplayer/jquery.mb.YTPlayer.min.js"></script>
   <script>
     (function($) {
       "use strict";
@@ -376,6 +376,6 @@
   </script>
 
   <!-- theme js -->
-  <script src="js/theme.min.js"></script>
+  <script src="/js/theme.min.js"></script>
 </body>
 </html>

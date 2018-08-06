@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('page-title')Blank Page @endsection
+@section('page-title')Access Levels @endsection
 
 @section('main-content')
 <!-- main -->
@@ -15,18 +15,37 @@
 
     <section>
         <div class="container blank">
-
             <div>
-                <p>update-profile: @can('update-profile')YES</p>@endcan
-                <p>comment-on-post: @can('comment-on-post')YES</p>@endcan
-                <p>create-post: @can('create-post')YES</p>@endcan
-                <p>publish-post: @can('publish-post')YES</p>@endcan
-                <p>post-unlimited: @can('post-unlimited')YES</p>@endcan
-                <p>site-moderator: @can('site-moderator')YES</p>@endcan
-                <p>site-admin: @can('site-admin')YES</p>@endcan
-                <p>god-mode: @can('god-mode')YES</p>@endcan
+                <p>update-profile: @can('update-profile')YES @else NO</p>@endcan
+                <p>comment-on-post: @can('comment-on-post')YES @else NO</p>@endcan
+                <p>create-post: @can('create-post')YES @else NO</p>@endcan
+                <p>publish-post: @can('publish-post')YES @else NO</p>@endcan
+                <p>post-unlimited: @can('post-unlimited')YES @else NO</p>@endcan
+                <p>site-moderator: @can('site-moderator')YES @else NO</p>@endcan
+                <p>site-admin: @can('site-admin')YES @else NO</p>@endcan
+                <p>god-mode: @can('god-mode')YES @else NO</p>@endcan
+            </div>
+            <div>
+                GUEST:
+                @guest
+                    TRUE
+                @endguest
+            </div>
+            <div>
+                AUTH:
+                @auth
+                    TRUE
+                @endauth
+            </div>
+            <div>AUTH CHECK:
+                @if(Auth::check())
+                    TRUE
+                @else
+                    FALSE
+                @endif
             </div>
         </div>
+
     </section>
     <!-- /main -->
     @endsection

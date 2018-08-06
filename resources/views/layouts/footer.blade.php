@@ -41,11 +41,11 @@
         </div>
         <div class="footer-bottom">
             <div class="footer-social">
-                <a href="https://facebook.com" target="_blank" data-toggle="tooltip" title="facebook"><i class="fa fa-facebook"></i></a>
-                <a href="https://twitter.com" target="_blank" data-toggle="tooltip" title="twitter"><i class="fa fa-twitter"></i></a>
-                <a href="https://steamcommunity.com/" target="_blank" data-toggle="tooltip" title="steam"><i class="fa fa-steam"></i></a>
-                <a href="https://www.twitch.tv/" target="_blank" data-toggle="tooltip" title="twitch"><i class="fa fa-twitch"></i></a>
-                <a href="https://www.youtube.com/user" target="_blank" data-toggle="tooltip" title="youtube"><i class="fa fa-youtube"></i></a>
+                <a href="https://facebook.com" target="_blank" data-toggle="tooltip" title="facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com" target="_blank" data-toggle="tooltip" title="twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://steamcommunity.com/" target="_blank" data-toggle="tooltip" title="steam"><i class="fab fa-steam-symbol"></i></a>
+                <a href="https://www.twitch.tv/" target="_blank" data-toggle="tooltip" title="twitch"><i class="fab fa-twitch"></i></a>
+                <a href="https://www.youtube.com/user" target="_blank" data-toggle="tooltip" title="youtube"><i class="fab fa-youtube"></i></a>
             </div>
             <p>Copyright &copy; 2018 ProjectSpectR. All rights reserved.</p>
         </div>

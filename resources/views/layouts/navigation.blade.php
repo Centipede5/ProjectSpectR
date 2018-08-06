@@ -1,7 +1,7 @@
     <div class="navbar-backdrop">
         <div class="navbar">
             <div class="navbar-left">
-                <a class="navbar-toggle"><i class="fa fa-bars"></i></a>
+                <a class="navbar-toggle"><i class="fas fa-bars"></i></a>
                 <a href="/" class="logo"><img src="/img/title_logo_white.png" alt="ProjectSpectR"></a>
                 <nav class="nav">
                     <ul>
@@ -168,47 +168,47 @@
                                         <div class="row">
                                             <div class="col">
                                                 <span class="title">General</span>
-                                                <a href="components-typography.html"><i class="fa fa-text-width"></i> Typography</a>
-                                                <a href="components-utilities.html"><i class="fa fa-medkit"></i> Utilities</a>
-                                                <a href="components-alerts.html"><i class="fa fa-bell-o"></i> Alerts</a>
-                                                <a href="components-badges.html"><i class="fa fa-bookmark-o"></i> Badges</a>
-                                                <a href="components-columns.html"><i class="fa fa-columns"></i> Columns</a>
-                                                <a href="components-pagination.html"><i class="fa fa-arrows-h"></i> Pagination</a>
-                                                <a href="components-popovers.html"><i class="fa fa-hdd-o"></i> Popovers &amp; Tooltips</a>
-                                                <a href="components-media-player.html"><i class="fa fa-film"></i> Media Player</a>
+                                                <a href="components-typography.html"><i class="fas fa-text-width"></i> Typography</a>
+                                                <a href="components-utilities.html"><i class="fas fa-medkit"></i> Utilities</a>
+                                                <a href="components-alerts.html"><i class="fas fa-bell"></i> Alerts</a>
+                                                <a href="components-badges.html"><i class="fas fa-bookmark"></i> Badges</a>
+                                                <a href="components-columns.html"><i class="fas fa-columns"></i> Columns</a>
+                                                <a href="components-pagination.html"><i class="fas fa-arrows-alt-h"></i> Pagination</a>
+                                                <a href="components-popovers.html"><i class="fas fa-hdd"></i> Popovers &amp; Tooltips</a>
+                                                <a href="components-media-player.html"><i class="fas fa-film"></i> Media Player</a>
                                             </div>
                                             <div class="col">
                                                 <span class="title">Buttons &amp; Icons</span>
-                                                <a href="components-buttons.html"><i class="fa fa-hand-pointer-o"></i> Buttons</a>
-                                                <a href="components-dropdowns.html"><i class="fa fa-magnet"></i> Dropdowns</a>
-                                                <a href="components-icons.html"><i class="fa fa-smile-o"></i> Icons</a>
-                                                <a href="components-social.html"><i class="fa fa-facebook"></i> Social</a>
-                                                <a href="components-hero.html"><i class="fa fa-thumb-tack"></i> Hero</a>
-                                                <a href="components-cards.html"><i class="fa fa-sticky-note-o"></i> Cards</a>
-                                                <a href="components-widgets.html"><i class="fa fa-th-large"></i> Widgets</a>
-                                                <a href="components-notifications.html"><i class="fa fa-snowflake-o"></i> Notifications</a>
+                                                <a href="components-buttons.html"><i class="fas fa-hand-pointer"></i> Buttons</a>
+                                                <a href="components-dropdowns.html"><i class="fas fa-magnet"></i> Dropdowns</a>
+                                                <a href="components-icons.html"><i class="fas fa-smile"></i> Icons</a>
+                                                <a href="components-social.html"><i class="fas fa-facebook"></i> Social</a>
+                                                <a href="components-hero.html"><i class="fas fa-thumbtack"></i> Hero</a>
+                                                <a href="components-cards.html"><i class="fas fa-sticky-note"></i> Cards</a>
+                                                <a href="components-widgets.html"><i class="fas fa-th-large"></i> Widgets</a>
+                                                <a href="components-notifications.html"><i class="fas fa-snowflake"></i> Notifications</a>
                                             </div>
                                             <div class="col">
                                                 <span class="title">Elements</span>
-                                                <a href="components-progress-bars.html"><i class="fa fa-battery-3"></i> Progress Bars</a>
-                                                <a href="components-modals.html"><i class="fa fa-window-maximize"></i> Modals</a>
-                                                <a href="components-lightbox.html"><i class="fa fa-clone"></i> Lightbox</a>
-                                                <a href="components-charts.html"><i class="fa fa-bar-chart"></i> Charts</a>
-                                                <a href="components-tables.html"><i class="fa fa-table"></i> Tables</a>
-                                                <a href="components-data-tables.html"><i class="fa fa-list-alt"></i> Data Tables</a>
-                                                <a href="components-tabs.html"><i class="fa fa-th"></i> Tabs</a>
-                                                <a href="components-accordions.html"><i class="fa fa-th-list"></i> Accordions</a>
+                                                <a href="components-progress-bars.html"><i class="fas fa-battery-three-quarters"></i> Progress Bars</a>
+                                                <a href="components-modals.html"><i class="fas fa-window-maximize"></i> Modals</a>
+                                                <a href="components-lightbox.html"><i class="fas fa-clone"></i> Lightbox</a>
+                                                <a href="components-charts.html"><i class="fas fa-chart-bar"></i> Charts</a>
+                                                <a href="components-tables.html"><i class="fas fa-table"></i> Tables</a>
+                                                <a href="components-data-tables.html"><i class="fas fa-list-alt"></i> Data Tables</a>
+                                                <a href="components-tabs.html"><i class="fas fa-th"></i> Tabs</a>
+                                                <a href="components-accordions.html"><i class="fas fa-th-list"></i> Accordions</a>
                                             </div>
                                             <div class="col">
                                                 <span class="title">Forms &amp; Info</span>
-                                                <a href="components-form-controls.html"><i class="fa fa-pencil"></i> Form Controls</a>
-                                                <a href="components-form-plugins.html"><i class="fa fa-calendar-o"></i> Form Plugins</a>
-                                                <a href="components-form-layouts.html"><i class="fa fa-file-o"></i> Form Layouts</a>
-                                                <a href="components-text-editor.html"><i class="fa fa-file-text"></i> Text Editor</a>
-                                                <a href="components-carousel.html"><i class="fa fa-picture-o"></i> Carousel</a>
-                                                <a href="components-google-maps.html"><i class="fa fa-map-marker"></i> Google Maps</a>
-                                                <a href="components-promo-boxes.html"><i class="fa fa-unlink"></i> Promo Boxes</a>
-                                                <a href="components-video-background.html"><i class="fa fa-video-camera"></i> Video Background</a>
+                                                <a href="components-form-controls.html"><i class="fas fa-pencil-alt"></i> Form Controls</a>
+                                                <a href="components-form-plugins.html"><i class="fas fa-calendar"></i> Form Plugins</a>
+                                                <a href="components-form-layouts.html"><i class="fas fa-file"></i> Form Layouts</a>
+                                                <a href="components-text-editor.html"><i class="fas fa-file-alt"></i> Text Editor</a>
+                                                <a href="components-carousel.html"><i class="fas fa-image"></i> Carousel</a>
+                                                <a href="components-google-maps.html"><i class="fas fa-map-marker"></i> Google Maps</a>
+                                                <a href="components-promo-boxes.html"><i class="fas fa-unlink"></i> Promo Boxes</a>
+                                                <a href="components-video-background.html"><i class="fas fa-video"></i> Video Background</a>
                                             </div>
                                         </div>
                                     </div>
@@ -223,7 +223,7 @@
                 <ul>
                     <li class="hidden-xs-down"><a href="/login">Login</a></li>
                     <li class="hidden-xs-down"><a href="/register">Register</a></li>
-                    <li><a data-toggle="search"><i class="fa fa-search"></i></a></li>
+                    <li><a data-toggle="search"><i class="fas fa-search"></i></a></li>
                     <li>
                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
@@ -240,16 +240,16 @@
                     <li class="dropdown dropdown-profile">
                         <a data-toggle="dropdown"><img src="/img/profile/avatar-sm.jpg" alt=""> <span>{{ Auth::user()->display_name }}</span></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item active"  href="/u/{{ Auth::user()->uniqid }}"><i class="fa fa-user"></i> Profile</a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-envelope-open"></i> <del>Inbox</del></a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-heart"></i> <del>Games</del></a>
-                            <a href="{{ route('list_drafts') }}" class="dropdown-item"><i class="fa fa-cog"></i> Drafts</a>
+                            <a class="dropdown-item active"  href="/u/{{ Auth::user()->uniqid }}"><i class="fas fa-user"></i> Profile</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-envelope-open"></i> <del>Inbox</del></a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-heart"></i> <del>Games</del></a>
+                            <a href="{{ route('list_drafts') }}" class="dropdown-item"><i class="fas fa-cog"></i> Drafts</a>
                             @can('god-mode')
-                                <a href="{{ route('super_admin') }}" class="dropdown-item"><i class="fa fa-cog"></i> Super Admin</a>
+                                <a href="{{ route('super_admin') }}" class="dropdown-item"><i class="fas fa-cog"></i> Super Admin</a>
                             @endcan
-                            <a class="dropdown-item" href="#"><i class="fa fa-cog"></i> <del>Settings</del></a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-cog"></i> <del>Settings</del></a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i> Logout</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out"></i> Logout</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
@@ -257,40 +257,40 @@
                     </li>
                     <li class="dropdown dropdown-notification">
                         <a href="register.html" data-toggle="dropdown">
-                            <i class="fa fa-bell"></i>
+                            <i class="fas fa-bell"></i>
                             <span class="badge badge-danger">2</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <h5 class="dropdown-header"><i class="fa fa-bell"></i> Notifications</h5>
+                            <h5 class="dropdown-header"><i class="fas fa-bell"></i> Notifications</h5>
                             <div class="dropdown-block">
                                 <a class="dropdown-item" href="#">
-                                    <span class="badge badge-info"><i class="fa fa-envelope-open"></i></span> new email
+                                    <span class="badge badge-info"><i class="fas fa-envelope-open"></i></span> new email
                                     <span class="date">just now</span>
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    <span class="badge badge-danger"><i class="fa fa-thumbs-up"></i></span> liked your post
+                                    <span class="badge badge-danger"><i class="fas fa-thumbs-up"></i></span> liked your post
                                     <span class="date">5 mins</span>
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    <span class="badge badge-primary"><i class="fa fa-user-plus"></i></span> friend request
+                                    <span class="badge badge-primary"><i class="fas fa-user-plus"></i></span> friend request
                                     <span class="date">2 hours</span>
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    <span class="badge badge-info"><i class="fa fa-envelope"></i></span> new email
+                                    <span class="badge badge-info"><i class="fas fa-envelope"></i></span> new email
                                     <span class="date">3 days</span>
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    <span class="badge badge-info"><i class="fa fa-video-camera"></i></span> sent a video
+                                    <span class="badge badge-info"><i class="fas fa-video-camera"></i></span> sent a video
                                     <span class="date">5 days</span>
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    <span class="badge badge-danger"><i class="fa fa-thumbs-up"></i></span> liked your post
+                                    <span class="badge badge-danger"><i class="fas fa-thumbs-up"></i></span> liked your post
                                     <span class="date">8 days</span>
                                 </a>
                             </div>
                         </div>
                     </li>
-                    <li><a data-toggle="search"><i class="fa fa-search"></i></a></li>
+                    <li><a data-toggle="search"><i class="fas fa-search"></i></a></li>
                 </ul>
 
             </div>
@@ -301,7 +301,7 @@
         <div class="container">
             <form method="post">
                 <input type="text" class="form-control" placeholder="Search...">
-                <i class="fa fa-times close"></i>
+                <i class="fas fa-times close"></i>
             </form>
         </div>
     </div>

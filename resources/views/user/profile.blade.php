@@ -5,7 +5,7 @@
 
 @section('main-content')
   <!-- main -->
-  <section class="hero hero-profile" style="background-image: url('https://img.youtube.com/vi/D3pYbbA1kfk/maxresdefault.jpg');">
+  <section class="hero hero-profile" style="background-image: url('https://s3.us-east-2.amazonaws.com/projectspectr/img/user/{{ $user->id }}_profile_backgroud.png');">
     <div class="overlay"></div>
     <div class="container">
       <div class="hero-block">
@@ -18,7 +18,7 @@
   <section class="toolbar toolbar-profile" data-fixed="true">
     <div class="container">
       <div class="profile-avatar">
-        <a href="#"><img src="/img/user/avatar.jpg" alt=""></a>
+        <a href="#"><img src="https://s3.us-east-2.amazonaws.com/projectspectr/img/user/{{ $user->id }}_profile_200x200.png" alt=""></a>
         <div class="sticky">
           <a href="#"><img src="/img/user/avatar-sm.jpg" alt=""></a>
           <div class="profile-info">
