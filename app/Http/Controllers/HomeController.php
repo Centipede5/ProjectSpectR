@@ -11,6 +11,7 @@ use Monolog\Handler\FirePHPHandler;
 use Log;
 
 use FormLoggerPlus\Log2File;
+use App\Http\Controllers\SliderController;
 
 class HomeController extends Controller
 {
@@ -31,7 +32,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        (new Log2File)->History("Let's Start Logging!");
+       /* (new Log2File)->History("Let's Start Logging!");
 
         Log::info('This is some useful information.');
 // Create the logger
@@ -43,7 +44,20 @@ class HomeController extends Controller
 // You can now use your logger
         $logger->addInfo('My logger is now ready');
         $logger->addInfo('Adding a new user', array('username' => 'Seldaek'));
-        $logger->addCritical('FAILURE');
-        return view('home');
+        $logger->addCritical('FAILURE'); */
+
+       $slides = new SliderController();
+       $slides = $slides->getSlider('home-page');
+
+       return view('index', compact('slides'));
+    }
+
+    public function ajaxTest ($data) {
+        $response = [
+            'name'=> 'Brandon',
+            'id'=> 6
+        ];
+
+        return json_encode($response);
     }
 }
