@@ -1,4 +1,3 @@
-<!-- header -->
 <header id="header">
 <div class="container">
 @if(env('APP_DEV_MODE'))
@@ -8,4 +7,3 @@
 @endif
 </div>
 </header>
-<!-- /header -->

@@ -8,13 +8,13 @@
   <title>Gameforest - Gaming Theme HTML</title>
   <!-- vendor css -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-  <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/plugins/font-awesome/css/all.min.css">
   <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="plugins/animate/animate.min.css">
   <!-- plugins css -->
-  <link href="plugins/owl-carousel/css/owl.carousel.min.css" rel="stylesheet">
+  <link href="/plugins/owl-carousel/css/owl.carousel.min.css" rel="stylesheet">
   <!-- theme css -->
-  <link rel="stylesheet" href="css/theme.min.css">
+  <link rel="stylesheet" href="/css/theme.min.css">
   <link rel="stylesheet" href="css/custom.css">
 </head>
 <body class="fixed-header">
@@ -575,8 +575,8 @@
   <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
 
   <!-- plugins js -->
-  <script src="plugins/lightbox/lightbox.js"></script>
-  <script src="plugins/owl-carousel/js/owl.carousel.min.js"></script>
+  <script src="/plugins/lightbox/lightbox.js"></script>
+  <script src="/plugins/owl-carousel/js/owl.carousel.min.js"></script>
   <script>
     (function($) {
       "use strict";

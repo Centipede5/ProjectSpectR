@@ -4,14 +4,14 @@
 
 @section('main-content')
     <!-- main -->
-    <section class="bg-image bg-image-sm" style="background-image: url('img/bg/bg-login.jpg');">
-      <div class="overlay"></div>
+    <section class="bg-image bg-image-sm" style="background-image: url('/img/bg/bg-login.jpg');">
+        <div class="overlay"></div>
       <div class="container">
         <div class="row">
           <div class="col-12 col-sm-8 col-md-4 mx-auto">
             <div class="card m-b-0">
               <div class="card-header">
-                <h4 class="card-title"><i class="fa fa-sign-in"></i> Login to your account</h4>
+                <h4 class="card-title"><i class="fas fa-sign-in"></i> Sign In to Your Account</h4>
               </div>
               <div class="card-block">
                 <form class="form-horizontal" method="POST" action="{{ route('login') }}">
@@ -21,8 +21,8 @@
                   <span>or</span>
                 </div>-->
                   <div class="form-group input-icon-left m-b-10 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <i class="fa fa-user"></i>
-                    <input id="email" name="email" type="email" class="form-control form-control-secondary" placeholder="E-Mail Address"  value="{{ old('email') }}" required autofocus>
+                    <i class="fas fa-user"></i>
+                    <input id="email" name="email" type="email" class="form-control form-control-secondary" placeholder="E-Mail Address"  value="{{ old('email') }}" required autofocus autocomplete="on">
 
                     @if ($errors->has('email'))
                       <span class="help-block">
@@ -32,8 +32,8 @@
 
                   </div>
                   <div class="form-group input-icon-left m-b-15 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <i class="fa fa-lock"></i>
-                    <input id="password" name="password" type="password" class="form-control form-control-secondary" placeholder="Password" required>
+                    <i class="fas fa-lock"></i>
+                    <input id="password" name="password" type="password" class="form-control form-control-secondary" placeholder="Password" autocomplete="on" required>
                     @if ($errors->has('password'))
                       <span class="help-block">
                         <strong>{{ $errors->first('password') }}</strong>
@@ -45,7 +45,7 @@
                     <span class="custom-control-indicator"></span>
                     <span class="custom-control-description">Remember me</span>
                   </label>
-                  <button type="submit" class="btn btn-primary btn-block m-t-10">Login <i class="fa fa-sign-in"></i></button>
+                  <button type="submit" class="btn btn-primary btn-block m-t-10">Login <i class="fas fa-sign-in"></i></button>
 
                   <a class="btn btn-link" href="{{ route('password.request') }}">
                     Forgot Your Password?

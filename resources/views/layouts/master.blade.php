@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!doctype html>
+<html lang="en">
 <head>
     <title>@yield('page-title')| {{ env('APP_NAME') }}</title>
     @include('layouts.head-std')
 
-    @yield('head')
+	@yield('head')
 
 </head>
 <body class="fixed-header">

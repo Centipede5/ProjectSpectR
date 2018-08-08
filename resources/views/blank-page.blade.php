@@ -15,7 +15,12 @@
 
     <section>
         <div class="container blank">
-        <!-- Content goes here-->
+            <form action="/fileupload" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                Select image to upload:
+                <input type="file" name="fileToUpload" id="fileToUpload">
+                <input type="submit" value="Upload Image" name="submit">
+            </form>
         </div>
     </section>
 <!-- /main -->

@@ -26,10 +26,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        $this->registerPostPolicies();
+        $this->registerSecurityPolicies();
     }
 
-    public function registerPostPolicies()
+    public function registerSecurityPolicies()
     {
         // update-profile
         // comment-on-post

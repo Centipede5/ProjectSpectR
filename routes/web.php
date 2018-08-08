@@ -17,8 +17,8 @@ Route::get('/demo/{page}.html', function ($page) {
     return view('demo.'.$page);
 });
 
-Route::get('/test', function () {
-    return view('index');
+Route::get('/demo', function () {
+    return view('demo.index');
 });
 
 Route::get('/test-home', function () {
@@ -33,6 +33,11 @@ Route::get('/icons', function () {
     return view('demo.icons');
 });
 
+Route::post('/fileupload', 'FileUploadController@upload');
+
+Route::get('/slider', 'SliderController@getSlider');
+
+Route::post('/ajax/{data}', 'HomeController@ajaxTest');
 // End testing
 
 
@@ -40,6 +45,9 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('coming-soon');
+});
+Route::get('/index', function () {
+    return view('index');
 });
 
 Route::get('/blank', function () {
@@ -60,7 +68,7 @@ Route::get('/registration/{email}/{uniqid}', 'Auth\RegisterEmailController@valid
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/demo', 'PostController@index');
+//Route::get('/demo', 'PostController@index');
 Route::get('/demo/posts', 'PostController@index')->name('list_posts');
 
 //prefix($x) adds $x to every route in the group

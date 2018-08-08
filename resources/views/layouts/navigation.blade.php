@@ -219,6 +219,7 @@
                 </nav>
             </div>
             @guest
+
             <div class="nav navbar-right">
                 <ul>
                     <li class="hidden-xs-down"><a href="/login">Login</a></li>
@@ -235,6 +236,7 @@
                 </ul>
             </div>
             @else
+            
             <div class="nav navbar-right">
                 <ul>
                     <li class="dropdown dropdown-profile">
@@ -292,7 +294,6 @@
                     </li>
                     <li><a data-toggle="search"><i class="fas fa-search"></i></a></li>
                 </ul>
-
             </div>
             @endguest
         </div>

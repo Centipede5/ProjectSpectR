@@ -32,10 +32,10 @@
                 <h4 class="footer-title">Subscribe</h4>
                 <p>This doesn't work, but you can try to Subscribe to our newsletter and get notification when new games are available.</p>
                 <div class="input-group m-t-25">
-                    <input type="text" class="form-control" placeholder="Email">
+                    <input type="text" class="form-control" placeholder="Email" />
                     <span class="input-group-btn">
-            <button class="btn btn-primary" type="button">Subscribe</button>
-          </span>
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </span>
                 </div>
             </div>
         </div>
