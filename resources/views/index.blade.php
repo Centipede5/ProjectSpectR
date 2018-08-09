@@ -4,6 +4,7 @@
 
 @section('main-content')
   <!-- main -->
+  <!-- Start Slider -->
   <section class="bg-inverse p-y-0">
     <div class="owl-carousel owl-slide full-height">
       @foreach($slides as $slide)
@@ -20,11 +21,12 @@
       @endforeach
     </div>
   </section>
+  <!-- End Slider -->
 
   <section class="p-y-80">
     <div class="container">
       <div class="heading">
-        <i class="fa fa-steam"></i>
+        <i class="fab fa-steam-symbol"></i>
         <h2>Recent Games</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       </div>
@@ -214,12 +216,12 @@
     </div>
   </section>
 
-  <section class="bg-image" style="background-image: url(https://img.youtube.com/vi/IsDX_LiJT7E/maxresdefault.jpg);">
+  <section class="bg-image" style="background-image: url('https://i.ytimg.com/vi/ZFwylDNpgFc/maxresdefault.jpg');">
     <div class="overlay"></div>
     <div class="container">
-      <div class="video-play" data-src="https://www.youtube.com/embed/IsDX_LiJT7E?rel=0&amp;amp;autoplay=1&amp;amp;showinfo=0">
+      <div class="video-play" data-src="https://www.youtube.com/embed/ZFwylDNpgFc?rel=0&amp;amp;autoplay=1&amp;amp;showinfo=0">
         <div class="embed-responsive embed-responsive-16by9">
-          <img class="embed-responsive-item" src="https://img.youtube.com/vi/IsDX_LiJT7E/maxresdefault.jpg" alt="">
+          <img class="embed-responsive-item" src="https://i.ytimg.com/vi/ZFwylDNpgFc/maxresdefault.jpg" alt="">
           <div class="video-play-icon">
             <i class="fa fa-play"></i>
           </div>
@@ -230,8 +232,13 @@
 
   <section class="bg-primary promo">
     <div class="container">
-      <h2>Create your own epic gaming site with gameforest</h2>
-      <a class="btn btn-outline-default" href="https://themeforest.net/item/gameforest-responsive-gaming-html-theme/5007730" target="_blank" role="button">Purchase Now <i class="fa fa-shopping-cart"></i></a>
+      @guest
+      <h2>Get envolved and join a Community</h2>
+      <a class="btn btn-outline-default" href="/register" target="_blank" role="button">Sign Me Up! <i class="fas fa-users"></i></a>
+      @else
+        <h2>Check out the list of known Release Dates</h2>
+        <a class="btn btn-outline-default" href="/schedule" target="_blank" role="button">Schedule <i class="fas fa-calendar-alt"></i></a>
+      @endguest
     </div>
   </section>
   <!-- /main -->

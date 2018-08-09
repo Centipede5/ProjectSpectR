@@ -1,1 +1,8 @@
 // custom style goes here
+*:focus {
+  outline: none;
+}
+
+textarea:focus, button:focus, input:focus{
+  outline: none;
+}

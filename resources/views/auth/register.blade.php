@@ -11,16 +11,16 @@
         <div class="col-12 col-sm-8 col-md-4 mx-auto">
           <div class="card">
             <div class="card-header">
-              <h4 class="card-title"><i class="fa fa-user-plus"></i> Register a new account</h4>
+              <h4 class="card-title"><i class="fas fa-user-plus"></i> Register a new account</h4>
             </div>
             <div class="card-block">
               <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                 {{ csrf_field() }}
-                <!--<a class="btn btn-social btn-google-plus btn-block btn-icon-left" href="" role="button"><i class="fa fa-google-plus"></i> Register with Google Plus</a>
+                <!--<a class="btn btn-social btn-google-plus btn-block btn-icon-left" href="" role="button"><i class="fas fa-google-plus"></i> Register with Google Plus</a>
                 <div class="divider"><span>or</span></div>-->
                 <div class="form-group input-icon-left m-b-10">
-                  <i class="fa fa-user"></i>
-                  <input type="text" class="form-control form-control-secondary form-group{{ $errors->has('display_name') ? ' has-error' : '' }}" placeholder="Username" id="display_name" name="display_name" value="{{ old('display_name') }}" maxlength="20" required autofocus>
+                  <i class="fas fa-user"></i>
+                  <input type="text" class="form-control form-control-secondary {{ $errors->has('display_name') ? ' has-error' : '' }}" placeholder="Username" id="display_name" name="display_name" value="{{ old('display_name') }}" maxlength="20" autocomplete="off" required autofocus>
                   @if ($errors->has('display_name'))
                     <span class="help-block">
                         <strong>{{ $errors->first('display_name') }}</strong>
@@ -28,7 +28,7 @@
                   @endif
                 </div>
                 <div class="form-group input-icon-left m-b-10 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                  <i class="fa fa-envelope"></i>
+                  <i class="fas fa-envelope"></i>
                   <input type="email" id="email" name="email" class="form-control form-control-secondary" placeholder="Email Address" value="{{ old('email') }}" maxlength="255" required>
                   @if ($errors->has('email'))
                     <span class="help-block">
@@ -38,7 +38,7 @@
                 </div>
                 <div class="divider"><span>Security</span></div>
                 <div class="form-group input-icon-left m-b-10 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                  <i class="fa fa-lock"></i>
+                  <i class="fas fa-lock"></i>
                   <input type="password" id="password" name="password" class="form-control form-control-secondary" placeholder="Password" required>
                   @if ($errors->has('password'))
                     <span class="help-block">
@@ -47,20 +47,20 @@
                   @endif
                 </div>
                 <div class="form-group input-icon-left m-b-10">
-                  <i class="fa fa-unlock"></i>
+                  <i class="fas fa-unlock"></i>
                   <input type="password" id="password-confirm" name="password_confirmation" class="form-control form-control-secondary" placeholder="Repeat Password" required>
                 </div>
 
                   <div class="form-group input-icon-left m-b-10">
-                    <i class="fa fa-rebel"></i>
-                    <input type="text" id="code" name="code" class="form-control form-control-secondary form-group{{ $errors->has('code') ? ' has-error' : '' }}" placeholder="Invitation Code" value="{{ old('code') }}" maxlength="12" required>
+                    <i class="fas fa-key"></i>
+                    <input type="text" id="code" name="code" class="form-control form-control-secondary form-group{{ $errors->has('code') ? ' has-error' : '' }}" placeholder="Invitation Code" value="{{ old('code') }}" maxlength="12" autocomplete="off" required>
                     @if ($errors->has('code'))
                       <span class="help-block">
                         <strong>{{ $errors->first('code') }}</strong>
                     </span>
                     @endif
                   </div>
-                <div class="divider"><span>I am not a robot</span></div>
+                <div class="divider"><span>I am not a machine</span></div>
                 <div class="g-recaptcha-outer">
                   <script src='https://www.google.com/recaptcha/api.js'></script>
                   <div class="g-recaptcha" data-sitekey="6LeBwhwUAAAAAG1RDj-rS2Wu4WYNoV021q0z-LNY"></div>
@@ -84,7 +84,7 @@
       <div class="modal-dialog modal-top" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title"><i class="fa fa-file-text-o"></i> Terms of Service</h5>
+            <h5 class="modal-title"><i class="fas fa-file-text-o"></i> Terms of Service</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

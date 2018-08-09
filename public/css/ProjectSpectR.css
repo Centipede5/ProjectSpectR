@@ -2,6 +2,16 @@
  * ProjectSpectR 0.1
  */
 
+*:focus {
+  outline: none;
+}
+
+textarea:focus,
+button:focus,
+input:focus {
+  outline: none;
+}
+
 body {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
@@ -182,7 +192,7 @@ img {
 
 .breadcrumb > li > a {
   color: #737373;
-  border-radius: 0px;
+  border-radius: 0;
   font-size: 14px;
 }
 

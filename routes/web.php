@@ -43,11 +43,12 @@ Route::post('/ajax/{data}', 'HomeController@ajaxTest');
 
 Auth::routes();
 
-Route::get('/', function () {
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/future', 'HomeController@future')->name('future');
+
+Route::get('/soon', function () {
     return view('coming-soon');
-});
-Route::get('/index', function () {
-    return view('index');
 });
 
 Route::get('/blank', function () {

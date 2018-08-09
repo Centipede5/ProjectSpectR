@@ -10,7 +10,11 @@
     <div class="container">
       <div class="hero-block">
         <h5>{{ $user->display_name }}</h5>
+        @if(isset(Auth::user()->id) && Auth::user()->id == $user->id )
+          <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="#" data-toggle="tooltip" title="Add friend" role="button"><i class="fas fa-edit"></i> Edit Profile</a>
+          @else
         <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="#" data-toggle="tooltip" title="Add friend" role="button"><i class="fa fa-user-plus"></i></a>
+        @endif
       </div>
     </div>
   </section>
@@ -18,7 +22,7 @@
   <section class="toolbar toolbar-profile" data-fixed="true">
     <div class="container">
       <div class="profile-avatar">
-        <a href="#"><img src="https://s3.us-east-2.amazonaws.com/projectspectr/img/user/{{ $user->id }}_profile_200x200.png" alt=""></a>
+        <a href="https://s3.us-east-2.amazonaws.com/projectspectr/img/user/{{ $user->id }}_{{ $user->display_name }}_profile_full.jpg" data-lightbox ><img src="https://s3.us-east-2.amazonaws.com/projectspectr/img/user/{{ $user->id }}_profile_200x200.png" alt=""></a>
         <div class="sticky">
           <a href="#"><img src="/img/user/avatar-sm.jpg" alt=""></a>
           <div class="profile-info">
@@ -54,14 +58,22 @@
       <div class="row">
         <div class="col-lg-3 hidden-md-down">
           <!-- widget about -->
-          <div class="widget widget-about">
-            <h5 class="widget-title">About Me</h5>
-            <p>I am a frontend developer &amp; web designer. I love to work on creative and standalone projects like gameforest.</p>
+          <div class="widget widget-about">\
+            @if(isset($user_info->bio))
+            <h5 class="widget-title">About</h5>
+            <p>{{ $user_info->bio }}</p>
+            @endif
             <ul>
-              <li><i class="fa fa-clock-o"></i> Joined December 2009</li>
-              <li><i class="fa fa-map-marker"></i> United Kingdom</li>
-              <li><a href="https://themeforest.net/item/gameforest-responsive-gaming-html-theme/5007730" target="_blank"><i class="fa fa-chain-broken"></i> Gameforest</a></li>
-              <li><a href="https://www.facebook.com/yakuthemes" target="_blank"><i class="fa fa-facebook"></i> yakuthemes</a></li>
+              <li><i class="far fa-calendar-check"></i> Joined {{ $user->created_date }}</li>
+              @if(isset($user_info->social_meta->website))
+              <li><a href="{{ $user_info->social_meta->website }}" target="_blank"><i class="fas fa-link"></i> Website</a></li>
+              @endif
+              @if(isset($user_info->social_meta->facebook))
+                <li><a href="https://www.facebook.com/{{ $user_info->social_meta->facebook }}" target="_blank"><i class="fab fa-facebook"></i> {{ $user_info->social_meta->facebook }}</a></li>
+              @endif
+              @if(isset($user_info->social_meta->twitter))
+                <li><a href="https://www.twitter.com/{{ $user_info->social_meta->twitter }}" target="_blank"><i class="fab fa-twitter"></i> {{ $user_info->social_meta->twitter }}</a></li>
+              @endif
             </ul>
           </div>
 

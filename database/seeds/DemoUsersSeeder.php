@@ -336,7 +336,7 @@ class DemoUsersSeeder extends Seeder
         ]);
         $user47 = User::create([
             'name' => 'Crimson Viper',
-            'display_name' => 'Crimson Viper',
+            'display_name' => 'CrimsonViper',
             'email' => 'crim@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '5b5f1716e82ce47'
