@@ -13,3 +13,5 @@
     <link rel="stylesheet" href="/plugins/owl-carousel/css/owl.carousel.min.css">
     <!-- ProjectSpectR css -->
     <link rel="stylesheet" href="{{ mix('/css/ProjectSpectR.css') }}">
+    <!-- jQuery 3.3.1 -->
+    <script src="/plugins/jquery/jquery-3.3.1.min.js"></script>
