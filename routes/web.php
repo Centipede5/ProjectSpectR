@@ -58,7 +58,7 @@ Route::get('/access', function () {
     return view('user.access');
 });
 
-Route::get('/u/{uniqid}', 'UserProfileController@index')->name('user-profile');
+Route::get('/u/{user}', 'UserProfileController@index')->name('user-profile');
 
 // Access Denied is for whenever a logged in user tries to access something they shouldn't
 Route::get('/access-denied', function () {

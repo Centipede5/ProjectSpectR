@@ -12,6 +12,18 @@ input:focus {
   outline: none;
 }
 
+.youtube-link:hover {
+  color: #FF0000;
+}
+
+.facebook-link:hover {
+  color: #3b5998;
+}
+
+.twitter-link:hover {
+  color: #00aced;
+}
+
 body {
   font-family: "Roboto", sans-serif;
   font-weight: 300;

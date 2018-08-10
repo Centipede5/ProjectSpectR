@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesSeeder::class);
         $this->call(DemoUsersSeeder::class);
         $this->call(DemoRoleUsersSeeder::class);
+        $this->call(DemoUsersInfoSeeder::class);
         $this->call(SubscribeToUserSeeder::class);
         $this->call(DefaultSlidesForSliders::class);
     }

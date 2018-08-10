@@ -2,6 +2,23 @@
 
 @section('page-title')Register @endsection
 
+@section('head')
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $('#display_name').keypress(function (e) {
+            var regex = new RegExp("^[a-zA-Z0-9]+$");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+
+            if (regex.test(str)) { return true; }
+            e.preventDefault();
+
+            return false;
+        });
+    });
+</script>
+
+@endsection
+
 @section('main-content')
   <!-- main -->
   <section class="bg-image bg-image-sm" style="background-image: url('https://img.youtube.com/vi/BhTkoDVgF6s/maxresdefault.jpg');">
@@ -39,7 +56,7 @@
                 <div class="divider"><span>Security</span></div>
                 <div class="form-group input-icon-left m-b-10 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                   <i class="fas fa-lock"></i>
-                  <input type="password" id="password" name="password" class="form-control form-control-secondary" placeholder="Password" required>
+                  <input type="password" id="password" name="password" class="form-control form-control-secondary" placeholder="Password" autocomplete="on" required>
                   @if ($errors->has('password'))
                     <span class="help-block">
                         <strong>{{ $errors->first('password') }}</strong>
@@ -48,7 +65,7 @@
                 </div>
                 <div class="form-group input-icon-left m-b-10">
                   <i class="fas fa-unlock"></i>
-                  <input type="password" id="password-confirm" name="password_confirmation" class="form-control form-control-secondary" placeholder="Repeat Password" required>
+                  <input type="password" id="password-confirm" name="password_confirmation" class="form-control form-control-secondary" placeholder="Repeat Password" autocomplete="on" required>
                 </div>
 
                   <div class="form-group input-icon-left m-b-10">

@@ -58,21 +58,24 @@
       <div class="row">
         <div class="col-lg-3 hidden-md-down">
           <!-- widget about -->
-          <div class="widget widget-about">\
+          <div class="widget widget-about">
             @if(isset($user_info->bio))
             <h5 class="widget-title">About</h5>
             <p>{{ $user_info->bio }}</p>
             @endif
             <ul>
-              <li><i class="far fa-calendar-check"></i> Joined {{ $user->created_date }}</li>
+              <li><i class="far fa-calendar-check"></i>Joined {{ $user->created_date }}</li>
               @if(isset($user_info->social_meta->website))
-              <li><a href="{{ $user_info->social_meta->website }}" target="_blank"><i class="fas fa-link"></i> Website</a></li>
+                <li><a href="{{ $user_info->social_meta->website }}" target="_blank"><i class="fas fa-link"></i>{{ $user_info->social_meta->website_display }}</a></li>
               @endif
-              @if(isset($user_info->social_meta->facebook))
-                <li><a href="https://www.facebook.com/{{ $user_info->social_meta->facebook }}" target="_blank"><i class="fab fa-facebook"></i> {{ $user_info->social_meta->facebook }}</a></li>
+              @if(isset($user_info->social_meta->youtube))
+                <li><a href="https://www.youtube.com/{{ $user_info->social_meta->youtube }}" class="youtube-link" target="_blank"><i class="fab fa-youtube"></i>/{{ $user_info->social_meta->youtube }}</a></li>
               @endif
               @if(isset($user_info->social_meta->twitter))
-                <li><a href="https://www.twitter.com/{{ $user_info->social_meta->twitter }}" target="_blank"><i class="fab fa-twitter"></i> {{ $user_info->social_meta->twitter }}</a></li>
+                <li><a href="https://www.twitter.com/{{ $user_info->social_meta->twitter }}" class="twitter-link" target="_blank"><i class="fab fa-twitter"></i>&commat;{{ $user_info->social_meta->twitter }}</a></li>
+              @endif
+              @if(isset($user_info->social_meta->facebook))
+                <li><a href="https://www.facebook.com/{{ $user_info->social_meta->facebook }}" class="facebook-link" target="_blank"><i class="fab fa-facebook"></i>/{{ $user_info->social_meta->facebook }}</a></li>
               @endif
             </ul>
           </div>
