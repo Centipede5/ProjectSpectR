@@ -73,11 +73,11 @@ class RegisterController extends Controller
             'display_name'  => $data['display_name'],
             'email'         => $data['email'],
             'password'      => bcrypt($data['password']),
-            'uniqid'        => uniqid(),
+            'uniqid'        => uniqid() . mt_rand(100, 999),
         ]);
 
         $user->roles()->attach(1);
-
+        // TODO: I need to create an email controller to run all emails through for validation
         Mail::to($data['email'])->send(new WelcomeMail($user));
         
         return $user;
