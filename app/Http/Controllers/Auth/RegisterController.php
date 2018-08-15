@@ -70,10 +70,12 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user = User::create([
-            'display_name'  => $data['display_name'],
-            'email'         => $data['email'],
-            'password'      => bcrypt($data['password']),
-            'uniqid'        => uniqid() . mt_rand(100, 999),
+            'display_name'      => $data['display_name'],
+            'email'             => $data['email'],
+            'password'          => bcrypt($data['password']),
+            'uniqid'            => uniqid("..") . mt_rand(100, 999),
+            'profile_image'     => "00-default-profile.jpg",
+            'background_image'  => "00-default-background.jpg",
         ]);
 
         $user->roles()->attach(1);
