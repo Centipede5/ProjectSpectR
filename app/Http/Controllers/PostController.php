@@ -25,13 +25,19 @@ class PostController extends Controller
         return view('demo-posts.create');
     }
 
-    public function store(StorePostRequest $request)
+    public function UserProfileControllerstore(StorePostRequest $request)
     {
         $data = $request->all();
         $data['slug'] = str_slug($data['post_title']);
         $data['user_id'] = Auth::user()->id;            // Set the user_id of the post to the current logged in user
         $post = Post::create($data);
         return redirect()->route('edit_post', ['id' => $post->id]);
+    }
+
+    public function show($id)
+    {
+        $post = Post::published()->findOrFail($id);
+        return view('demo-posts.show', compact('post'));
     }
 
     public function drafts()
@@ -54,17 +60,25 @@ class PostController extends Controller
         $data = $request->only('post_title', 'post_content');
         $data['slug'] = str_slug($data['post_title']);
         $post->fill($data)->save();
-        return back();
+
+        return redirect()->route('list_posts');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
     public function publish(Post $post)
     {
         $post->published = true;
         $post->save();
         return back();
-    }
-    public function show($id)
-    {
-        $post = Post::published()->findOrFail($id);
-        return view('demo-posts.show', compact('post'));
     }
 }

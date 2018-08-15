@@ -30,7 +30,7 @@
 										<div class="m-demo" data-code-preview="true" data-code-html="true" data-code-js="false">
 											<div class="m-demo__preview">
 												<!--begin::Form-->
-												<form class="m-form">
+												<form class="m-form" method="post" action="">
 													{{ csrf_field() }}
 														<table class="table table-striped- table-bordered table-hover table-checkable" id="m_table_1">
 														<thead>

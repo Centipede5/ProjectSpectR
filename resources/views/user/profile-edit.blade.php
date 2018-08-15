@@ -5,15 +5,15 @@
 
 @section('main-content')
   <!-- main -->
-  <section class="hero hero-profile" style="background-image: url('{{ env('APP_USR_IMG_LOC') }}/{{ $user->background_image }}');">
+  <section class="hero hero-profile" style="background-image: url('https://s3.us-east-2.amazonaws.com/projectspectr/img/user/{{ $user->id }}_profile_backgroud.png');">
     <div class="overlay"></div>
     <div class="container">
       <div class="hero-block">
         <h5>{{ $user->display_name }}</h5>
         @if(isset(Auth::user()->id) && Auth::user()->id == $user->id )
-          <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="{{ route('edit_profile', ['id' => Auth::user()->id]) }}" data-toggle="tooltip" title="Add friend" role="button"><i class="fas fa-edit"></i> Edit Profile</a>
-          @else
-        <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="#" data-toggle="tooltip" title="Add friend" role="button"><i class="fa fa-user-plus"></i></a>
+          <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="{{ route('edit_profile', ['id' => Auth::user()->id]) }}" data-toggle="tooltip" title="Add friend" role="button"><i class="fas fa-edit"></i> Save Profile</a>
+        @else
+          <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="#" data-toggle="tooltip" title="Add friend" role="button"><i class="fa fa-user-plus"></i></a>
         @endif
       </div>
     </div>
@@ -22,12 +22,12 @@
   <section class="toolbar toolbar-profile" data-fixed="true">
     <div class="container">
       <div class="profile-avatar">
-        <a href="{{ env('APP_USR_IMG_LOC') }}/{{ $user->profile_image }}" data-lightbox ><img src="{{ env('APP_USR_IMG_LOC') }}/{{ $user->profile_image }}" alt=""></a>
+        <a href="https://s3.us-east-2.amazonaws.com/projectspectr/img/user/{{ $user->id }}_{{ $user->display_name }}_profile_full.jpg" data-lightbox ><img src="https://s3.us-east-2.amazonaws.com/projectspectr/img/user/{{ $user->id }}_profile_200x200.png" alt=""></a>
         <div class="sticky">
           <a href="#"><img src="/img/user/avatar-sm.jpg" alt=""></a>
           <div class="profile-info">
             <h5>{{ $user->display_name }}</h5>
-            <span>@nathan</span>
+            <span>{{ $user->display_name }}</span>
           </div>
         </div>
       </div>
@@ -60,8 +60,8 @@
           <!-- widget about -->
           <div class="widget widget-about">
             @if(isset($user_info->bio))
-            <h5 class="widget-title">About</h5>
-            <p>{{ $user_info->bio }}</p>
+              <h5 class="widget-title">About</h5>
+              <p>{{ $user_info->bio }}</p>
             @endif
             <ul>
               <li><i class="far fa-calendar-check"></i>Joined {{ $user->created_date }}</li>

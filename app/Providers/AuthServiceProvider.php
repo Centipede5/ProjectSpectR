@@ -42,8 +42,9 @@ class AuthServiceProvider extends ServiceProvider
         // god-mode
 
         // Permissions Gates
-        Gate::define('update-profile', function (User $user) {
-            return $user->hasAccess(['update-profile']);
+        # Update Profile - Super Admin and the User themselves
+        Gate::define('update-profile', function (User $user, $userToUpdate) {
+            return $user->hasAccess(['site-admin']) or ($user->hasAccess(['update-profile']) and $user->id == $userToUpdate->id);
         });
         Gate::define('comment-on-post', function (User $user) {
             return $user->hasAccess(['comment-on-post']);

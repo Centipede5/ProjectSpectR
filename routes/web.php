@@ -43,7 +43,15 @@ Route::post('/ajax/{data}', 'HomeController@ajaxTest');
 
 Auth::routes();
 
+// Access Denied is for whenever a logged in user tries to access something they shouldn't
+Route::get('/access-denied', function () {
+    return view('errors.access-denied');
+});
+
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/registration/{email}/{uniqid}', 'Auth\RegisterEmailController@validateEmail')->name('email-registration');
+
 
 Route::get('/future', 'HomeController@future')->name('future');
 
@@ -58,16 +66,20 @@ Route::get('/access', function () {
     return view('user.access');
 });
 
+Route::get('/home', 'HomeController@index')->name('home');
+
+
 Route::get('/u/{user}', 'UserProfileController@index')->name('user-profile');
 
-// Access Denied is for whenever a logged in user tries to access something they shouldn't
-Route::get('/access-denied', function () {
-    return view('errors.access-denied');
-});
-
-Route::get('/registration/{email}/{uniqid}', 'Auth\RegisterEmailController@validateEmail')->name('email-registration');
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::prefix('profile')->group(
+    function () {
+        Route::get('/edit/{id}', 'UserProfileController@edit')
+            ->name('edit_profile')
+            ->middleware('can:update-profile,id,Auth::user()->id');
+        Route::post('/edit/{id}', 'UserProfileController@update')
+            ->name('update_profile');
+    }
+);
 
 //Route::get('/demo', 'PostController@index');
 Route::get('/demo/posts', 'PostController@index')->name('list_posts');
@@ -102,5 +114,8 @@ Route::prefix('demo/posts')->group(
 
 /* SUPER ADMIN */
 Route::get('/super-admin', 'SuperAdminController@index')
+    ->name('super_admin')
+    ->middleware('auth');
+Route::get('/super-admin/manage-roles', 'SuperAdminController@manageRoles')
     ->name('super_admin')
     ->middleware('auth');

@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('display_name', 20);
             $table->tinyinteger('status')->default(0);
             $table->string('uniqid', 20);
+            $table->string('profile_image', 80);
+            $table->string('background_image', 80);
             $table->string('password', 255);
             $table->rememberToken()->nullable();
             $table->timestamps();
