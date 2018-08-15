@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class UserProfileController extends Controller
 {
     public function index ($user) {
-        if (substr($user,0,2)=="5b") {
+        if (substr($user,0,2)=="..") {
             $searchWith = "uniqid";
         } else {
             $searchWith = "display_name";
