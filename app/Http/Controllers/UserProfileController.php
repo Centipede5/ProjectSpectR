@@ -31,7 +31,7 @@ class UserProfileController extends Controller
         $user->created_date = date("M Y", mktime($user->created_date));
 
         $user->profile_image_full = $user->profile_image;
-        $user->profile_image_large = substr($user->profile_image,0,-9) . "-720x720" . substr($user->profile_image,-4);
+        $user->profile_image_large = substr($user->profile_image,0,-4) . "-400x400" . substr($user->profile_image,-4);
 
         return view('user.profile' , compact('user','user_info'));
     }
