@@ -1,0 +1,32 @@
+ID-UNIQID-RAND-DISPLAY_NAME-SITENAME-PURPOSE-FULL.jpg
+
+47-2sdf51ad51fa3d-01-crimsonviper-projectspectr-avatar.jpg
+47-2sdf51ad51fa3d-55-crimsonviper-projectspectr-avatar-90x90.jpg
+47-2sdf51ad51fa3d-35-crimsonviper-projectspectr-avatar-126x126.jpg
+47-2sdf51ad51fa3d-22-crimsonviper-projectspectr-avatar-400x400.jpg
+47-2sdf51ad51fa3d-27-crimsonviper-projectspectr-canopy.jpg
+47-2sdf51ad51fa3d-01-crimsonviper-projectspectr-avatar-400x400.png
+profile mini:          36x36
+profile small (posts): 45x45
+profile friends:       63x63    : 126x126
+
+profile pic:           200x200  : 400x400
+Profile Hero:          1900x350 : 414x320 mobile
+
+User Upload 2 pics
+1 profile
+1 background
+Profile gets reduced cropped and reduced to:
+126x126
+400x400
+
+The original image gets sized down to total width/height of 800px
+landscape = * X 800h
+profile   = 800w X *
+
+All User Images
+mini  - 90x90   - cropped
+small - 126x126 - cropped
+large - 400x400 - cropped
+Orig  - 400x*   - compressed
+Hero  - max?    - compressed

@@ -22,7 +22,7 @@
   <section class="toolbar toolbar-profile" data-fixed="true">
     <div class="container">
       <div class="profile-avatar">
-        <a href="{{ env('APP_USR_IMG_LOC') }}/{{ $user->profile_image }}" data-lightbox ><img src="{{ env('APP_USR_IMG_LOC') }}/{{ $user->profile_image }}" alt=""></a>
+        <a href="{{ env('APP_USR_IMG_LOC') }}/{{ $user->profile_image_full }}" data-lightbox ><img src="{{ env('APP_USR_IMG_LOC') }}/{{ $user->profile_image_large }}" alt=""></a>
         <div class="sticky">
           <a href="#"><img src="/img/user/avatar-sm.jpg" alt=""></a>
           <div class="profile-info">
