@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['profile_image' => $user->profile_image_small])
 
 @section('page-title'){{ $user->display_name }} @endsection
 

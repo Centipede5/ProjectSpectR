@@ -18,8 +18,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'pending@example.com',
             'password' => bcrypt('pending123'),
             'uniqid' => '..5b5b40fa8b4b1',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user2 = User::create([
             'name' => 'Basic User',
@@ -27,8 +27,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'basic@example.com',
             'password' => bcrypt('basic123'),
             'uniqid' => '..5b5b40fa8b4b2',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user3 = User::create([
             'name' => 'Contributor User',
@@ -36,8 +36,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'contributor@example.com',
             'password' => bcrypt('contributor123'),
             'uniqid' => '..5b5b40fa8b4b3',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user4 = User::create([
             'name' => 'Author User',
@@ -45,8 +45,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'author@example.com',
             'password' => bcrypt('author123'),
             'uniqid' => '..5b5b40fa8b4b4',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user5 = User::create([
             'name' => 'Editor User',
@@ -54,8 +54,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'editor@example.com',
             'password' => bcrypt('editor123'),
             'uniqid' => '..5b5b40fa8b4b5',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user6 = User::create([
             'name' => 'Admin User',
@@ -63,8 +63,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => bcrypt('admin123'),
             'uniqid' => '..5b5b40fa8b4b6',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user7 = User::create([
             'name' => 'Super User',
@@ -72,8 +72,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'super@example.com',
             'password' => bcrypt('super123'),
             'uniqid' => '..5b5b40fa8b4b7',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user8 = User::create([
             'name' => 'Marcus Fenix',
@@ -81,8 +81,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'marc@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e80568',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user9 = User::create([
             'name' => 'Leon Kennedy',
@@ -90,8 +90,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'leon@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e806c9',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user10 = User::create([
             'name' => 'Simon Belmont',
@@ -99,8 +99,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'simo@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e807c10',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user11 = User::create([
             'name' => 'Nathan Drake',
@@ -108,8 +108,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'nath@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e808b11',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user12 = User::create([
             'name' => 'Lara Croft',
@@ -117,8 +117,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'lara@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e809a12',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user13 = User::create([
             'name' => 'Sam Fisher',
@@ -126,8 +126,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'sam@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e80a913',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user14 = User::create([
             'name' => 'Sarah Kerrigan',
@@ -135,8 +135,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'sara@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e80b814',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user15 = User::create([
             'name' => 'John Marston',
@@ -144,8 +144,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'john@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e80c615',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user16 = User::create([
             'name' => 'Tommy Vercetti',
@@ -153,8 +153,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'tomm@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e80d516',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user17 = User::create([
             'name' => 'Gordon Freeman',
@@ -162,8 +162,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'gord@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e80e417',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user18 = User::create([
             'name' => 'Joel Miller',
@@ -171,8 +171,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'joel@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e810a18',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user19 = User::create([
             'name' => 'Chun Li',
@@ -180,8 +180,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'chun@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e811f19',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user20 = User::create([
             'name' => 'Jill Valentine',
@@ -189,8 +189,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'jill@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e812f20',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user21 = User::create([
             'name' => 'Garrus Vakarian',
@@ -198,8 +198,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'garr@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e813e21',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user22 = User::create([
             'name' => 'Samus Aran',
@@ -207,8 +207,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'samu@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e814d22',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user23 = User::create([
             'name' => 'Elena Fisher',
@@ -216,8 +216,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'elen@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e815d23',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user24 = User::create([
             'name' => 'Joanna Dark',
@@ -225,8 +225,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'joan@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e816c24',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user25 = User::create([
             'name' => 'Faith Connors',
@@ -234,8 +234,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'fait@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e817b25',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user26 = User::create([
             'name' => 'Preston Garvey',
@@ -243,8 +243,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'pres@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e818926',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user27 = User::create([
             'name' => 'Juliet Starling',
@@ -252,8 +252,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'juli@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e819827',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user28 = User::create([
             'name' => 'Jodie Holmes',
@@ -261,8 +261,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'jodi@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e81b528',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user29 = User::create([
             'name' => 'Delsin Rowe',
@@ -270,8 +270,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'dels@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e81c429',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user30 = User::create([
             'name' => 'Trevor Phillips',
@@ -279,8 +279,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'trev@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e81d330',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user31 = User::create([
             'name' => 'Joseph Seed',
@@ -288,8 +288,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'jose@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e81e131',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user32 = User::create([
             'name' => 'Avery Johnson',
@@ -297,8 +297,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'aver@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e81f032',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user33 = User::create([
             'name' => 'Cassie Cage',
@@ -306,8 +306,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'cass@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e81ff33',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user34 = User::create([
             'name' => 'Miranda Lawson',
@@ -315,8 +315,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'mira@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e820f34',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user35 = User::create([
             'name' => 'Cindy Aurum',
@@ -324,8 +324,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'cind@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e821d35',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user36 = User::create([
             'name' => 'Triss Merigold',
@@ -333,8 +333,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'tris@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e822c36',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user37 = User::create([
             'name' => 'Edward Buck',
@@ -342,8 +342,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'edwa@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e823b37',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user38 = User::create([
             'name' => 'Tifa Lockhart',
@@ -351,8 +351,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'tifa@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e824938',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user39 = User::create([
             'name' => 'John Price',
@@ -360,8 +360,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'johnp@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e825839',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user40 = User::create([
             'name' => 'Chloe Frazer',
@@ -369,8 +369,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'chlo@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e826740',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user41 = User::create([
             'name' => 'Nova Terra',
@@ -378,8 +378,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'nova@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e827541',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user42 = User::create([
             'name' => 'Billy Lee',
@@ -387,8 +387,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'bill@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e828442',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user43 = User::create([
             'name' => 'Nina Williams',
@@ -396,8 +396,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'nina@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e829343',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user44 = User::create([
             'name' => 'Morrigan',
@@ -405,8 +405,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'morr@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e82a244',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user45 = User::create([
             'name' => 'Gabriel Logan',
@@ -414,8 +414,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'gabr@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e82b045',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user46 = User::create([
             'name' => 'Yennefer',
@@ -423,8 +423,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'yenn@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e82bf46',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '00-default-avatar.jpg',
+            'background_image' => '00-default-canopy.jpg'
         ]);
         $user47 = User::create([
             'name' => 'Crimson Viper',
@@ -432,8 +432,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'crim@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e82ce47',
-            'profile_image' => '00-default-profile.jpg',
-            'background_image' => '00-default-background.jpg'
+            'profile_image' => '47-2sdf51ad51fa3d-22-crimsonviper-projectspectr-avatar.png',
+            'background_image' => '47-2sdf51ad51fa3d-22-crimsonviper-projectspectr-canopy.png'
         ]);
     }
 }

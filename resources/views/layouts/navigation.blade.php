@@ -240,7 +240,7 @@
             <div class="nav navbar-right">
                 <ul>
                     <li class="dropdown dropdown-profile">
-                        <a data-toggle="dropdown"><img src="https://s3.us-east-2.amazonaws.com/projectspectr/img/user/{{ Auth::user()->id }}_profile_50X50.png" alt=""> <span>{{ Auth::user()->display_name }}</span></a>
+                        <a data-toggle="dropdown"><img src="{{ env('APP_USR_IMG_LOC') }}/{{ substr(Auth::user()->profile_image,0,-4) . "-90x90" . substr(Auth::user()->profile_image,-4) }}" alt=""> <span>{{ Auth::user()->display_name }}</span></a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item active"  href="/u/{{ Auth::user()->display_name }}"><i class="fas fa-user"></i> Profile</a>
                             <a class="dropdown-item" href="#"><i class="fas fa-envelope-open"></i> <del>Inbox</del></a>

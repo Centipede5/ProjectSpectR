@@ -7,19 +7,28 @@ use Illuminate\Http\Request;
 class FileUploadController extends Controller
 {
     public function upload () {
-        # Validation Checks
-        // 1) Is the User logged in and do they have the correct permissions
+# Validation Checks
+        // 1) The User is logged in and they have the correct permissions
         // 2) Check Image MIME type
-        // 3) Check Size
-        // 4) Check if file already exists
-        // 5) Allow certain file formats
+        // 3) Allow certain file extensions - PNG, JPEG, and GIF
+        // 4) Check Size - larger than 400x400 and under 2MB
 
-        # Process the Image
-        // 1) Rename the image to something new (possibly random)
-        // 2) Resize and compress the image for long term storage
-        // 3) Move the image to archive location
-        // 4) Upload/Copy to Permanent location - AWS S3 bucket / localhost
-        // 5) Stamp the "users" table with the new file name for the user
+        ## Ok for upload!
+
+# Process the Image
+        // 1) Rename the image - ID-UNIQID-RAND-DISPLAY_NAME-SITENAME-PURPOSE.jpg
+        // 2) Resize and compress the source image - 400x*
+        // 3) Move to the archive location
+        //          - Override existing images
+        // 4) Create the 3 cropped image sizes: 90, 126, and 400
+        // 5) Upload/Copy new images to - AWS S3
+        // 6) Update the "users" table with the new file name for the user images
+        // 7) Delete all other user Avatars on AWS and the local set of images
+
+        // Image Parameters
+//             90x90
+//             126x126
+//             400x400
 
         //Parameters
         # Upload Location

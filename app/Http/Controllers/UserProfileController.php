@@ -9,10 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class UserProfileController extends Controller
 {
-    public $profile_image_full;
-    public $profile_image_large;
-    public $profile_image_medium;
-    public $profile_image_small;
+    private $img_sm  = "-90x90";
+    private $img_md  = "-126x126";
+    private $img_lg  = "-400x400";
 
     public function index ($user) {
         if (substr($user,0,2)=="..") {
@@ -31,7 +30,12 @@ class UserProfileController extends Controller
         $user->created_date = date("M Y", mktime($user->created_date));
 
         $user->profile_image_full = $user->profile_image;
-        $user->profile_image_large = substr($user->profile_image,0,-4) . "-400x400" . substr($user->profile_image,-4);
+        $imageName = substr($user->profile_image,0,-4);
+        $imageExt = substr($user->profile_image,-4);
+
+        $user->profile_image_small = $imageName . $this->img_sm . $imageExt;
+        $user->profile_image_medium = $imageName . $this->img_md . $imageExt;
+        $user->profile_image_large = $imageName . $this->img_lg . $imageExt;
 
         return view('user.profile' , compact('user','user_info'));
     }
