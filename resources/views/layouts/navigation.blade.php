@@ -242,7 +242,7 @@
                     <li class="dropdown dropdown-profile">
                         <a data-toggle="dropdown"><img src="https://s3.us-east-2.amazonaws.com/projectspectr/img/user/{{ Auth::user()->id }}_profile_50X50.png" alt=""> <span>{{ Auth::user()->display_name }}</span></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item active"  href="/u/{{ Auth::user()->uniqid }}"><i class="fas fa-user"></i> Profile</a>
+                            <a class="dropdown-item active"  href="/u/{{ Auth::user()->display_name }}"><i class="fas fa-user"></i> Profile</a>
                             <a class="dropdown-item" href="#"><i class="fas fa-envelope-open"></i> <del>Inbox</del></a>
                             <a class="dropdown-item" href="#"><i class="fas fa-heart"></i> <del>Games</del></a>
                             <a href="{{ route('list_drafts') }}" class="dropdown-item"><i class="fas fa-cog"></i> Drafts</a>
