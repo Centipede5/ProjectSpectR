@@ -2,7 +2,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- vendor css -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Ubuntu" rel="stylesheet">
     <!-- Font Awesome Free 5.2.0 -->
     <link rel="stylesheet" href="/plugins/font-awesome/css/all.min.css">
     <!-- Bootstrap v4.1.3 -->

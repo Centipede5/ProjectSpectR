@@ -25,7 +25,7 @@ input:focus {
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-weight: 300;
   font-size: 15px;
   line-height: 1.5;
@@ -54,7 +54,7 @@ h4,
 h5,
 h6 {
   color: #4f4f4f;
-  font-family: "Roboto", sans-serif;
+  font-family: "Ubuntu", sans-serif;
   font-weight: 500;
   margin: 0 0 10px 0;
 }
@@ -308,7 +308,7 @@ img {
 #header .nav > ul > li > a,
 #header .nav > ul > li > a {
   color: #B1B1B1;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 500;
   padding: 0 10px;
   line-height: 62px;
@@ -5420,7 +5420,7 @@ input[type="file"] {
 }
 
 .tooltip {
-  font-family: "Roboto", sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .tooltip.show {

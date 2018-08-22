@@ -225,14 +225,6 @@
                     <li class="hidden-xs-down"><a href="/login">Login</a></li>
                     <li class="hidden-xs-down"><a href="/register">Register</a></li>
                     <li><a data-toggle="search"><i class="fas fa-search"></i></a></li>
-                    <li>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-                    </li>
                 </ul>
             </div>
             @else
