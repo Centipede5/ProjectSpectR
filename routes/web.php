@@ -40,47 +40,6 @@ Route::get('/slider', 'SliderController@getSlider');
 Route::post('/ajax/{data}', 'HomeController@ajaxTest');
 // End testing
 
-
-Auth::routes();
-
-// Access Denied is for whenever a logged in user tries to access something they shouldn't
-Route::get('/access-denied', function () {
-    return view('errors.access-denied');
-});
-
-Route::get('/', 'HomeController@index')->name('home');
-
-Route::get('/registration/{email}/{uniqid}', 'Auth\RegisterEmailController@validateEmail')->name('email-registration');
-
-
-Route::get('/future', 'HomeController@future')->name('future');
-
-Route::get('/soon', function () {
-    return view('coming-soon');
-});
-
-Route::get('/blank', function () {
-    return view('blank-page');
-});
-Route::get('/access', function () {
-    return view('user.access');
-});
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-Route::get('/u/{user}', 'UserProfileController@index')->name('user-profile');
-
-Route::prefix('profile')->group(
-    function () {
-        Route::get('/edit/{id}', 'UserProfileController@edit')
-            ->name('edit_profile')
-            ->middleware('can:update-profile,id,Auth::user()->id');
-        Route::post('/edit/{id}', 'UserProfileController@update')
-            ->name('update_profile');
-    }
-);
-
 //Route::get('/demo', 'PostController@index');
 Route::get('/demo/posts', 'PostController@index')->name('list_posts');
 
@@ -111,6 +70,51 @@ Route::prefix('demo/posts')->group(
             ->middleware('can:publish-post');
         }
 );
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/access', function () {
+    return view('user.access');
+});
+
+// Access Denied is for whenever a logged in user tries to access something they shouldn't
+Route::get('/access-denied', function () {
+    return view('errors.access-denied');
+});
+
+Route::get('/blank', function () {
+    return view('blank-page');
+});
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+
+Route::post('/contact', 'ContactController@index');
+
+Route::get('/future', 'HomeController@future')->name('future');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('profile')->group(
+    function () {
+        Route::get('/edit/{id}', 'UserProfileController@edit')
+            ->name('edit_profile')
+            ->middleware('can:update-profile,id,Auth::user()->id');
+        Route::post('/edit/{id}', 'UserProfileController@update')
+            ->name('update_profile');
+    }
+);
+
+Route::get('/registration/{email}/{uniqid}', 'Auth\RegisterEmailController@validateEmail')->name('email-registration');
+
+Route::get('/soon', function () {
+    return view('coming-soon');
+});
+
+Route::get('/u/{user}', 'UserProfileController@index')->name('user-profile');
 
 /* SUPER ADMIN */
 Route::get('/super-admin', 'SuperAdminController@index')
