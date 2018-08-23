@@ -24,6 +24,10 @@ input:focus {
   color: #00aced;
 }
 
+.nav {
+  font-family: "Ubuntu", sans-serif;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
@@ -2464,7 +2468,7 @@ fieldset[disabled]
 
 .btn-steam {
   color: #fff;
-  background-color: #111;
+  background-color: #305f80;
   font-weight: 500;
 }
 
@@ -2472,20 +2476,20 @@ fieldset[disabled]
 .btn-steam:focus,
 .btn-steam:active {
   color: #fff;
-  background: #1e1e1e;
+  background: #376d93;
 }
 
 .btn-steam.btn-link:focus,
 .btn-steam.btn-link:hover {
-  color: #111;
+  color: #305f80;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
 
 .btn-steam.btn-default:focus,
 .btn-steam.btn-default:hover {
-  background-color: #111;
-  border-color: #111;
+  background-color: #305f80;
+  border-color: #305f80;
 }
 
 .btn-linkedin {
@@ -4235,10 +4239,21 @@ input[type="file"] {
   color: #fff;
 }
 
-.badge-playstation-4,
-.badge-ps4,
 .badge-primary {
   background-color: #2575dc;
+  -webkit-transition: .2s ease-in-out;
+  transition: .2s ease-in-out;
+}
+
+.badge-primary[href]:active,
+.badge-primary[href]:focus,
+.badge-primary[href]:hover {
+  background-color: #327dde;
+}
+
+.badge-playstation-4,
+.badge-ps4 {
+  background-color: #003791;
   -webkit-transition: .2s ease-in-out;
   transition: .2s ease-in-out;
 }
@@ -4248,23 +4263,27 @@ input[type="file"] {
 .badge-playstation-4[href]:hover,
 .badge-ps4[href]:active,
 .badge-ps4[href]:focus,
-.badge-ps4[href]:hover,
-.badge-primary[href]:active,
-.badge-primary[href]:focus,
-.badge-primary[href]:hover {
-  background-color: #327dde;
+.badge-ps4[href]:hover {
+  background-color: #003da0;
 }
 
-.badge-xbox-one,
-.badge-xbox,
 .badge-success {
   background-color: #0E9A49;
 }
 
-.badge-pc,
+.badge-xbox-one,
+.badge-xbox {
+  background-color: #107C10;
+}
+
 .badge-warning {
   color: #fff;
   background-color: #FF8E2B;
+}
+
+.badge-pc {
+  color: #fff;
+  background-color: #305f80;
 }
 
 .badge-uplay,
@@ -4272,9 +4291,12 @@ input[type="file"] {
   background-color: #52BAFF;
 }
 
-.badge-steam,
 .badge-danger {
   background-color: #e74c3c;
+}
+
+.badge-steam {
+  background-color: #305f80;
 }
 
 .badge-twitch {

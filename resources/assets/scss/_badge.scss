@@ -6,9 +6,6 @@
   border-radius: 30px;
   color: #fff;
 }
-
-.badge-playstation-4,
-.badge-ps4,
 .badge-primary {
   background-color: $badge-primary-bg;
   transition: .2s ease-in-out;
@@ -20,27 +17,52 @@
   }
 }
 
-.badge-xbox-one,
-.badge-xbox,
+.badge-playstation-4,
+.badge-ps4 {
+  background-color: $color-playstation;
+  transition: .2s ease-in-out;
+
+  &[href]:active,
+  &[href]:focus,
+  &[href]:hover {
+    background-color: lighten($color-playstation, 3%);
+  }
+}
 .badge-success {
   background-color: $badge-success-bg;
 }
+.badge-xbox-one,
+.badge-xbox {
+  background-color: $color-xbox;
+}
 
-.badge-pc,
 .badge-warning {
   color: #fff;
   background-color: $badge-warning-bg;
 }
 
-.badge-uplay,
+.badge-pc {
+  color: #fff;
+  background-color: $color-steam;
+}
+
 .badge-info {
   background-color: $badge-info-bg;
 }
 
-.badge-steam,
+.badge-uplay {
+  background-color: $color-uplay;
+}
+
 .badge-danger {
   background-color: $badge-danger-bg;
 }
+
+.badge-steam {
+  background-color: $color-steam;
+}
+
+
 
 // Social Badges
 .badge-twitch {  background-color: $color-twitch; }
