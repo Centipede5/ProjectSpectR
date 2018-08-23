@@ -243,8 +243,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'pres@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e818926',
-            'profile_image' => '00-default-avatar.jpg',
-            'background_image' => '00-default-canopy.jpg'
+            'profile_image' => '26-2sdf51ad51fa3d-28-pgarvey-projectspectr-avatar.jpg',
+            'background_image' => '26-2sdf51ad51fa3d-28-pgarvey-projectspectr-canopy.jpg'
         ]);
         $user27 = User::create([
             'name' => 'Juliet Starling',

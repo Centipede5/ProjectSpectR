@@ -14,36 +14,45 @@ class UserProfileController extends Controller
     private $img_lg  = "-400x400";
 
     public function index ($user) {
+        // If the user string starts with 2 dots, it is th uniqid
         if (substr($user,0,2)=="..") {
             $searchWith = "uniqid";
         } else {
             $searchWith = "display_name";
         }
 
+        // Get the user object with either uniqid or display_name
         $user = $this->getUser($user, $searchWith);
 
+        // If the user is not found, show the 404 page
         if(!is_object($user)){
             return view('errors.404');
         }
 
+        // Get all of the needed user profile information
         $user_info = $this->getUserInfo($user->id);
+
+        // Override the Created date to just month and year
         $user->created_date = date("M Y", mktime($user->created_date));
 
-        $user->profile_image_full = $user->profile_image;
-        $imageName = substr($user->profile_image,0,-4);
-        $imageExt = substr($user->profile_image,-4);
+        // Main Profile Canopy Image
+        $user->background_image = env('APP_USR_IMG_LOC') . "/" . $user->background_image;
+        // Original uploaded profile image
+        $user->profile_image_full = env('APP_USR_IMG_LOC') . "/" . $user->profile_image;
 
-        $user->profile_image_small = $imageName . $this->img_sm . $imageExt;
-        $user->profile_image_medium = $imageName . $this->img_md . $imageExt;
-        $user->profile_image_large = $imageName . $this->img_lg . $imageExt;
+        $imageName = substr($user->profile_image,0,-4);  // Base Image name
+        $imageExt = substr($user->profile_image,-4);            // Image Extension
+
+        // Available image sizes
+        $user->profile_image_small = env('APP_USR_IMG_LOC') . "/" . $imageName . $this->img_sm . $imageExt;
+        $user->profile_image_medium =  env('APP_USR_IMG_LOC') . "/" . $imageName . $this->img_md . $imageExt;
+        $user->profile_image_large =  env('APP_USR_IMG_LOC') . "/" . $imageName . $this->img_lg . $imageExt;
 
         return view('user.profile' , compact('user','user_info'));
     }
 
     public function getUser ($user, $searchWith) {
-        $user = User::where($searchWith, $user)->first();
-
-        return $user;
+        return User::where($searchWith, $user)->first();
     }
 
     private function getUserInfo ($userid) {
@@ -52,7 +61,7 @@ class UserProfileController extends Controller
         if ($user_info != null){
             $user_info->social_meta = json_decode($user_info->social_meta);
 
-            // When a website is larger than 34 characters, it wraps.
+            // When a user website is larger than 34 characters, it wraps.
             // I am going to just display the domain name in those cases.
             if (isset($user_info->social_meta->website) && strlen($user_info->social_meta->website) > 34){
                 $user_info->social_meta->website_display = parse_url($user_info->social_meta->website, PHP_URL_HOST) . "/...";
