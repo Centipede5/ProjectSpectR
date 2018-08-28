@@ -125,6 +125,8 @@ return [
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
+    'log_dir' => storage_path().'/logs',
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

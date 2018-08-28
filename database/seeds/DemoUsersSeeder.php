@@ -243,8 +243,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'pres@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e818926',
-            'profile_image' => '26-2sdf51ad51fa3d-28-pgarvey-projectspectr-avatar.jpg',
-            'background_image' => '26-2sdf51ad51fa3d-28-pgarvey-projectspectr-canopy.jpg'
+            'profile_image' => '26-5b5f1716e818926-projectspectr-pgarvey-avatar.jpg',
+            'background_image' => '26-5b5f1716e818926-projectspectr-pgarvey-canopy.jpg'
         ]);
         $user27 = User::create([
             'name' => 'Juliet Starling',
@@ -432,8 +432,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'crim@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e82ce47',
-            'profile_image' => '47-2sdf51ad51fa3d-22-crimsonviper-projectspectr-avatar.png',
-            'background_image' => '47-2sdf51ad51fa3d-22-crimsonviper-projectspectr-canopy.png'
+            'profile_image' => '47-5b5f1716e82ce47-22-projectspectr-crimsonviper-avatar.png',
+            'background_image' => '47-5b5f1716e82ce47-22-projectspectr-crimsonviper-canopy.png'
         ]);
     }
 }

@@ -21,8 +21,8 @@ Route::get('/demo', function () {
     return view('demo.index');
 });
 
-Route::get('/test-home', function () {
-    return view('demo.index');
+Route::get('/imagetest', function () {
+    return view('imagetest');
 });
 
 Route::get('/carousel', function () {
@@ -38,6 +38,10 @@ Route::post('/fileupload', 'FileUploadController@upload');
 Route::get('/slider', 'SliderController@getSlider');
 
 Route::post('/ajax/{data}', 'HomeController@ajaxTest');
+
+Route::post('/profileImageUpload', 'FileUploadController@profileImageUpload');
+
+Route::post('/profileImageCrop', 'FileUploadController@profileImageCrop');
 // End testing
 
 //Route::get('/demo', 'PostController@index');
