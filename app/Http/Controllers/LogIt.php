@@ -12,7 +12,7 @@ class LogIt extends Controller
     }
 
     public static function debug ($data) {
-        $bt = debug_backtrace();
+        $bt = debug_backtrace();   //Using debug_backtrace() to get info about who called this method
         $caller = array_shift($bt);
         $data = "[DEBUG] " . " " . $data . " | " . basename($caller['file'] . ":" . $caller['line']);
         LogItController::getInstance()->info($data);
