@@ -14,8 +14,9 @@ class SliderController extends Controller
         $slides = Slider::where('slider_slug', $sliderSlug)
             ->where('active',1)
             ->where('end_date', '>', $currentDateTime)
-            ->orderBy('order')
-            ->take(10)
+            ->inRandomOrder()
+            //->orderBy('order')
+            ->take(3)
             ->get();
 
         return $slides;
