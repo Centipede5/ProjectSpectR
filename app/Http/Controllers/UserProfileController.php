@@ -13,16 +13,18 @@ class UserProfileController extends Controller
     private $img_md  = "-126x126";
     private $img_lg  = "-400x400";
 
-    public function index ($user) {
+    public function index ($userName, $editMode=false) {
         // If the user string starts with 2 dots, it is th uniqid
-        if (substr($user,0,2)=="..") {
+        if (substr($userName,0,2)==".." && !$editMode) {
             $searchWith = "uniqid";
+        } else if($editMode) {
+            $searchWith = "id";
         } else {
             $searchWith = "display_name";
         }
 
         // Get the user object with either uniqid or display_name
-        $user = $this->getUser($user, $searchWith);
+        $user = $this->getUser($userName, $searchWith);
 
         // If the user is not found, show the 404 page
         if(!is_object($user)){
@@ -32,6 +34,27 @@ class UserProfileController extends Controller
         // Get all of the needed user profile information
         $user_info = $this->getUserInfo($user->id);
 
+        $this->getExtendedUserInfo($user);
+        // Override the Created date to just month and year
+//        $user->created_date = date("M Y", mktime($user->created_date));
+//
+//        // Main Profile Canopy Image
+//        $user->background_image = env('APP_USR_IMG_LOC') . "/" . $user->background_image;
+//        // Original uploaded profile image
+//        $user->profile_image_full = env('APP_USR_IMG_LOC') . "/" . $user->profile_image;
+//
+//        $imageName = substr($user->profile_image,0,-4);  // Base Image name
+//        $imageExt = substr($user->profile_image,-4);            // Image Extension
+//
+//        // Available image sizes
+//        $user->profile_image_small = env('APP_USR_IMG_LOC') . "/" . $imageName . $this->img_sm . $imageExt;
+//        $user->profile_image_medium =  env('APP_USR_IMG_LOC') . "/" . $imageName . $this->img_md . $imageExt;
+//        $user->profile_image_large =  env('APP_USR_IMG_LOC') . "/" . $imageName . $this->img_lg . $imageExt;
+
+        return view('user.profile' , compact('user','user_info'));
+    }
+
+    private function getExtendedUserInfo ($user) {
         // Override the Created date to just month and year
         $user->created_date = date("M Y", mktime($user->created_date));
 
@@ -47,8 +70,6 @@ class UserProfileController extends Controller
         $user->profile_image_small = env('APP_USR_IMG_LOC') . "/" . $imageName . $this->img_sm . $imageExt;
         $user->profile_image_medium =  env('APP_USR_IMG_LOC') . "/" . $imageName . $this->img_md . $imageExt;
         $user->profile_image_large =  env('APP_USR_IMG_LOC') . "/" . $imageName . $this->img_lg . $imageExt;
-
-        return view('user.profile' , compact('user','user_info'));
     }
 
     public function getUser ($user, $searchWith) {
@@ -80,7 +101,10 @@ class UserProfileController extends Controller
      */
     public function edit (User $id) {
         $user = $id;
+
         $user_info = $this->getUserInfo($user->id);
+        $this->getExtendedUserInfo($user);
+
         return view('user.profile-edit' , compact('user','user_info'));
     }
 
