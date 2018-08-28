@@ -1,24 +1,5 @@
 <?php
 
-### Available Method List YOU will Use To Log ###
-// function info( $item );   ### The actual call to write to the daily log -
-//                                  Use this for High Level tracking
-// function utilLog( $item );   ### Gives the logging ability for Commandline Utility Scripts/Programs;
-//                                  Not meant to be used from the Browser
-// function DumpArrayToLog()    ### It will print out the given array keys and values to a log.
-//                                  Just call the method with the array submitted
-// function LogInput();         ### Will dump any and all $_POST and/or $_GET values; there are a few custom checks in here,
-//                                  for instance, fields with CCnum will export a credit card number and only print the last 4 digits
-// function trace( $item );     ### This is a log function where you can go overboard and Add the trace function everywhere.
-//                                  When turned on, extensive logging will take place, so use this for testing and not everyday debugging.
-// SQLHistoryLog( $SqlScript ); ### This is just a separate log file for SQL transactions.
-//                                  Normally this is for INSERTS and UPDATES
-
-// function error ( $item, $logSessionInfo=FALSE );  ### Writes to a separate log file labeled ErrorLog;
-//                                                          All errors also write to the main info Log
-// function errorSessionLog();                          ### This is pretty much identical to the LogInput() method except it dumps to the Error log instead.
-//                                                             Meant for when errors occur.
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
