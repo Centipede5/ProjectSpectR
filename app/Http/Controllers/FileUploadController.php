@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 
 class FileUploadController extends Controller
 {
@@ -367,6 +368,15 @@ class FileUploadController extends Controller
             //imagepng($final_image, $output_filename.$type, $png_quality);
             imagejpeg($final_image, $output_filename.$type, $jpeg_quality);
             imagejpeg($final_image, $output_temp_filename.$type, $jpeg_quality);
+
+            if(Auth::user()->profile_image == "00-default-avatar.jpg"){
+                LogIt::debug("UPDATING THE DB RECORD");
+                $profileImage = Auth::user()->id . "-". substr(Auth::user()->uniqid, 2) . "-" . strtolower(env('APP_NAME')) . "-" . strtolower(Auth::user()->display_name) . "-" . "avatar.jpg";
+                $user = User::find(Auth::user()->id);
+                $user->profile_image = $profileImage;
+                $user->save();
+            }
+
             $response = Array(
                 "status" => 'success',
                 "url" => $output_temp_filename.$type
