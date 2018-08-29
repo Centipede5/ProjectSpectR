@@ -11,7 +11,12 @@ class LogIt extends Controller
      * Use info() for all general, permanent logging.
      */
     public static function info ($data) {
-        LogItController::getInstance()->info($data);
+        if(is_array($data)) {
+            LogItController::getInstance()->info( "[INFO] " . "Array Dump" );
+            LogItController::getInstance()->dumpArrayToLog($data);
+        } else {
+            LogItController::getInstance()->info("[INFO] " . $data);
+        }
     }
 
     /**
@@ -22,9 +27,18 @@ class LogIt extends Controller
     public static function debug ($data) {
         $bt = debug_backtrace();   //Using debug_backtrace() to get info about who called this method
         $caller = array_shift($bt);
-        // OUTPUT: [DEBUG] Message Here | FileName.php:373
-        $data = "[DEBUG] " . $data . " | " . basename($caller['file'] . ":" . $caller['line']);
-        LogItController::getInstance()->info($data);
+
+        if(is_array($data)) {
+            LogItController::getInstance()->info(
+                "[DEBUG] Array Dump" . " | " . basename($caller['file'] . ":" . $caller['line'])
+            );
+            LogItController::getInstance()->dumpArrayToLog($data);
+        } else {
+            // OUTPUT: [DEBUG] Message Here | FileName.php:373
+            LogItController::getInstance()->info(
+                "[DEBUG] " . $data . " | " . basename($caller['file'] . ":" . $caller['line'])
+            );
+        }
     }
 
     /**
@@ -35,20 +49,29 @@ class LogIt extends Controller
      */
     public static function trace ($data) {
         if( config('app.log_level') === "trace"){
-            $data = "[TRACE] " . $data;
-            LogItController::getInstance()->info($data);
+            if(is_array($data)) {
+                LogItController::getInstance()->info( "[TRACE] " . "Array Dump" );
+                LogItController::getInstance()->dumpArrayToLog($data);
+            } else {
+                LogItController::getInstance()->info("[TRACE] " . $data);
+            }
         }
     }
 
     /**
-     * @param $item
+     * @param $data
      * @param string $error_level
      * @param bool $logSessionInfo
      * Use error() for Error Logging. It will dump the $item into
      *      the error Log File as well as the info log file.
      */
-    public static function error ($item, $error_level="[WARN]", $logSessionInfo=FALSE) {
-        LogItController::getInstance()->error($item, $error_level, $logSessionInfo);
+    public static function error ($data, $error_level="WARN") {
+        if(is_array($data)) {
+            LogItController::getInstance()->error( "[" . $error_level . "] Array Dump");
+            LogItController::getInstance()->dumpErrorArrayToLog($data);
+        } else {
+            LogItController::getInstance()->error("[" . $error_level . "] " . $data);
+        }
     }
 
     /**
@@ -57,12 +80,14 @@ class LogIt extends Controller
      *      be an entry for updating their profile or creating a new post.
      */
     public static function userLog ($data) {
-        if(Auth::user()){
-            $userId = Auth::user()->id;
+        (Auth::user()) ? $userId = Auth::user()->id : $userId = null;
+
+        if(is_array($data)) {
+            LogItController::getInstance()->userLog("[USER] Array Dump ",$userId);
+            LogItController::getInstance()->dumpUserArrayToLog($data, $userId);
         } else {
-            $userId = null;
+            LogItController::getInstance()->userLog($data,$userId);
         }
-        LogItController::getInstance()->userLog($data,$userId);
     }
 
     /**
@@ -70,14 +95,11 @@ class LogIt extends Controller
      * The utilLog() is mainly used for CLI process scripts
      */
     public static function utilLog ($data) {
-        LogItController::getInstance()->utilLog($data);
-    }
-
-    /**
-     * @param $data
-     * DumpArrayToLog() is for logging arrays
-     */
-    public static function DumpArrayToLog ($data) {
-        LogItController::getInstance()->DumpArrayToLog($data);
+        if(is_array($data)) {
+            LogItController::getInstance()->utilLog("[UTIL] Array Dump");
+            LogItController::getInstance()->dumpUtilArrayToLog($data);
+        } else {
+            LogItController::getInstance()->utilLog($data);
+        }
     }
 }
