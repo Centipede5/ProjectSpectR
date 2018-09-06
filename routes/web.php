@@ -118,7 +118,7 @@ Route::get('/soon', function () {
     return view('coming-soon');
 });
 
-Route::get('/u/{user}', 'UserProfileController@index')->name('user-profile');
+//Route::get('/u/{user}', 'UserProfileController@index')->name('user-profile');
 
 /* SUPER ADMIN */
 Route::get('/super-admin', 'SuperAdminController@index')
@@ -127,3 +127,5 @@ Route::get('/super-admin', 'SuperAdminController@index')
 Route::get('/super-admin/manage-roles', 'SuperAdminController@manageRoles')
     ->name('super_admin')
     ->middleware('auth');
+
+Route::get('/{user}', 'UserProfileController@index')->name('user-profile2');
