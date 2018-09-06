@@ -3,7 +3,7 @@
   font-size: 11px;
   font-weight: 400;
   padding: 8px 12px;
-  border-radius: 30px;
+  border-radius: .25rem;
   color: #fff;
 }
 .badge-primary {
@@ -28,12 +28,30 @@
     background-color: lighten($color-playstation, 3%);
   }
 }
+
+.bottom-border-ps4 {
+  border-bottom: solid $color-playstation-secondary;
+}
+
 .badge-success {
   background-color: $badge-success-bg;
 }
+
 .badge-xbox-one,
 .badge-xbox {
   background-color: $color-xbox;
+}
+
+.bottom-border-xbox {
+  border-bottom: solid $color-xbox-secondary;
+}
+
+.badge-nintendo {
+  background-color: $color-nintendo;
+}
+
+.bottom-border-nintendo {
+  border-bottom: solid $color-nintendo-secondary
 }
 
 .badge-warning {

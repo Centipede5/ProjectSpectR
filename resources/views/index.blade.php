@@ -27,103 +27,103 @@
     <div class="container">
       <div class="heading">
         <i class="fab fa-steam-symbol"></i>
-        <h2>Recent Games</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <h2>Upcoming Games</h2>
+        <p>Check Out the Hottest Games that are Coming Soon!</p>
       </div>
       <div class="row">
         <div class="col-12 col-sm-6 col-md-4">
           <div class="card card-lg">
-            <div class="card-img">
-              <a href="game-post.html"><img src="img/game/game-1.jpg" class="card-img-top" alt="Assassin's Creed Syndicate"></a>
-              <div class="badge badge-warning">pc</div>
+            <div class="card-img bottom-border-ps4">
+              <a href="game-post.html"><img src="/img/game/spider-man-2018.jpg" class="card-img-top" alt="Marvel's Spider-Man"></a>
+              <div class="badge badge-ps4">ps4</div>
               <div class="card-likes">
                 <a href="#">15</a>
               </div>
             </div>
             <div class="card-block">
-              <h4 class="card-title"><a href="game-post.html">Assassin's Creed Syndicate</a></h4>
-              <div class="card-meta"><span>June 13, 2017</span></div>
-              <p class="card-text">Defeating the corrupt tyrants entrenched there will require not only strength, but leadership.</p>
+              <h4 class="card-title"><a href="game-post.html">Marvel's Spider-Man</a></h4>
+              <div class="card-meta"><span>September 7, 2018</span></div>
+              <p class="card-text">When a new villain threatens New York City, Peter Parker and Spider-Man’s worlds collide. To save the city and those he loves, he must rise up and be greater.</p>
             </div>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-md-4">
           <div class="card card-lg">
-            <div class="card-img">
-              <a href="game-post.html"><img src="img/game/game-2.jpg" class="card-img-top" alt="Rise of the Tomb Raider"></a>
+            <div class="card-img bottom-border-xbox">
+              <a href="game-post.html"><img src="img/game/shadow-of-the-tomb-raider-2018.jpg" class="card-img-top" alt="Shadow of the Tomb Raider"></a>
               <div class="badge badge-xbox-one">Xbox One</div>
               <div class="card-likes">
                 <a href="#">87</a>
               </div>
             </div>
             <div class="card-block">
-              <h4 class="card-title"><a href="game-post.html">Rise of the Tomb Raider</a></h4>
-              <div class="card-meta"><span>November 10, 2015</span></div>
-              <p class="card-text">Tomb Raider, Lara becomes more than a survivor as she embarks on her first great.</p>
+              <h4 class="card-title"><a href="game-post.html">Shadow of the Tomb Raider</a></h4>
+              <div class="card-meta"><span>September 14, 2018</span></div>
+              <p class="card-text">Experience Lara Croft’s defining moment as she becomes the Tomb Raider. Lara must master a deadly jungle and persevere through her darkest hour.</p>
             </div>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-md-4">
           <div class="card card-lg">
-            <div class="card-img">
-              <a href="game-post.html"><img src="img/game/game-3.jpg" class="card-img-top" alt="The Witcher 3: Wild Hunt"></a>
+            <div class="card-img bottom-border-ps4">
+              <a href="game-post.html"><img src="img/game/mega-man-11-2018.png" class="card-img-top" alt="Mega Man 11"></a>
               <div class="badge badge-ps4">ps4</div>
               <div class="card-likes">
                 <a href="#">23</a>
               </div>
             </div>
             <div class="card-block">
-              <h4 class="card-title"><a href="game-post.html">The Witcher 3: Wild Hunt</a></h4>
-              <div class="card-meta"><span>March 15, 2017</span></div>
-              <p class="card-text">The world is in chaos. The air is thick with tension and the smoke of burnt villages.</p>
+              <h4 class="card-title"><a href="game-post.html">Mega Man 11</a></h4>
+              <div class="card-meta"><span>Oct 02, 2018</span></div>
+              <p class="card-text">The Blue Bomber is Back! The newest entry in this iconic series blends classic, challenging 2D platforming action with a fresh look.</p>
             </div>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-md-4">
           <div class="card card-lg">
-            <div class="card-img">
-              <a href="game-post.html"><img src="img/game/game-4.jpg" class="card-img-top" alt="Grand Theft Auto V"></a>
-              <div class="badge badge-steam">Steam</div>
+            <div class="card-img bottom-border-nintendo">
+              <a href="game-post.html"><img src="img/game/super-mario-party-2018.jpg" class="card-img-top" alt="Super Mario Party"></a>
+              <div class="badge badge-nintendo">Switch</div>
               <div class="card-likes">
                 <a href="#">19</a>
               </div>
             </div>
             <div class="card-block">
-              <h4 class="card-title"><a href="game-post.html">Grand Theft Auto V</a></h4>
-              <div class="card-meta"><span>February 2, 2017</span></div>
-              <p class="card-text">Trouble taps on your window again with this next chapter in the Grand Theft Auto universe.</p>
+              <h4 class="card-title"><a href="game-post.html">Super Mario Party</a></h4>
+              <div class="card-meta"><span>October 05, 2018</span></div>
+              <p class="card-text">The Mario Party series is coming to the Nintendo Switch system with super-charged fun for everyone! The original board game style has been kicked up a notch with deeper strategic elements.</p>
             </div>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-md-4">
           <div class="card card-lg">
-            <div class="card-img">
-              <a href="game-post.html"><img src="img/game/game-5.jpg" class="card-img-top" alt="Deadpool The Game"></a>
+            <div class="card-img bottom-border-ps4">
+              <a href="game-post.html"><img src="img/game/black-ops-4-2018.png" class="card-img-top" alt="COD: Black Ops 4"></a>
               <div class="badge badge-ps4">Ps4</div>
               <div class="card-likes">
                 <a href="#">36</a>
               </div>
             </div>
             <div class="card-block">
-              <h4 class="card-title"><a href="game-post.html">Deadpool The Game</a></h4>
-              <div class="card-meta"><span>Unknown Release Date</span></div>
-              <p class="card-text">There are a few important things I need to say before you crack into my insanely sweet game.</p>
+              <h4 class="card-title"><a href="game-post.html">COD: Black Ops 4</a></h4>
+              <div class="card-meta"><span>October 12, 2018</span></div>
+              <p class="card-text">Black Ops is back!<br />Featuring gritty, grounded, fluid Multiplayer combat, the biggest Zombies offering ever with three full undead adventures at launch, and Blackout.</p>
             </div>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-md-4">
           <div class="card card-lg">
-            <div class="card-img">
-              <a href="game-post.html"><img src="img/game/game-6.jpg" class="card-img-top" alt="Grand Theft Auto Online"></a>
+            <div class="card-img bottom-border-xbox">
+              <a href="game-post.html"><img src="/img/game/soulcalibur-6-2018.jpg" class="card-img-top" alt="Soulcalibur 6"></a>
               <div class="badge badge-xbox-one">Xbox One</div>
               <div class="card-likes">
                 <a href="#">73</a>
               </div>
             </div>
             <div class="card-block">
-              <h4 class="card-title"><a href="game-post.html">Grand Theft Auto Online</a></h4>
-              <div class="card-meta"><span>January 16, 2017</span></div>
-              <p class="card-text">Grand Theft Auto Online is designed to continually expand and evolve over time.</p>
+              <h4 class="card-title"><a href="game-post.html">Soulcalibur 6</a></h4>
+              <div class="card-meta"><span>October 19, 2017</span></div>
+              <p class="card-text">SOULCALIBUR VI represents the latest entry in the premier weapons-based, head-to-head fighting series and continues the epic struggle of warriors searching for the legendary Soul Swords.</p>
             </div>
           </div>
         </div>

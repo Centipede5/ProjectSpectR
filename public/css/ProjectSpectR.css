@@ -4234,7 +4234,7 @@ input[type="file"] {
   font-size: 11px;
   font-weight: 400;
   padding: 8px 12px;
-  border-radius: 30px;
+  border-radius: .25rem;
   color: #fff;
 }
 
@@ -4266,6 +4266,10 @@ input[type="file"] {
   background-color: #003da0;
 }
 
+.bottom-border-ps4 {
+  border-bottom: solid #00a2ff;
+}
+
 .badge-success {
   background-color: #0E9A49;
 }
@@ -4273,6 +4277,18 @@ input[type="file"] {
 .badge-xbox-one,
 .badge-xbox {
   background-color: #107C10;
+}
+
+.bottom-border-xbox {
+  border-bottom: solid #5dc21e;
+}
+
+.badge-nintendo {
+  background-color: #E60012;
+}
+
+.bottom-border-nintendo {
+  border-bottom: solid #CE181E;
 }
 
 .badge-warning {
