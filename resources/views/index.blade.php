@@ -142,42 +142,42 @@
       <div class="owl-carousel owl-list">
         <div class="card card-review">
           <a class="card-img" href="review-post.html">
-          <img src="img/review/review-1.jpg" alt="">
-          <div class="badge badge-success">7.2</div>
+          <img src="/img/game/marvels-spider-man-portrait.png" alt="">
+          <div class="badge badge-ps4">8.7</div>
         </a>
           <div class="card-block">
-            <h4 class="card-title"><a href="review-post.html">Uncharted 4</a></h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h4 class="card-title"><a href="review-post.html">Spider-Man</a></h4>
+            <p>A spectacular adventure.</p>
           </div>
         </div>
         <div class="card card-review">
           <a class="card-img" href="review-post.html">
-          <img src="img/review/review-2.jpg" alt="">
-          <div class="badge badge-warning">5.4</div>
+          <img src="/img/game/octopath-traveler-2018-portrait.png" alt="">
+          <div class="badge badge-nintendo">9.3</div>
         </a>
           <div class="card-block">
-            <h4 class="card-title"><a href="review-post.html">Hitman: Absolution</a></h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h4 class="card-title"><a href="review-post.html">Octopath Traveler</a></h4>
+            <p>Whichever path you travel, this JRPG holds beauty and excellent combat in store.</p>
           </div>
         </div>
         <div class="card card-review">
           <a class="card-img" href="review-post.html">
-          <img src="img/review/review-3.jpg" alt="">
-          <div class="badge badge-danger">2.1</div>
+          <img src="/img/game/divinity-original-sin-2-definitive-edition-portrait.png" alt="">
+          <div class="badge badge-xbox-one">9.6</div>
         </a>
           <div class="card-block">
-            <h4 class="card-title"><a href="review-post.html">Last of us: Remastered</a></h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h4 class="card-title"><a href="review-post.html">Divinity: Original Sin 2 Definitive Edition</a></h4>
+            <p>This brand new Divinity: Original Sin 2 package shows Larian Studios know how to polish a diamond.</p>
           </div>
         </div>
         <div class="card card-review">
           <a class="card-img" href="review-post.html">
-          <img src="img/review/review-4.jpg" alt="">
-          <div class="badge badge-success">7.8</div>
+          <img src="/img/game/donut-county-2018-portrait.png" alt="">
+          <div class="badge badge-pc">7.8</div>
         </a>
           <div class="card-block">
-            <h4 class="card-title"><a href="review-post.html">Bioshock: Infinite</a></h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h4 class="card-title"><a href="review-post.html">Donut County</a></h4>
+            <p>Drop it like it’s hot.</p>
           </div>
         </div>
         <div class="card card-review">

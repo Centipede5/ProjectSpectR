@@ -24,43 +24,43 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img src="/img/menu/menu-1.jpg" alt="Last of Us: Part 2"></a>
+                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/spider-man-2018.jpg" alt="Last of Us: Part 2"></a>
                                                     <span class="badge badge-ps4">PS4</span>
                                                 </div>
-                                                <h4><a href="game-post.html">Grand Theft Auto V</a></h4>
-                                                <span>Jun 29, 2019</span>
+                                                <h4><a href="game-post.html">Spider-Man</a></h4>
+                                                <span>Sept 7, 2018</span>
                                             </div>
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img src="/img/menu/menu-2.jpg" alt="Injustice 2"></a>
-                                                    <span class="badge badge-steam">Steam</span>
+                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/super-mario-party-2018.jpg" alt="Injustice 2"></a>
+                                                    <span class="badge badge-nintendo">Nintendo</span>
                                                 </div>
-                                                <h4><a href="game-post.html">Injustice 2</a></h4>
-                                                <span>June 10, 2017</span>
+                                                <h4><a href="game-post.html">Super Mario Party</a></h4>
+                                                <span>Oct 05, 2017</span>
                                             </div>
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img src="/img/menu/menu-3.jpg" alt="Bioshock: Infinite"></a>
+                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/black-ops-4-2018.png" alt="Bioshock: Infinite"></a>
                                                     <span class="badge badge-xbox-one">Xbox One</span>
                                                 </div>
-                                                <h4><a href="game-post.html">Bioshock: Infinite</a></h4>
-                                                <span>May 16, 2017</span>
+                                                <h4><a href="game-post.html">Black Ops 4</a></h4>
+                                                <span>Oct 12, 2018</span>
                                             </div>
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img src="/img/menu/menu-4.jpg" alt="Batman: Arkham Knight"></a>
+                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/mega-man-11-2018.png" alt="Batman: Arkham Knight"></a>
                                                     <span class="badge badge-ps4">PS4</span>
                                                 </div>
-                                                <h4><a href="game-post.html">Batman: Arkham Knight</a></h4>
-                                                <span>May 10, 2017</span>
+                                                <h4><a href="game-post.html">Mega Man 11</a></h4>
+                                                <span>Oct 02, 2018</span>
                                             </div>
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img src="/img/menu/menu-5.jpg" alt="Bioshock: Infinite"></a>
+                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/shadow-of-the-tomb-raider-2018.jpg" alt="Bioshock: Infinite"></a>
                                                     <span class="badge badge-pc">PC</span>
                                                 </div>
-                                                <h4><a href="game-post.html">Hitman Absolution</a></h4>
-                                                <span>May 10, 2017</span>
+                                                <h4><a href="game-post.html">Shadow of the Tomb Raider</a></h4>
+                                                <span>Sept 14, 2018</span>
                                             </div>
                                         </div>
                                     </div>
@@ -234,7 +234,7 @@
                     <li class="dropdown dropdown-profile">
                         <a data-toggle="dropdown"><img id="avatar-image-mini" name="profile-image-mini" src="{{ env('APP_USR_IMG_LOC') }}/{{ substr(Auth::user()->profile_image,0,-4) . "-90x90" . substr(Auth::user()->profile_image,-4) }}" alt=""> <span>{{ Auth::user()->display_name }}</span></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item active"  href="/u/{{ Auth::user()->display_name }}"><i class="fas fa-user"></i> Profile</a>
+                            <a class="dropdown-item active"  href="/{{ Auth::user()->display_name }}"><i class="fas fa-user"></i> Profile</a>
                             <a class="dropdown-item" href="#"><i class="fas fa-envelope-open"></i> <del>Inbox</del></a>
                             <a class="dropdown-item" href="#"><i class="fas fa-heart"></i> <del>Games</del></a>
                             <a href="{{ route('list_drafts') }}" class="dropdown-item"><i class="fas fa-cog"></i> Drafts</a>

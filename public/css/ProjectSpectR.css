@@ -28,6 +28,13 @@ input:focus {
   font-family: "Ubuntu", sans-serif;
 }
 
+.nav-img {
+  width: 212px;
+  height: 160px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
@@ -4233,8 +4240,8 @@ input[type="file"] {
   text-transform: uppercase;
   font-size: 11px;
   font-weight: 400;
-  padding: 8px 12px;
-  border-radius: .25rem;
+  padding: 4px 12px;
+  border-radius: 0;
   color: #fff;
 }
 
@@ -4813,7 +4820,7 @@ input[type="file"] {
   margin-right: 10px;
   position: absolute;
   bottom: 20px;
-  left: 30px;
+  left: 0px;
 }
 
 .card .card-img .card-likes {
@@ -10500,6 +10507,13 @@ figure {
   .toolbar.toolbar-profile ul.toolbar-nav {
     padding-left: 0;
     float: none;
+  }
+
+  .nav-img {
+    width: 100%;
+    height: auto;
+    -o-object-fit: fill;
+       object-fit: fill;
   }
 }
 
