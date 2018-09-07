@@ -432,8 +432,8 @@ class DemoUsersSeeder extends Seeder
             'email' => 'crim@this.com',
             'password' => bcrypt('Avi123?'),
             'uniqid' => '..5b5f1716e82ce47',
-            'profile_image' => '47-5b5f1716e82ce47-22-projectspectr-crimsonviper-avatar.png',
-            'background_image' => '47-5b5f1716e82ce47-22-projectspectr-crimsonviper-canopy.png'
+            'profile_image' => '47-5b5f1716e82ce47-projectspectr-crimsonviper-avatar.png',
+            'background_image' => '47-5b5f1716e82ce47-projectspectr-crimsonviper-canopy.png'
         ]);
     }
 }
