@@ -98,16 +98,16 @@ class LogItController extends Controller
     }
 
     ### userLog() creates a daily log for each user
-    public function userLog( $item, $userId ) {
-        if($userId != null){
-            $userLogDir = USER_LOG_PATH."/".$userId;
+    public function userLog( $item, $user ) {
+        if($user != null){
+            $userLogDir = USER_LOG_PATH."/".$user;
         } else {
             $userLogDir = USER_LOG_PATH;
         }
 
         // Make Log Directory
-        if ($userId != null && file_exists(USER_LOG_PATH."/".$userId) == FALSE) {
-            mkdir(USER_LOG_PATH."/".$userId, 0700, TRUE);
+        if ($user != null && file_exists(USER_LOG_PATH."/".$user) == FALSE) {
+            mkdir(USER_LOG_PATH."/".$user, 0700, TRUE);
         }
 
         // In the case that you might be running localhost, REMOTE_ADDR returns ::1 and causes issues
@@ -136,9 +136,9 @@ class LogItController extends Controller
     }
 
     ### dumpArrayToLog() will do just as it says. It will print out the array keys and values to a log. Just call the method with the array submitted
-    public function dumpUserArrayToLog( $dump_array, $userId ) {
+    public function dumpUserArrayToLog( $dump_array, $user ) {
         foreach ( $dump_array as $key => $value ) {
-            $this->userLog( "   " . $key . " " . "=" . " " . $value, $userId );
+            $this->userLog( "   " . $key . " " . "=" . " " . $value, $user );
         }
     }
 

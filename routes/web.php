@@ -39,10 +39,12 @@ Route::get('/slider', 'SliderController@getSlider');
 
 Route::post('/ajax/{data}', 'HomeController@ajaxTest');
 
-Route::post('/profileImageUpload', 'FileUploadController@profileImageUpload');
-
-Route::post('/profileImageCrop', 'FileUploadController@profileImageCrop');
 // End testing
+
+/* TEMP */
+Route::get('/soon', function () {
+    return view('coming-soon');
+});
 
 //Route::get('/demo', 'PostController@index');
 Route::get('/demo/posts', 'PostController@index')->name('list_posts');
@@ -114,11 +116,9 @@ Route::prefix('profile')->group(
 
 Route::get('/registration/{email}/{uniqid}', 'Auth\RegisterEmailController@validateEmail')->name('email-registration');
 
-Route::get('/soon', function () {
-    return view('coming-soon');
-});
-
-//Route::get('/u/{user}', 'UserProfileController@index')->name('user-profile');
+/* Utilities */
+Route::post('/util/profileImageUpload', 'FileUploadController@profileImageUpload');
+Route::post('/util/profileImageCrop', 'FileUploadController@profileImageCrop');
 
 /* SUPER ADMIN */
 Route::get('/super-admin', 'SuperAdminController@index')
@@ -128,4 +128,5 @@ Route::get('/super-admin/manage-roles', 'SuperAdminController@manageRoles')
     ->name('super_admin')
     ->middleware('auth');
 
-Route::get('/{user}', 'UserProfileController@index')->name('user-profile2');
+/* USER ROUTES */
+Route::get('/{user}', 'UserProfileController@index')->name('user-profile');

@@ -80,13 +80,16 @@ class LogIt extends Controller
      *      be an entry for updating their profile or creating a new post.
      */
     public static function userLog ($data) {
-        (Auth::user()) ? $userId = Auth::user()->id : $userId = null;
+        $bt = debug_backtrace();   //Using debug_backtrace() to get info about who called this method
+        $caller = array_shift($bt);
+
+        (Auth::user()) ? $user = Auth::user()->id . "-" . Auth::user()->display_name : $user = null;
 
         if(is_array($data)) {
-            LogItController::getInstance()->userLog("[USER] Array Dump ",$userId);
-            LogItController::getInstance()->dumpUserArrayToLog($data, $userId);
+            LogItController::getInstance()->userLog("[USER] Array Dump ",$user);
+            LogItController::getInstance()->dumpUserArrayToLog($data, $user);
         } else {
-            LogItController::getInstance()->userLog($data,$userId);
+            LogItController::getInstance()->userLog($data,$user);
         }
     }
 
