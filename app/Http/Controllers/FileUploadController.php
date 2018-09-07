@@ -216,7 +216,6 @@ class FileUploadController extends Controller
     }
 
     public function profileImageCrop () {
-
         // 90 = .51
         // 126 = .70
         // 400 = 2.25

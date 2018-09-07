@@ -73,7 +73,7 @@ class UserProfileController extends Controller
     }
 
     public function getUser ($user, $searchWith) {
-        return User::where($searchWith, $user)->first();
+        return User::where($searchWith, 'like', '%' . $user . '%')->first();
     }
 
     private function getUserInfo ($userid) {

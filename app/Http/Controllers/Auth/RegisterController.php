@@ -74,8 +74,8 @@ class RegisterController extends Controller
             'email'             => $data['email'],
             'password'          => bcrypt($data['password']),
             'uniqid'            => uniqid("..") . mt_rand(100, 999),
-            'profile_image'     => "00-default-profile.jpg",
-            'background_image'  => "00-default-background.jpg",
+            'profile_image'     => "00-default-avatar.jpg",
+            'background_image'  => "00-default-canopy.jpg",
         ]);
 
         $user->roles()->attach(1);
