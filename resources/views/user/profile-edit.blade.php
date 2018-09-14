@@ -195,8 +195,8 @@
     <script src="/plugins/cropper/cropper.js"></script>
     <script>
         var cropperContainerOptions = {
-            uploadUrl:'/profileImageUpload',
-            cropUrl:'/profileImageCrop',
+            uploadUrl:'/util/profileImageUpload',
+            cropUrl:'/util/profileImageCrop',
             imgEyecandy:false,
             doubleZoomControls:false,
             rotateControls: false,
@@ -210,7 +210,6 @@
             onReset:function(){ console.log('onReset') },
             onError:function(errormessage){ console.log('onError:'+errormessage) }
         };
-
         new Cropper('cropperContainer', cropperContainerOptions);
     </script>
 @endsection

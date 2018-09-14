@@ -328,44 +328,6 @@
             </div>
           </div>
 
-          <!-- post -->
-          <div class="post post-card post-profile">
-            <div class="post-header">
-              <div>
-                <a href="profile.html">
-                  <img src="/img/user/avatar-sm.jpg" alt="">
-                </a>
-              </div>
-              <div>
-                <h2 class="post-title">
-                  <a href="profile.html">Nathan Drake</a>
-                </h2>
-                <div class="post-meta">
-                  <span><i class="fa fa-clock-o"></i> June 09, 2017</span>
-                  <span><a href="#"><i class="fa fa-comment-o"></i> 5 comments</a></span>
-                  <span><a href="#"><i class="fa fa-heart-o"></i> 6 likes</a></span>
-                </div>
-                <div class="dropdown float-right">
-                  <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-chevron-down"></i></a>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Moderate</a>
-                    <a class="dropdown-item" href="#">Embed</a>
-                    <a class="dropdown-item" href="#">Report</a>
-                    <a class="dropdown-item" href="#">Mark as spam</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at faucibus erat.</p>
-            <div class="post-thumbnail">
-              <img src="https://maps.googleapis.com/maps/api/staticmap?size=640x150&zoom=13&scale=2&maptype=roadmap&markers=size:mid%7Ccolor:red%7CSan+Francisco,CA&key=AIzaSyCFHwOU3OoTBLDkppUsfRJLWYYq8kdCm28">
-            </div>
-            <div class="post-footer">
-              <a href="#"><i class="fa fa-reply"></i> 3 shares</a>
-              <a href="#"><i class="fa fa-comment-o"></i> 3 comments</a>
-              <a href="#"><i class="fa fa-heart-o"></i> 6 likes</a>
-            </div>
-          </div>
 
           <div class="text-center"><a href="games.html" class="btn btn-primary btn-shadow btn-rounded btn-effect btn-lg m-b-20">Show More</a></div>
         </div>

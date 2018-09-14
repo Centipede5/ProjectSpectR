@@ -100,12 +100,20 @@ class UserProfileController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit (User $id) {
+        LogIt::userLog("Editing Profile");
         $user = $id;
 
         $user_info = $this->getUserInfo($user->id);
         $this->getExtendedUserInfo($user);
 
         return view('user.profile-edit' , compact('user','user_info'));
+    }
+
+    public function update (User $id) {
+        LogIt::userLog("Updating Profile");
+        $user = $id;
+
+        return;
     }
 
     /**
