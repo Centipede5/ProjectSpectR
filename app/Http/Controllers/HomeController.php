@@ -4,15 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\FirePHPHandler;
-use Log;
-
-use FormLoggerPlus\Log2File;
-use App\Http\Controllers\SliderController;
-
 class HomeController extends Controller
 {
     /**
@@ -36,7 +27,9 @@ class HomeController extends Controller
        $slides = new SliderController();
        $slides = $slides->getSlider('home-page');
 
-       return view('index', compact('slides'));
+       $games = new GameController();
+       $games = $games->getGames('home-recent');
+       return view('index', compact('slides','games'));
     }
 
     public function future()
