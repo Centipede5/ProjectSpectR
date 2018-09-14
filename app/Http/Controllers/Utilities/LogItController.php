@@ -114,7 +114,7 @@ class LogItController extends Controller
         $ip_address = (!isset($_SERVER['REMOTE_ADDR']) || $_SERVER['REMOTE_ADDR'] == '::1') ? "127.0.0.1" : $_SERVER['REMOTE_ADDR'];
 
         // The Collect All history log. Every log call will be written to this file
-        $filePathGen  = sprintf("%s/%s_%s.txt", $userLogDir, $ip_address, date("ymd") );   // File Name Example: 127.0.0.1_140919.txt
+        $filePathGen  = sprintf("%s/%s_%s.txt", $userLogDir, date("ymd"), $ip_address );   // File Name Example: 127.0.0.1_140919.txt
 
         $file_res = fopen($filePathGen, "a");
         fwrite($file_res, sprintf("%s %s\r\n", date("H:i:s"), $item));   // 11:42:34 This is an item to log
