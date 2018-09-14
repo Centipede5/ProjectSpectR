@@ -13,7 +13,6 @@ class ImageProcessController extends Controller
      * Refactored and Reviewed: 09/07/2018 (bp)
      */
     public function profileImageUpload () {
-        LogIt::info("============== VALIDATION STARTING ==============");
         LogIt::trace($_FILES["img"]);
 
         # Validation Checks
@@ -118,7 +117,7 @@ class ImageProcessController extends Controller
         }
 
         LogIt::trace("PASSED: Directory Path Writable");
-        LogIt::info("=============== VALIDATION PASSED ===============");
+        LogIt::info("=========== IMAGE VALIDATION PASSED ===========");
 
         /*
          * The Uploaded file has been validated and is CLEARED for processing
@@ -172,33 +171,25 @@ class ImageProcessController extends Controller
         // 126 = .70
         // 400 = 2.25
 
-        //
+        // Where the temp image is located
         $imgUrl = $_POST['imgUrl'];
-
-        // original sizes
-        $imgInitW = $_POST['imgInitW'];
-        $imgInitH = $_POST['imgInitH'];
+        //$imgUrl = "public/temp/48-avatar.jpg";
 
         // rotation angle
         $angle = $_POST['rotation'];
 
         $jpeg_quality = 100;
-
         $output_temp_filename = "uploads/temp_" . Auth::user()->id."-".rand(100,999);
-
         $imgType = getimagesize($imgUrl);
 
         switch(strtolower($imgType['mime']))
         {
             case 'image/png':
-                $img_r = imagecreatefrompng($imgUrl);
                 $source_image = imagecreatefrompng($imgUrl);
                 $type = '.png';
                 break;
             case 'image/jpeg':
-                $img_r = imagecreatefromjpeg($imgUrl);
                 $source_image = imagecreatefromjpeg($imgUrl);
-                error_log("jpg");
                 $type = '.jpg';
                 break;
 //            case 'image/gif':
@@ -218,77 +209,42 @@ class ImageProcessController extends Controller
             LogIt::userLog("Error: Can`t write cropped File");
         }else{
 
-            ## Create 90x90
-            // resized sizes
-            $imgW = $_POST['imgW']*.51;
-            $imgH = $_POST['imgH']*.51;
-            // offsets
-            $imgY1 = $_POST['imgY1'] * .51;
-            $imgX1 = $_POST['imgX1'] * .51;
-            // crop box
-            $cropW = $_POST['cropW'] * .51;
-            $cropH = $_POST['cropH'] * .51;
-            $output_filename = "uploads/" . Auth::user()->id . "-". substr(Auth::user()->uniqid, 2) . "-" . strtolower(env('APP_NAME')) . "-" . strtolower(Auth::user()->display_name) . "-" . "avatar-90x90";
-            // resize the original image to size of editor
-            $resizedImage = imagecreatetruecolor($imgW, $imgH);
-            imagecopyresampled($resizedImage, $source_image, 0, 0, 0, 0, $imgW, $imgH, $imgInitW, $imgInitH);
-            // rotate the rezized image
-            $rotated_image = imagerotate($resizedImage, -$angle, 0);
-            // find new width & height of rotated image
-            $rotated_width = imagesx($rotated_image);
-            $rotated_height = imagesy($rotated_image);
-            // diff between rotated & original sizes
-            $dx = $rotated_width - $imgW;
-            $dy = $rotated_height - $imgH;
-            // crop rotated image to fit into original rezized rectangle
-            $cropped_rotated_image = imagecreatetruecolor($imgW, $imgH);
-            imagecolortransparent($cropped_rotated_image, imagecolorallocate($cropped_rotated_image, 0, 0, 0));
-            imagecopyresampled($cropped_rotated_image, $rotated_image, 0, 0, $dx / 2, $dy / 2, $imgW, $imgH, $imgW, $imgH);
-            // crop image into selected area
-            $final_image = imagecreatetruecolor($cropW, $cropH);
-            imagecolortransparent($final_image, imagecolorallocate($final_image, 0, 0, 0));
-            imagecopyresampled($final_image, $cropped_rotated_image, 0, 0, $imgX1, $imgY1, $cropW, $cropH, $cropW, $cropH);
-            // finally output png image
-            //imagepng($final_image, $output_filename.$type, $png_quality);
-            imagejpeg($final_image, $output_filename.$type, $jpeg_quality);
+            // TODO: Need to change this to renaming the old files and only remove them after the new images have been made. Works for now.
+            ## Clear out any user files that the user has created.
+            #        Users may have different file types that might
+            #        get left in the folder.
+            $mask = "uploads/" . Auth::user()->id . "*avatar*.*";
+            array_map('unlink', glob($mask));
 
-            ## Create 126x126
-            // resized sizes
-            $imgW = $_POST['imgW']*.71;
-            $imgH = $_POST['imgH']*.71;
-            // offsets
-            $imgY1 = $_POST['imgY1'] * .71;
-            $imgX1 = $_POST['imgX1'] * .71;
-            // crop box
-            $cropW = $_POST['cropW'] * .71;
-            $cropH = $_POST['cropH'] * .71;
-            $output_filename = "uploads/" . Auth::user()->id . "-". substr(Auth::user()->uniqid, 2) . "-" . strtolower(env('APP_NAME')) . "-" . strtolower(Auth::user()->display_name) . "-" . "avatar-126x126";
-            // resize the original image to size of editor
-            $resizedImage = imagecreatetruecolor($imgW, $imgH);
-            imagecopyresampled($resizedImage, $source_image, 0, 0, 0, 0, $imgW, $imgH, $imgInitW, $imgInitH);
-            // rotate the rezized image
-            $rotated_image = imagerotate($resizedImage, -$angle, 0);
-            // find new width & height of rotated image
-            $rotated_width = imagesx($rotated_image);
-            $rotated_height = imagesy($rotated_image);
-            // diff between rotated & original sizes
-            $dx = $rotated_width - $imgW;
-            $dy = $rotated_height - $imgH;
-            // crop rotated image to fit into original rezized rectangle
-            $cropped_rotated_image = imagecreatetruecolor($imgW, $imgH);
-            imagecolortransparent($cropped_rotated_image, imagecolorallocate($cropped_rotated_image, 0, 0, 0));
-            imagecopyresampled($cropped_rotated_image, $rotated_image, 0, 0, $dx / 2, $dy / 2, $imgW, $imgH, $imgW, $imgH);
-            // crop image into selected area
-            $final_image = imagecreatetruecolor($cropW, $cropH);
-            imagecolortransparent($final_image, imagecolorallocate($final_image, 0, 0, 0));
-            imagecopyresampled($final_image, $cropped_rotated_image, 0, 0, $imgX1, $imgY1, $cropW, $cropH, $cropW, $cropH);
-            // finally output png image
-            //imagepng($final_image, $output_filename.$type, $png_quality);
-            imagejpeg($final_image, $output_filename.$type, $jpeg_quality);
+            LogIt::trace("PASSED: CLEARING OLD FILES");
 
-            ## Create 400x400
-            $output_filename = "uploads/" . Auth::user()->id . "-". substr(Auth::user()->uniqid, 2) . "-" . strtolower(env('APP_NAME')) . "-" . strtolower(Auth::user()->display_name) . "-" . "avatar-400x400";
-            // resized sizes
+            // original sizes
+            $imgInitW = $_POST['imgInitW'];
+            $imgInitH = $_POST['imgInitH'];
+
+            ##########################################
+            # Resize Original and Use for Profile Link
+            if($imgInitH>=$imgInitW){
+                $newImgW=400;
+                $newImgH=round(($imgInitH * 400) / $imgInitW);
+            } else {
+                $newImgH=400;
+                $newImgW=round(($imgInitW * 400) / $imgInitH);
+            }
+
+            $profileImage = Auth::user()->id . "-". substr(Auth::user()->uniqid, 2) . "-" . strtolower(env('APP_NAME')) . "-" . strtolower(Auth::user()->display_name) . "-" . "avatar".$type;
+            $output_filename = "uploads/" . $profileImage;
+            $resizedImage = imagecreatetruecolor($newImgW, $newImgH);
+            imagecopyresampled($resizedImage, $source_image, 0, 0, 0, 0, $newImgW, $newImgH, $imgInitW, $imgInitH);
+            if($type==".jpg"){
+                imagejpeg($resizedImage, $output_filename, 100);
+            } else if ($type==".png"){
+                imagepng($resizedImage, $output_filename, 9);
+            }
+
+            // TODO: Refactor this into an array loop
+            ############
+            ## 400 x 400
             $imgW = $_POST['imgW']*2.25;
             $imgH = $_POST['imgH']*2.25;
             // offsets
@@ -298,33 +254,67 @@ class ImageProcessController extends Controller
             $cropW = $_POST['cropW'] * 2.25;
             $cropH = $_POST['cropH'] * 2.25;
 
-            // resize the original image to size of editor
+            $output_filename = "uploads/" . Auth::user()->id . "-". substr(Auth::user()->uniqid, 2) . "-" . strtolower(env('APP_NAME')) . "-" . strtolower(Auth::user()->display_name) . "-" . "avatar-400x400".$type;
+
             $resizedImage = imagecreatetruecolor($imgW, $imgH);
             imagecopyresampled($resizedImage, $source_image, 0, 0, 0, 0, $imgW, $imgH, $imgInitW, $imgInitH);
-            // rotate the rezized image
-            $rotated_image = imagerotate($resizedImage, -$angle, 0);
-            // find new width & height of rotated image
-            $rotated_width = imagesx($rotated_image);
-            $rotated_height = imagesy($rotated_image);
-            // diff between rotated & original sizes
-            $dx = $rotated_width - $imgW;
-            $dy = $rotated_height - $imgH;
-            // crop rotated image to fit into original rezized rectangle
-            $cropped_rotated_image = imagecreatetruecolor($imgW, $imgH);
-            imagecolortransparent($cropped_rotated_image, imagecolorallocate($cropped_rotated_image, 0, 0, 0));
-            imagecopyresampled($cropped_rotated_image, $rotated_image, 0, 0, $dx / 2, $dy / 2, $imgW, $imgH, $imgW, $imgH);
-            // crop image into selected area
             $final_image = imagecreatetruecolor($cropW, $cropH);
-            imagecolortransparent($final_image, imagecolorallocate($final_image, 0, 0, 0));
-            imagecopyresampled($final_image, $cropped_rotated_image, 0, 0, $imgX1, $imgY1, $cropW, $cropH, $cropW, $cropH);
-            // finally output png image
-            //imagepng($final_image, $output_filename.$type, $png_quality);
-            imagejpeg($final_image, $output_filename.$type, $jpeg_quality);
-            imagejpeg($final_image, $output_temp_filename.$type, $jpeg_quality);
+            imagecopyresampled($final_image, $resizedImage, 0, 0, $imgX1, $imgY1, $cropW, $cropH, $cropW, $cropH);
 
-            if(Auth::user()->profile_image == "00-default-avatar.jpg"){
+            if($type==".jpg"){
+                imagejpeg($final_image, $output_filename, 100);
+                imagejpeg($final_image, $output_temp_filename.$type, 10);
+            } else if ($type==".png"){
+                imagepng($final_image, $output_filename, 9);
+                imagepng($final_image, $output_temp_filename.$type, 9);
+            }
+
+            ############
+            ## 126 x 126
+            $imgW = $_POST['imgW']*.71;
+            $imgH = $_POST['imgH']*.71;
+            // offsets
+            $imgY1 = $_POST['imgY1'] * .71;
+            $imgX1 = $_POST['imgX1'] * .71;
+            // crop box
+            $cropW = $_POST['cropW'] * .71;
+            $cropH = $_POST['cropH'] * .71;
+            $output_filename = "uploads/" . Auth::user()->id . "-". substr(Auth::user()->uniqid, 2) . "-" . strtolower(env('APP_NAME')) . "-" . strtolower(Auth::user()->display_name) . "-" . "avatar-126x126".$type;
+            $resizedImage = imagecreatetruecolor($imgW, $imgH);
+            imagecopyresampled($resizedImage, $source_image, 0, 0, 0, 0, $imgW, $imgH, $imgInitW, $imgInitH);
+            $final_image = imagecreatetruecolor($cropW, $cropH);
+            imagecopyresampled($final_image, $resizedImage, 0, 0, $imgX1, $imgY1, $cropW, $cropH, $cropW, $cropH);
+
+            if($type==".jpg"){
+                imagejpeg($final_image, $output_filename, 100);
+            } else if ($type==".png"){
+                imagepng($final_image, $output_filename, 9);
+            }
+
+            ############
+            ## 400 x 400
+            $imgW = $_POST['imgW']*.51;
+            $imgH = $_POST['imgH']*.51;
+            // offsets
+            $imgY1 = $_POST['imgY1'] * .51;
+            $imgX1 = $_POST['imgX1'] * .51;
+            // crop box
+            $cropW = $_POST['cropW'] * .51;
+            $cropH = $_POST['cropH'] * .51;
+            $output_filename = "uploads/" . Auth::user()->id . "-". substr(Auth::user()->uniqid, 2) . "-" . strtolower(env('APP_NAME')) . "-" . strtolower(Auth::user()->display_name) . "-" . "avatar-90x90".$type;
+            $resizedImage = imagecreatetruecolor($imgW, $imgH);
+            imagecopyresampled($resizedImage, $source_image, 0, 0, 0, 0, $imgW, $imgH, $imgInitW, $imgInitH);
+            $final_image = imagecreatetruecolor($cropW, $cropH);
+            imagecopyresampled($final_image, $resizedImage, 0, 0, $imgX1, $imgY1, $cropW, $cropH, $cropW, $cropH);
+
+            if($type==".jpg"){
+                imagejpeg($final_image, $output_filename, 100);
+            } else if ($type==".png"){
+                imagepng($final_image, $output_filename, 9);
+            }
+
+            if(Auth::user()->profile_image != $profileImage){
                 LogIt::debug("UPDATING THE DB RECORD");
-                $profileImage = Auth::user()->id . "-". substr(Auth::user()->uniqid, 2) . "-" . strtolower(env('APP_NAME')) . "-" . strtolower(Auth::user()->display_name) . "-" . "avatar.jpg";
                 $user = User::find(Auth::user()->id);
                 $user->profile_image = $profileImage;
                 $user->save();
@@ -336,8 +326,8 @@ class ImageProcessController extends Controller
             );
             LogIt::userLog("Profile Image Updated");
         }
-        unlink($imgUrl);
 
+        unlink($imgUrl);
         print json_encode($response);
     }
 
@@ -365,7 +355,6 @@ class ImageProcessController extends Controller
             case UPLOAD_ERR_EXTENSION:
                 $message = "File upload stopped by extension";
                 break;
-
             default:
                 $message = "Unknown upload error";
                 break;
