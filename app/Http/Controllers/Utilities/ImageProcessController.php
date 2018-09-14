@@ -244,18 +244,16 @@ class ImageProcessController extends Controller
 
             // TODO: Refactor this into an array loop
             ############
-            ## 400 x 400
-            $imgW = $_POST['imgW']*2.25;
-            $imgH = $_POST['imgH']*2.25;
+            ## 90 x 90
+            $imgW = $_POST['imgW']*.51;
+            $imgH = $_POST['imgH']*.51;
             // offsets
-            $imgY1 = $_POST['imgY1'] * 2.25;
-            $imgX1 = $_POST['imgX1'] * 2.25;
+            $imgY1 = $_POST['imgY1'] * .51;
+            $imgX1 = $_POST['imgX1'] * .51;
             // crop box
-            $cropW = $_POST['cropW'] * 2.25;
-            $cropH = $_POST['cropH'] * 2.25;
-
-            $output_filename = "uploads/" . Auth::user()->id . "-". substr(Auth::user()->uniqid, 2) . "-" . strtolower(env('APP_NAME')) . "-" . strtolower(Auth::user()->display_name) . "-" . "avatar-400x400".$type;
-
+            $cropW = $_POST['cropW'] * .51;
+            $cropH = $_POST['cropH'] * .51;
+            $output_filename = "uploads/" . Auth::user()->id . "-". substr(Auth::user()->uniqid, 2) . "-" . strtolower(env('APP_NAME')) . "-" . strtolower(Auth::user()->display_name) . "-" . "avatar-90x90".$type;
             $resizedImage = imagecreatetruecolor($imgW, $imgH);
             imagecopyresampled($resizedImage, $source_image, 0, 0, 0, 0, $imgW, $imgH, $imgInitW, $imgInitH);
             $final_image = imagecreatetruecolor($cropW, $cropH);
@@ -263,10 +261,8 @@ class ImageProcessController extends Controller
 
             if($type==".jpg"){
                 imagejpeg($final_image, $output_filename, 100);
-                imagejpeg($final_image, $output_temp_filename.$type, 10);
             } else if ($type==".png"){
                 imagepng($final_image, $output_filename, 9);
-                imagepng($final_image, $output_temp_filename.$type, 9);
             }
 
             ############
@@ -293,37 +289,48 @@ class ImageProcessController extends Controller
 
             ############
             ## 400 x 400
-            $imgW = $_POST['imgW']*.51;
-            $imgH = $_POST['imgH']*.51;
+            $imgW = $_POST['imgW']*2.25;
+            $imgH = $_POST['imgH']*2.25;
             // offsets
-            $imgY1 = $_POST['imgY1'] * .51;
-            $imgX1 = $_POST['imgX1'] * .51;
+            $imgY1 = $_POST['imgY1'] * 2.25;
+            $imgX1 = $_POST['imgX1'] * 2.25;
             // crop box
-            $cropW = $_POST['cropW'] * .51;
-            $cropH = $_POST['cropH'] * .51;
-            $output_filename = "uploads/" . Auth::user()->id . "-". substr(Auth::user()->uniqid, 2) . "-" . strtolower(env('APP_NAME')) . "-" . strtolower(Auth::user()->display_name) . "-" . "avatar-90x90".$type;
+            $cropW = $_POST['cropW'] * 2.25;
+            $cropH = $_POST['cropH'] * 2.25;
+
+            $output_filename = "uploads/" . Auth::user()->id . "-". substr(Auth::user()->uniqid, 2) . "-" . strtolower(env('APP_NAME')) . "-" . strtolower(Auth::user()->display_name) . "-" . "avatar-400x400".$type;
+
             $resizedImage = imagecreatetruecolor($imgW, $imgH);
             imagecopyresampled($resizedImage, $source_image, 0, 0, 0, 0, $imgW, $imgH, $imgInitW, $imgInitH);
             $final_image = imagecreatetruecolor($cropW, $cropH);
             imagecopyresampled($final_image, $resizedImage, 0, 0, $imgX1, $imgY1, $cropW, $cropH, $cropW, $cropH);
 
+            // TODO: Remove the commented out images if everything is working. There were there to bust the cache.
             if($type==".jpg"){
                 imagejpeg($final_image, $output_filename, 100);
+                //imagejpeg($final_image, $output_temp_filename.$type, 70);  // This is to bust the page cache
             } else if ($type==".png"){
                 imagepng($final_image, $output_filename, 9);
+                //imagepng($final_image, $output_temp_filename.$type, 9);
             }
 
+            // If the profile image changed from what is in the DB, update the record
+            // ELSE -> Update the updated_at field
             if(Auth::user()->profile_image != $profileImage){
                 LogIt::debug("UPDATING THE DB RECORD");
                 $user = User::find(Auth::user()->id);
                 $user->profile_image = $profileImage;
                 $user->save();
+            } else {
+                //
+                User::find(Auth::user()->id)->touch();
             }
 
             $response = Array(
                 "status" => 'success',
-                "url" => $output_temp_filename.$type
+                "url" => $output_filename."?refresh=".rand()
             );
+
             LogIt::userLog("Profile Image Updated");
         }
 
