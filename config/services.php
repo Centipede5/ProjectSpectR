@@ -34,5 +34,8 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-
+    'igdb' => [
+        'key' => '3aae67986d224e53b3a7b6e0a3fc9210',
+        'url' => 'https://api-endpoint.igdb.com'
+    ]
 ];

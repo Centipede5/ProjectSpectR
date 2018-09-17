@@ -4290,11 +4290,13 @@ input[type="file"] {
   border-bottom: solid #5dc21e;
 }
 
-.badge-nintendo {
+.badge-nintendo,
+.badge-switch {
   background-color: #E60012;
 }
 
-.bottom-border-nintendo {
+.bottom-border-nintendo,
+.bottom-border-switch {
   border-bottom: solid #CE181E;
 }
 

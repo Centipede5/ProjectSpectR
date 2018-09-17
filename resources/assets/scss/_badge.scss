@@ -46,11 +46,11 @@
   border-bottom: solid $color-xbox-secondary;
 }
 
-.badge-nintendo {
+.badge-nintendo, .badge-switch {
   background-color: $color-nintendo;
 }
 
-.bottom-border-nintendo {
+.bottom-border-nintendo, .bottom-border-switch {
   border-bottom: solid $color-nintendo-secondary
 }
 

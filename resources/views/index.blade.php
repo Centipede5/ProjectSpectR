@@ -37,11 +37,11 @@
           <div class="card card-lg">
             <div class="card-img bottom-border-ps4">
               <a href="game-post.html"><img src="/img/game/{{$game->image_landscape}}" class="card-img-top" alt="{{$game->slug}}"></a>
-              <div>
+              <div style="margin: -40px 0 18px 0">
 
                 @foreach(json_decode($game->platforms) as $platform)
-                  <div class="badge badge-{{ $platform }}" style="margin-top: -40px;margin-bottom: 18px;">
-                  {{ $platform }}
+                  <div class="badge badge-{{ strtolower($platform) }}" style="position: unset; ">
+                      <a href="/platform/{{ $platform }}">{{ $platform }}</a>
                   </div>
                 @endforeach
 
