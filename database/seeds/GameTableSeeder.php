@@ -59,7 +59,7 @@ class GameTableSeeder extends Seeder
             'title' => 'Super Mario Party',
             'publisher' => 'Nintendo',
             'developer' => 'ND Cube',
-            'platforms' => '{"SWITCH"}',
+            'platforms' => '{"0":"SWITCH"}',
             'synopsis' => 'The Mario Party series is coming to the Nintendo Switch system with super-charged fun for everyone! The original board game style has been kicked up a notch with deeper strategic elements.',
             'summary'  => '',
             'image_portrait' =>'default-portrait.jpg',
