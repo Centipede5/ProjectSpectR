@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Messerli90\IGDB\IGDBServiceProvider;
+use Illuminate\Support\Facades\DB;
 
 class IgdbBuildPlatforms extends Command
 {
@@ -38,18 +39,30 @@ class IgdbBuildPlatforms extends Command
      */
     public function handle()
     {
-        //
+        for($i=0;$i<50;$i++){
+            echo "Checking ID: " . $i;
 
+            $platform = \IGDB::getPlatform($i);
+            if ($platform!=false){
+                echo " | FOUND".PHP_EOL;
+                $fp = fopen("resources/igdb/".$platform->slug.'.json', 'w');
+                fwrite($fp, json_encode($platform));
+                fclose($fp);
 
-	for($i=0;$i<50;$i++){
-        $platform = \IGDB::getPlatform($i);
-	if ($platform!=false){
-        $fp = fopen("resources/igdb/".$platform->slug.'.json', 'w');
-        fwrite($fp, json_encode($platform));
-        fclose($fp);
-	} else {
-		echo "false".PHP_EOL;
-	}
-	}
+                DB::table('igdb_admin')->insert(
+                    [
+                        'igdb_id' => $i,
+                        'endpoint' => 'platforms',
+                        'slug' => $platform->slug,
+                        'name' => $platform->name,
+                        'status' => 0
+                    ]
+                );
+
+            } else {
+                echo " | FAILED".PHP_EOL;
+            }
+            sleep(1);
+        }
     }
 }
