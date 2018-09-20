@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "70e4e1fa274ff7af702b448cdee62b19",
+    "content-hash": "c6015f002f1df518161c63f99437c5a1",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -870,54 +870,6 @@
             "time": "2018-09-14T15:30:29+00:00"
         },
         {
-            "name": "messerli90/igdb",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/messerli90/igdb.git",
-                "reference": "e93008753261e0c824589243916415eb5947baec"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/messerli90/igdb/zipball/e93008753261e0c824589243916415eb5947baec",
-                "reference": "e93008753261e0c824589243916415eb5947baec",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^6.3",
-                "php": ">=5.6.0"
-            },
-            "require-dev": {
-                "illuminate/support": ">= 5.0",
-                "phpunit/phpunit": "~5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Messerli90\\IGDB\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Messerli",
-                    "email": "michaelamesserli@gmail.com"
-                }
-            ],
-            "description": "Laravel PHP Facade/Wrapper for the IGDB API",
-            "keywords": [
-                "api",
-                "gaming",
-                "igdb",
-                "laravel",
-                "messerli90"
-            ],
-            "time": "2017-08-06T17:14:20+00:00"
-        },
-        {
             "name": "monolog/monolog",
             "version": "1.23.0",
             "source": {
@@ -1132,16 +1084,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.0.3",
+            "version": "v4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "bd088dc940a418f09cda079a9b5c7c478890fb8d"
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/bd088dc940a418f09cda079a9b5c7c478890fb8d",
-                "reference": "bd088dc940a418f09cda079a9b5c7c478890fb8d",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/fa6ee28600d21d49b2b4e1006b48426cec8e579c",
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c",
                 "shasum": ""
             },
             "require": {
@@ -1179,7 +1131,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2018-07-15T17:25:16+00:00"
+            "time": "2018-09-18T07:03:24+00:00"
         },
         {
             "name": "paragonie/random_compat",

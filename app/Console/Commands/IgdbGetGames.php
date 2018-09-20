@@ -3,24 +3,23 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Messerli90\IGDB\IGDBServiceProvider;
 use Illuminate\Support\Facades\DB;
 
-class IgdbBuildPlatforms extends Command
+class IgdbGetGames extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'igdb:buildPlatforms';
+    protected $signature = 'igdb:getGames';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Cycle through all of the Game Ids and cache the Game JSONs';
 
     /**
      * Create a new command instance.
@@ -39,22 +38,25 @@ class IgdbBuildPlatforms extends Command
      */
     public function handle()
     {
-        for($i=0;$i<50;$i++){
+
+        // There are currently 154 Platforms.
+        // I don't have all there IDs so I start at zero and go to 169
+        for($i=9630;$i<9631;$i++){
             echo "Checking ID: " . $i;
 
-            $platform = \IGDB::getPlatform($i);
-            if ($platform!=false){
-                echo " | FOUND".PHP_EOL;
-                $fp = fopen("resources/igdb/".$platform->slug.'.json', 'w');
-                fwrite($fp, json_encode($platform));
+            $game = \IGDB::getGame($i);
+            if ($game!=false){
+                echo " | FOUND -> " . $game->name .PHP_EOL;
+                // Dump Response to file for use later
+                $fp = fopen("resources/igdb/games/".$game->slug.'.json', 'w');
+                fwrite($fp, json_encode($game));
                 fclose($fp);
 
                 DB::table('igdb_admin')->insert(
                     [
                         'igdb_id' => $i,
-                        'endpoint' => 'platforms',
-                        'slug' => $platform->slug,
-                        'name' => $platform->name,
+                        'endpoint' => 'games',
+                        'slug' => $game->slug,
                         'status' => 0
                     ]
                 );
