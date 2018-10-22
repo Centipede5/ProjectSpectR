@@ -14,7 +14,7 @@ class CreateUserInfosTable extends Migration
     public function up()
     {
         Schema::create('user_infos', function (Blueprint $table) {
-            $table->unsignedInteger('id');
+            $table->increments('id');
             $table->string('bio', 255)->nullable();
             $table->jsonb('social_meta')->default('{}')->nullable();
             $table->ipAddress('ip_address')->nullable();
