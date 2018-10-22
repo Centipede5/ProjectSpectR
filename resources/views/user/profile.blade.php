@@ -66,7 +66,7 @@
             <ul>
               <li><i class="far fa-calendar-check"></i>Joined {{ $user->created_date }}</li>
               @if(isset($user_info->social_meta->website))
-                <li><a href="{{ $user_info->social_meta->website }}" target="_blank"><i class="fas fa-link"></i>{{ $user_info->social_meta->website_display }}</a></li>
+                <li><a href="https://{{ $user_info->social_meta->website }}" target="_blank"><i class="fas fa-link"></i>{{ $user_info->social_meta->website_display }}</a></li>
               @endif
               @if(isset($user_info->social_meta->youtube))
                 <li><a href="https://www.youtube.com/{{ $user_info->social_meta->youtube }}" class="youtube-link" target="_blank"><i class="fab fa-youtube"></i>/{{ $user_info->social_meta->youtube }}</a></li>

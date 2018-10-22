@@ -17,9 +17,7 @@
             <div class="hero-block">
                 <h5>{{ $user->display_name }}</h5>
                 @if(isset(Auth::user()->id) && Auth::user()->id == $user->id )
-                    <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="{{ route('edit_profile', ['id' => Auth::user()->id]) }}" data-toggle="tooltip" title="Add friend" role="button"><i class="fas fa-edit"></i> Save Profile</a>
-                @else
-                    <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="#" data-toggle="tooltip" title="Add friend" role="button"><i class="fa fa-user-plus"></i></a>
+                    <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="{{ route('edit_profile', ['id' => Auth::user()->id]) }}" title="Save Profile" role="button"><i class="fas fa-save"></i> Save Profile</a>
                 @endif
             </div>
         </div>
@@ -72,7 +70,7 @@
                         <ul>
                             <li><i class="far fa-calendar-check"></i>Joined {{ $user->created_date }}</li>
                             @if(isset($user_info->social_meta->website))
-                                <li><a href="{{ $user_info->social_meta->website }}" target="_blank"><i class="fas fa-link"></i>{{ $user_info->social_meta->website_display }}</a></li>
+                                <li><a href="https://{{ $user_info->social_meta->website }}" target="_blank"><i class="fas fa-link"></i>{{ $user_info->social_meta->website_display }}</a></li>
                             @endif
                             @if(isset($user_info->social_meta->youtube))
                                 <li><a href="https://www.youtube.com/{{ $user_info->social_meta->youtube }}" class="youtube-link" target="_blank"><i class="fab fa-youtube"></i>/{{ $user_info->social_meta->youtube }}</a></li>
@@ -102,10 +100,11 @@
                                 <!-- Edit form column -->
                                 <div class="col-md-9 personal-info">
                                     <h3>User info</h3>
-                                    <form class="form-horizontal" role="form">
+                                    <form class="form-horizontal" role="form" action="" method="post">
+                                        {{ csrf_field() }}
                                         <div class="form-group input-icon-left m-b-10">
                                             <i class="fas fa-user"></i>
-                                            <input type="text" class="form-control form-control-secondary {{ $errors->has('display_name') ? ' has-error' : '' }}" placeholder="Username" id="display_name" name="display_name" value="{{$user->display_name}}" maxlength="20" autocomplete="off" required>
+                                            <input type="text" class="form-control form-control-secondary {{ $errors->has('display_name') ? ' has-error' : '' }}" placeholder="Username" id="user_info_display_name" name="user_info_display_name" value="{{$user->display_name}}" maxlength="20" required>
                                             @if ($errors->has('display_name'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('display_name') }}</strong>
@@ -114,7 +113,7 @@
                                         </div>
                                         <div class="form-group input-icon-left m-b-10 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                             <i class="fas fa-envelope"></i>
-                                            <input type="email" id="email" name="email" class="form-control form-control-secondary" placeholder="Email Address" value="{{ old('email') }}" maxlength="255" required>
+                                            <input type="email" id="user_info_email" name="user_info_email" class="form-control form-control-secondary" placeholder="Email Address" value="{{$user->email}}" maxlength="255" required>
                                             @if ($errors->has('email'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('email') }}</strong>
@@ -123,28 +122,28 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="message">About</label>
-                                            <textarea name="message" title="Bio" class="form-control" rows="4">@if(isset($user_info->bio)){{ $user_info->bio }} @endif</textarea>
+                                            <label for="user_info_bio">About</label>
+                                            <textarea id="user_info_bio" name="user_info_bio" title="Bio" class="form-control" rows="4" maxlength="255">@if(isset($user_info->bio)){{ $user_info->bio }}@endif</textarea>
                                         </div>
 
                                         <div class="form-group input-icon-left m-b-10">
-                                            <i class="fas fa-user"></i>
-                                            <input type="text" class="form-control form-control-secondary" placeholder="Website URL" id="user_info_website" name="user_info_website" value="@if(isset($user_info->social_meta->website)) {{$user_info->social_meta->website}} @endif" maxlength="50" autocomplete="off">
+                                            <i class="fas fa-link"></i>
+                                            <input type="text" class="form-control form-control-secondary" placeholder="Website URL" id="user_info_website" name="user_info_website" value="@if(isset($user_info->social_meta->website)){{$user_info->social_meta->website}}@endif" maxlength="50">
                                         </div>
 
                                         <div class="form-group input-icon-left m-b-10">
                                             <i class="fab fa-youtube"></i>
-                                            <input type="text" class="form-control form-control-secondary" placeholder="YouTube Channel / URL" id="user_info_youtube" name="user_info_youtube" value="@if(isset($user_info->social_meta->youtube)) {{$user_info->social_meta->youtube}} @endif" maxlength="100" autocomplete="off">
+                                            <input type="text" class="form-control form-control-secondary" placeholder="YouTube Channel / URL" id="user_info_youtube" name="user_info_youtube" value="@if(isset($user_info->social_meta->youtube)){{$user_info->social_meta->youtube}}@endif" maxlength="100">
                                         </div>
 
                                         <div class="form-group input-icon-left m-b-10">
                                             <i class="fab fa-twitter"></i>
-                                            <input type="text" class="form-control form-control-secondary" placeholder="Twitter Name" id="user_info_twitter" name="user_info_twitter" value="@if(isset($user_info->social_meta->twitter)) {{$user_info->social_meta->twitter}} @endif" maxlength="50" autocomplete="off">
+                                            <input type="text" class="form-control form-control-secondary" placeholder="Twitter Name" id="user_info_twitter" name="user_info_twitter" value="@if(isset($user_info->social_meta->twitter)){{$user_info->social_meta->twitter}}@endif" maxlength="50">
                                         </div>
 
                                         <div class="form-group input-icon-left m-b-10">
                                             <i class="fab fa-facebook"></i>
-                                            <input type="text" class="form-control form-control-secondary" placeholder="Facebook URL" id="user_info_facebook" name="user_info_facebook" value="@if(isset($user_info->social_meta->facebook)) {{$user_info->social_meta->facebook}} @endif" maxlength="100" autocomplete="off">
+                                            <input type="text" class="form-control form-control-secondary" placeholder="Facebook URL" id="user_info_facebook" name="user_info_facebook" value="@if(isset($user_info->social_meta->facebook)){{$user_info->social_meta->facebook}}@endif" maxlength="100">
                                         </div>
 
                                         <div class="divider"><span>Password Reset</span></div>
@@ -165,9 +164,9 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label"></label>
                                             <div class="col-md-8">
-                                                <input class="btn btn-primary" value="Save Changes" type="button">
+                                                <input class="btn btn-primary" value="Save Changes" type="submit">
                                                 <span></span>
-                                                <input class="btn btn-default" value="Cancel" type="reset">
+                                                <a href="/{{ $user->display_name }}"><input class="btn btn-default" value="Cancel" type="button"></a>
                                             </div>
                                         </div>
                                     </form>
@@ -183,15 +182,6 @@
 @endsection
 
 @section('footer-js')
-    <script>
-        (function($) {
-            "use strict";
-            // lightbox
-            $('[data-lightbox]').lightbox({
-                disqus: 'gameforestyakuzieu'
-            });
-        })(jQuery);
-    </script>
     <script src="/plugins/cropper/cropper.js"></script>
     <script>
         var cropperContainerOptions = {

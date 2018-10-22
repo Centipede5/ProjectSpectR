@@ -74,7 +74,10 @@ Route::prefix('demo/posts')->group(
         Route::get('/publish/{post}', 'PostController@publish')
             ->name('publish_post')
             ->middleware('can:publish-post');
-        }
+        Route::get('/publish/{post}/destroy', 'PostController@destroy')
+            ->name('delete_post')
+            ->middleware('can:update-post','post');
+    }
 );
 
 Auth::routes();
@@ -110,7 +113,8 @@ Route::prefix('profile')->group(
             ->name('edit_profile')
             ->middleware('can:update-profile,id,Auth::user()->id');
         Route::post('/edit/{id}', 'UserProfileController@update')
-            ->name('update_profile');
+            ->name('update_profile')
+            ->middleware('can:update-profile,id,Auth::user()->id');
     }
 );
 
