@@ -25,7 +25,7 @@ class PostController extends Controller
         return view('demo-posts.create');
     }
 
-    public function UserProfileControllerstore(StorePostRequest $request)
+    public function store(StorePostRequest $request)
     {
         $data = $request->all();
         $data['slug'] = str_slug($data['post_title']);
@@ -72,7 +72,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::destroy($id);
+        return redirect()->route('list_posts');
     }
 
     public function publish(Post $post)

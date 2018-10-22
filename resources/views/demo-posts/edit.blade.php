@@ -45,6 +45,9 @@
                                     <button type="submit" class="btn btn-primary">
                                         Update
                                     </button>
+                                    <a href="{{ route('delete_post', ['post_id' => $post->id]) }}" class="btn btn-primary">
+                                        Delete
+                                    </a>
                                     @can('publish-post')
                                         <a href="{{ route('publish_post', ['post_id' => $post->id]) }}" class="btn btn-primary">
                                             Publish
