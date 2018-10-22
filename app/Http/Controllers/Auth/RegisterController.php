@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Role;
 use App\Http\Controllers\Controller;
+use App\UserInfo;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -76,6 +77,10 @@ class RegisterController extends Controller
             'uniqid'            => uniqid("..") . mt_rand(100, 999),
             'profile_image'     => "00-default-avatar.jpg",
             'background_image'  => "00-default-canopy.jpg",
+        ]);
+
+        $userInfo = UserInfo::create([
+            'ip_address'      => $_SERVER['REMOTE_ADDR']
         ]);
 
         $user->roles()->attach(1);
