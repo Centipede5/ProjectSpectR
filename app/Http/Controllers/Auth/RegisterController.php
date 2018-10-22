@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\LogIt;
 use App\User;
 use App\Role;
 use App\Http\Controllers\Controller;
@@ -79,11 +80,16 @@ class RegisterController extends Controller
             'background_image'  => "00-default-canopy.jpg",
         ]);
 
-        $userInfo = UserInfo::create([
-            'ip_address'      => $_SERVER['REMOTE_ADDR']
+        $user->roles()->attach(1);
+
+        // Get the newly created User Id from the `users` table to match
+        // and create a new record in the `user_infos` table
+        $newUserId = User::select('id')->where('email', $data['email'])->first();
+        UserInfo::create([
+            'id'         => $newUserId->id,
+            'ip_address' => $_SERVER['REMOTE_ADDR']
         ]);
 
-        $user->roles()->attach(1);
         // TODO: I need to create an email controller to run all emails through for validation
         Mail::to($data['email'])->send(new WelcomeMail($user));
         
