@@ -122,6 +122,12 @@
                                         <div class="form-group">
                                             <label for="user_info_bio">About</label>
                                             <textarea id="user_info_bio" name="user_info_bio" title="Bio" class="form-control" rows="4" maxlength="255">@if(isset($user_info->bio)){{ $user_info->bio }}@endif</textarea>
+                                            <div class="progress">
+                                                <div id="bio-progress-bar" name="bio-progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
+                                                    <span class="sr-only">80% Complete</span>
+                                                </div>
+                                            </div>
+                                            <span id="countdown" class="countdown"></span>
                                         </div>
 
                                         <div class="form-group input-icon-left m-b-10">

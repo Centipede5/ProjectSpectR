@@ -3836,10 +3836,10 @@ input[type="file"] {
 .progress {
   background-color: #ebedef;
   border-radius: 30px;
-  height: 6px;
+  height: 2px;
   -webkit-box-shadow: none;
           box-shadow: none;
-  margin-bottom: 25px;
+  margin-bottom: 2px;
 }
 
 .progress-bar {
