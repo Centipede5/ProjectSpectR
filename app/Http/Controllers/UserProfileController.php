@@ -171,6 +171,15 @@ class UserProfileController extends Controller
             }
         }
 
+        if(strlen($request->input('user_info_password')) > 5){
+            // SQL UPDATE: Update `users` table with the new email
+            DB::table('users')
+                ->where('id', $user->id)
+                ->update([
+                    'password' => bcrypt($request->input('user_info_password'))
+                ]);
+        }
+
         $social_meta = [
             'website'  => $request->input('user_info_website'),
             'youtube'  => $request->input('user_info_youtube'),

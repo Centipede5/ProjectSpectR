@@ -7,8 +7,21 @@
     <style type="text/css">
         #cropperContainer{ width:180px; height:180px; position: relative; border:1px solid #ccc;}
     </style>
-@endsection
 
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $('#user_info_display_name').keypress(function (e) {
+                var regex = new RegExp("^[a-zA-Z0-9]+$");
+                var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+
+                if (regex.test(str)) { return true; }
+                e.preventDefault();
+
+                return false;
+            });
+        });
+    </script>
+@endsection
 @section('main-content')
     <!-- main -->
     <section class="hero hero-profile" style="background-image: url('{{ $user->background_image }}');">
@@ -17,7 +30,7 @@
             <div class="hero-block">
                 <h5>{{ $user->display_name }}</h5>
                 @if(isset(Auth::user()->id) && Auth::user()->id == $user->id )
-                    <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="{{ route('edit_profile', ['id' => Auth::user()->id]) }}" title="Save Profile" role="button"><i class="fas fa-save"></i> Save Profile</a>
+                    <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="#" onclick="document.forms['profile-edit'].submit(); return false;" title="Save Profile" role="button"><i class="fas fa-save"></i> Save Profile</a>
                 @endif
             </div>
         </div>
@@ -100,7 +113,7 @@
                                 <!-- Edit form column -->
                                 <div class="col-md-9 personal-info">
                                     <h3>User info</h3>
-                                    <form class="form-horizontal" role="form" action="" method="post">
+                                    <form id="profile-edit" name="profile-edit" class="form-horizontal" role="form" action="" method="post">
                                         {{ csrf_field() }}
                                         <div class="form-group input-icon-left m-b-10">
                                             <i class="fas fa-user"></i>
@@ -149,7 +162,7 @@
                                         <div class="divider"><span>Password Reset</span></div>
                                         <div class="form-group input-icon-left m-b-10 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                             <i class="fas fa-lock"></i>
-                                            <input type="password" id="password" name="password" class="form-control form-control-secondary" placeholder="Password">
+                                            <input type="password" id="user_info_password" name="user_info_password" class="form-control form-control-secondary" placeholder="Password">
                                             @if ($errors->has('password'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('password') }}</strong>
@@ -158,7 +171,7 @@
                                         </div>
                                         <div class="form-group input-icon-left m-b-10">
                                             <i class="fas fa-unlock"></i>
-                                            <input type="password" id="password-confirm" name="password_confirmation" class="form-control form-control-secondary" placeholder="Repeat Password">
+                                            <input type="password" id="user_info_password-confirm" name="user_info_password_confirmation" class="form-control form-control-secondary" placeholder="Repeat Password">
                                         </div>
 
                                         <div class="form-group">

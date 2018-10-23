@@ -107,7 +107,7 @@ Route::get('/future', 'HomeController@future')->name('future');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::prefix('profile')->group(
+Route::prefix('user/profile')->group(
     function () {
         Route::get('/edit/{id}', 'UserProfileController@edit')
             ->name('edit_profile')
