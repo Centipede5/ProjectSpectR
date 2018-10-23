@@ -24,7 +24,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/spider-man-2018.jpg" alt="Last of Us: Part 2"></a>
+                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/marvels-spider-man-landscape.jpg" alt="Last of Us: Part 2"></a>
                                                     <span class="badge badge-ps4">PS4</span>
                                                 </div>
                                                 <h4><a href="game-post.html">Spider-Man</a></h4>
@@ -32,7 +32,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/super-mario-party-2018.jpg" alt="Injustice 2"></a>
+                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/super-mario-party-landscape.jpg" alt="Injustice 2"></a>
                                                     <span class="badge badge-nintendo">Nintendo</span>
                                                 </div>
                                                 <h4><a href="game-post.html">Super Mario Party</a></h4>
@@ -40,7 +40,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/black-ops-4-2018.png" alt="Bioshock: Infinite"></a>
+                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/cod-black-ops-4-landscape.png" alt="Bioshock: Infinite"></a>
                                                     <span class="badge badge-xbox-one">Xbox One</span>
                                                 </div>
                                                 <h4><a href="game-post.html">Black Ops 4</a></h4>
@@ -48,7 +48,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/mega-man-11-2018.png" alt="Batman: Arkham Knight"></a>
+                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/mega-man-11-landscape.png" alt="Batman: Arkham Knight"></a>
                                                     <span class="badge badge-ps4">PS4</span>
                                                 </div>
                                                 <h4><a href="game-post.html">Mega Man 11</a></h4>
@@ -56,7 +56,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="img">
-                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/shadow-of-the-tomb-raider-2018.jpg" alt="Bioshock: Infinite"></a>
+                                                    <a href="game-post.html"><img class="nav-img" src="/img/game/shadow-of-the-tomb-raider-landscape.jpg" alt="Bioshock: Infinite"></a>
                                                     <span class="badge badge-pc">PC</span>
                                                 </div>
                                                 <h4><a href="game-post.html">Shadow of the Tomb Raider</a></h4>
@@ -162,7 +162,7 @@
                         </li>
                         <li class="has-dropdown mega-menu">
                             <a href="#">Components</a>
-                            <ul style="background-image: url('img/menu/mega-menu.png');">
+                            <ul style="background-image: url('/img/menu/mega-menu.png');">
                                 <li>
                                     <div class="container">
                                         <div class="row">
