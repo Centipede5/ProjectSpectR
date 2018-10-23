@@ -119,13 +119,11 @@
                                             @endif
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group m-b-10">
                                             <label for="user_info_bio">About</label>
                                             <textarea id="user_info_bio" name="user_info_bio" title="Bio" class="form-control" rows="4" maxlength="255">@if(isset($user_info->bio)){{ $user_info->bio }}@endif</textarea>
                                             <div class="progress">
-                                                <div id="bio-progress-bar" name="bio-progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-                                                    <span class="sr-only">80% Complete</span>
-                                                </div>
+                                                <div id="bio-progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                             <span id="countdown" class="countdown"></span>
                                         </div>
@@ -135,18 +133,25 @@
                                             <input type="text" class="form-control form-control-secondary" placeholder="Website URL" id="user_info_website" name="user_info_website" value="@if(isset($user_info->social_meta->website)){{$user_info->social_meta->website}}@endif" maxlength="50">
                                         </div>
 
-                                        <div class="form-group input-icon-left m-b-10">
-                                            <i class="fab fa-youtube"></i>
+                                        <div>
+                                            <label for="user_info_youtube" style="display: inline; font-size: 12px;margin-left: 14px;">youtube.com/<span id="user_info_youtube_input" style="color: #FF0000">@if(isset($user_info->social_meta->youtube)){{$user_info->social_meta->youtube}}@endif</span></label>
+                                        </div>
+                                        <div class="form-group input-icon-left m-b-10 youtube-link">
+                                            <i class="fab fa-youtube" onclick="openSocialLink('youtube')"></i>
                                             <input type="text" class="form-control form-control-secondary" placeholder="YouTube Channel / URL" id="user_info_youtube" name="user_info_youtube" value="@if(isset($user_info->social_meta->youtube)){{$user_info->social_meta->youtube}}@endif" maxlength="100">
                                         </div>
-
-                                        <div class="form-group input-icon-left m-b-10">
-                                            <i class="fab fa-twitter"></i>
+                                        <div>
+                                            <label for="user_info_twitter" style="display: inline; font-size: 12px; margin-left: 14px;">twitter.com/<span id="user_info_twitter_input" style="color: #6cb7f0">@if(isset($user_info->social_meta->twitter)){{$user_info->social_meta->twitter}}@endif</span></label>
+                                        </div>
+                                        <div class="form-group input-icon-left m-b-10 twitter-link">
+                                            <i class="fab fa-twitter twitter-link" onclick="openSocialLink('twitter')"></i>
                                             <input type="text" class="form-control form-control-secondary" placeholder="Twitter Name" id="user_info_twitter" name="user_info_twitter" value="@if(isset($user_info->social_meta->twitter)){{$user_info->social_meta->twitter}}@endif" maxlength="50">
                                         </div>
-
-                                        <div class="form-group input-icon-left m-b-10">
-                                            <i class="fab fa-facebook"></i>
+                                        <div>
+                                            <label for="user_info_facebook" style="display: inline; font-size: 12px;margin-left: 14px;">facebook.com/<span id="user_info_facebook_input" style="color: #3b5998">@if(isset($user_info->social_meta->facebook)){{$user_info->social_meta->facebook}}@endif</span></label>
+                                        </div>
+                                        <div class="form-group input-icon-left m-b-10 facebook-link">
+                                            <i class="fab fa-facebook facebook-link" onclick="openSocialLink('facebook')"></i>
                                             <input type="text" class="form-control form-control-secondary" placeholder="Facebook URL" id="user_info_facebook" name="user_info_facebook" value="@if(isset($user_info->social_meta->facebook)){{$user_info->social_meta->facebook}}@endif" maxlength="100">
                                         </div>
 

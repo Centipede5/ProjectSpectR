@@ -1,7 +1,7 @@
 $( document ).ready(function() {
     $('#user_info_display_name').keypress(function (e) {
-        var regex = new RegExp("^[a-zA-Z0-9]+$");
-        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        const regex = new RegExp("^[a-zA-Z0-9]+$");
+        const str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
 
         if (regex.test(str)) { return true; }
         e.preventDefault();
@@ -11,12 +11,22 @@ $( document ).ready(function() {
 
     updateCountdown();
     $('#user_info_bio').change(updateCountdown).keyup(updateCountdown);
+
+    $('#user_info_youtube').bind('keypress keyup blur', function() {
+        $('#user_info_youtube_input').html($(this).val());
+    });
+    $('#user_info_twitter').bind('keypress keyup blur', function() {
+        $('#user_info_twitter_input').html($(this).val());
+    });
+    $('#user_info_facebook').bind('keypress keyup blur', function() {
+        $('#user_info_facebook_input').html($(this).val());
+    });
 });
 
 function updateCountdown() {
-    var currentLength    = $('#user_info_bio').val().length;
-    var remaining        = 255 - currentLength;
-    var percentRemaining = Math.round((currentLength / 255) * 100);
+    const currentLength    = $('#user_info_bio').val().length;
+    const remaining        = 255 - currentLength;
+    const percentRemaining = Math.round((currentLength / 255) * 100);
 
     $('#countdown').text(remaining + ' characters remaining.');
     if(percentRemaining >= 95){
@@ -25,5 +35,18 @@ function updateCountdown() {
         $('#bio-progress-bar').removeClass('progress-bar-success progress-bar-danger').addClass('progress-bar-warning').css('width',percentRemaining+'%');
     } else {
         $('#bio-progress-bar').removeClass('progress-bar-warning progress-bar-danger').addClass('progress-bar-success').css('width',percentRemaining+'%');
+    }
+}
+
+function openSocialLink(link){
+    if(link === 'youtube'){
+        url="https://www.youtube.com/" + $('#user_info_youtube').val();
+        window.open(url,'_blank');
+    } else if(link === 'twitter'){
+        url="https://www.twitter.com/" + $('#user_info_twitter').val();
+        window.open(url,'_blank');
+    } else if(link === 'facebook'){
+        url="https://www.facebook.com/" + $('#user_info_facebook').val();
+        window.open(url,'_blank');
     }
 }
