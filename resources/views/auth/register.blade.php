@@ -3,7 +3,7 @@
 @section('page-title')Register @endsection
 
 @section('head')
-<script type="text/javascript">
+<script>
     $( document ).ready(function() {
         $('#display_name').keypress(function (e) {
             var regex = new RegExp("^[a-zA-Z0-9]+$");

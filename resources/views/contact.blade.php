@@ -80,7 +80,7 @@
 @section('footer-js')
     <!-- plugins js -->
     <script src="plugins/select2/js/select2.min.js"></script>
-    <script type="text/javascript">
+    <script>
         // select2
         $('.select2').select2();
     </script>
