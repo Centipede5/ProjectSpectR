@@ -3,24 +3,9 @@
 @section('page-title'){{ $user->display_name }} @endsection
 
 @section('head')
-    <link href="/plugins/cropper/cropper.css" rel="stylesheet">
-    <style type="text/css">
-        #cropperContainer{ width:180px; height:180px; position: relative; border:1px solid #ccc;}
-    </style>
-
-    <script type="text/javascript">
-        $( document ).ready(function() {
-            $('#user_info_display_name').keypress(function (e) {
-                var regex = new RegExp("^[a-zA-Z0-9]+$");
-                var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
-
-                if (regex.test(str)) { return true; }
-                e.preventDefault();
-
-                return false;
-            });
-        });
-    </script>
+    <link rel="stylesheet" href="/plugins/cropper/cropper.css" />
+    <link rel="stylesheet" href="/css/user/profile/edit.css" />
+    <script src="/js/user/profile/edit.js"></script>
 @endsection
 @section('main-content')
     <!-- main -->
@@ -162,7 +147,7 @@
                                         <div class="divider"><span>Password Reset</span></div>
                                         <div class="form-group input-icon-left m-b-10 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                             <i class="fas fa-lock"></i>
-                                            <input type="password" id="user_info_password" name="user_info_password" class="form-control form-control-secondary" placeholder="Password">
+                                            <input type="password" id="user_info_password" name="user_info_password" class="form-control form-control-secondary" placeholder="Password" autocomplete="off">
                                             @if ($errors->has('password'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('password') }}</strong>
@@ -171,7 +156,7 @@
                                         </div>
                                         <div class="form-group input-icon-left m-b-10">
                                             <i class="fas fa-unlock"></i>
-                                            <input type="password" id="user_info_password-confirm" name="user_info_password_confirmation" class="form-control form-control-secondary" placeholder="Repeat Password">
+                                            <input type="password" id="user_info_password-confirm" name="user_info_password_confirmation" class="form-control form-control-secondary" placeholder="Repeat Password" autocomplete="off">
                                         </div>
 
                                         <div class="form-group">
@@ -204,13 +189,6 @@
             doubleZoomControls:false,
             rotateControls: false,
             loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
-            onBeforeImgUpload: function(){ console.log('onBeforeImgUpload') },
-            onAfterImgUpload: function(){ console.log('onAfterImgUpload') },
-            onImgDrag: function(){ console.log('onImgDrag') },
-            onImgZoom: function(){ console.log('onImgZoom') },
-            onBeforeImgCrop: function(){ console.log('onBeforeImgCrop') },
-            onAfterImgCrop:function(){ console.log('onAfterImgCrop') },
-            onReset:function(){ console.log('onReset') },
             onError:function(errormessage){ console.log('onError:'+errormessage) }
         };
         new Cropper('cropperContainer', cropperContainerOptions);
