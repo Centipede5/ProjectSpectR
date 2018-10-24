@@ -48,5 +48,8 @@ function openSocialLink(link){
     } else if(link === 'facebook'){
         url="https://www.facebook.com/" + $('#user_info_facebook').val();
         window.open(url,'_blank');
+    } else if(link === 'website'){
+        url=$('#user_info_website').val();
+        window.open(url,'_blank');
     }
 }

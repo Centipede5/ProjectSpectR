@@ -703,8 +703,13 @@
 
                 that.obj.append('<img class="croppedImg" src="'+"/" + response.url + '">');
 
-                $('#avatar-image').attr('src','/' + response.url);
-                $('#avatar-image-mini').attr('src','/' + response.url);
+                if(response.imgType == 'avatar'){
+                    $('#avatar-image').attr('src','/' + response.url);
+                    $('#avatar-image-mini').attr('src','/' + response.url);
+                } else if(response.imgType == 'canopy'){
+                    $('.hero-profile').css("background-image", "url('/"+response.url+"')");
+                }
+
                 if (that.options.outputUrlId !== '') { $('#' + that.options.outputUrlId).val(response.url); }
 
                 that.croppedImg = that.obj.find('.croppedImg');

@@ -187,6 +187,17 @@ class UserProfileController extends Controller
             'facebook' => $request->input('user_info_facebook')
         ];
 
+        // URL Clean Up
+        foreach ($social_meta as $key => $value){
+            if($key=='website'){
+                $hasHttp = strpos($value,'http://');
+                $hasHttps = strpos($value,'https://');
+                if($hasHttp!==0 && $hasHttps!==0){
+                    $social_meta['website'] = "http://" . $value;
+                }
+            }
+        }
+
         /**
          * Updating the `user_infos` table
          **/

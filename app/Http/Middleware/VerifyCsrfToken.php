@@ -13,6 +13,8 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'util/profileImageUpload',
-        'util/profileImageCrop'
+        'util/profileImageCrop',
+        'util/canopyImageUpload',
+        'util/canopyImageCrop'
     ];
 }

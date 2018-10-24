@@ -12,6 +12,10 @@ input:focus {
   outline: none;
 }
 
+.website-link:hover {
+  color: #2c009f;
+}
+
 .youtube-link:hover {
   color: #FF0000;
 }
@@ -33,6 +37,12 @@ input:focus {
   height: 160px;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.preview-link {
+  display: inline;
+  font-size: 10px;
+  margin-left: 10px;
 }
 
 body {
@@ -95,7 +105,7 @@ h5 + .form-group {
 }
 
 h6 {
-  font-size: 15px;
+  font-size: 12px;
 }
 
 button {

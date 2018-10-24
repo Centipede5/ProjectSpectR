@@ -123,6 +123,8 @@ Route::get('/registration/{email}/{uniqid}', 'Auth\RegisterEmailController@valid
 /* Utilities */
 Route::post('/util/profileImageUpload', 'FileUploadController@profileImageUpload');
 Route::post('/util/profileImageCrop', 'FileUploadController@profileImageCrop');
+Route::post('/util/canopyImageUpload', 'FileUploadController@canopyImageUpload');
+Route::post('/util/canopyImageCrop', 'FileUploadController@canopyImageCrop');
 
 /* SUPER ADMIN */
 Route::get('/super-admin', 'SuperAdminController@index')

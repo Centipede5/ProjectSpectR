@@ -6,6 +6,41 @@
     <link rel="stylesheet" href="/plugins/cropper/cropper.css" />
     <link rel="stylesheet" href="/css/user/profile/edit.css" />
     <script src="/js/user/profile/edit.js"></script>
+    <script>
+        function formValidate() {
+            var value = $('#user_info_password').val();
+            let validPassword=true;
+            if ( value.length > 0 ){
+                validPassword = checkPassword();
+            }
+
+            if(validPassword ===true){
+                document.forms['profile-edit'].submit();
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function checkPassword() {
+            let password1 = $('#user_info_password').val();
+            let passwordVerify = $('#user_info_password_confirmation').val();
+
+            // Length between 7-20 characters
+            // Minimum Requirements:
+            //      1 Uppercase Letter, 1 Lowercase Letter, 1 Number and 1 Special Character
+            var pwdStrength = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{7,20}$/;
+
+            if(!pwdStrength.test(password1)){
+                alert("Password not strong enough!\n\nPasswords must include:\n1 Uppercase Letter, 1 Lowercase Letter, 1 Number, 1 Special Character and between 7-20 character in length.");
+                return false;
+            }
+            if(password1 !== passwordVerify){
+                alert("Passwords do not match.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 @endsection
 @section('main-content')
     <!-- main -->
@@ -15,7 +50,7 @@
             <div class="hero-block">
                 <h5>{{ $user->display_name }}</h5>
                 @if(isset(Auth::user()->id) && Auth::user()->id == $user->id )
-                    <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="#" onclick="document.forms['profile-edit'].submit(); return false;" title="Save Profile" role="button"><i class="fas fa-save"></i> Save Profile</a>
+                    <a class="btn btn-primary btn-sm btn-shadow btn-rounded btn-icon btn-add" href="#" onclick="formValidate()" title="Save Profile" role="button"><i class="fas fa-save"></i> Save Profile</a>
                 @endif
             </div>
         </div>
@@ -68,7 +103,7 @@
                         <ul>
                             <li><i class="far fa-calendar-check"></i>Joined {{ $user->created_date }}</li>
                             @if(isset($user_info->social_meta->website))
-                                <li><a href="https://{{ $user_info->social_meta->website }}" target="_blank"><i class="fas fa-link"></i>{{ $user_info->social_meta->website_display }}</a></li>
+                                <li><a href="{{ $user_info->social_meta->website }}" class="website-link" target="_blank"><i class="fas fa-link"></i>{{ $user_info->social_meta->website_display }}</a></li>
                             @endif
                             @if(isset($user_info->social_meta->youtube))
                                 <li><a href="https://www.youtube.com/{{ $user_info->social_meta->youtube }}" class="youtube-link" target="_blank"><i class="fab fa-youtube"></i>/{{ $user_info->social_meta->youtube }}</a></li>
@@ -93,6 +128,8 @@
                                 <!-- left column -->
                                 <div class="col-md-3">
                                     <div id="cropperContainer"><img src="{{ $user->profile_image_large }}" style="width: 100%;" /></div>
+                                    <h6 style="margin: 10px 0 0 0;">Banner Image</h6>
+                                    <div id="cropperContainer2"><img src="{{ $user->background_image }}" style="width: 100%;" /></div>
                                 </div>
 
                                 <!-- Edit form column -->
@@ -129,35 +166,35 @@
                                         </div>
 
                                         <div class="form-group input-icon-left m-b-10">
-                                            <i class="fas fa-link"></i>
+                                            <i class="fas fa-link website-link" onclick="openSocialLink('website')" style="cursor: pointer"></i>
                                             <input type="text" class="form-control form-control-secondary" placeholder="Website URL" id="user_info_website" name="user_info_website" value="@if(isset($user_info->social_meta->website)){{$user_info->social_meta->website}}@endif" maxlength="50">
                                         </div>
 
                                         <div>
-                                            <label for="user_info_youtube" style="display: inline; font-size: 12px;margin-left: 14px;">youtube.com/<span id="user_info_youtube_input" style="color: #FF0000">@if(isset($user_info->social_meta->youtube)){{$user_info->social_meta->youtube}}@endif</span></label>
+                                            <label for="user_info_youtube" class="preview-link">youtube.com/<span id="user_info_youtube_input" style="color: #FF0000">@if(isset($user_info->social_meta->youtube)){{$user_info->social_meta->youtube}}@endif</span></label>
                                         </div>
                                         <div class="form-group input-icon-left m-b-10 youtube-link">
-                                            <i class="fab fa-youtube" onclick="openSocialLink('youtube')"></i>
+                                            <i class="fab fa-youtube" onclick="openSocialLink('youtube')" style="cursor: pointer"></i>
                                             <input type="text" class="form-control form-control-secondary" placeholder="YouTube Channel / URL" id="user_info_youtube" name="user_info_youtube" value="@if(isset($user_info->social_meta->youtube)){{$user_info->social_meta->youtube}}@endif" maxlength="100">
                                         </div>
                                         <div>
-                                            <label for="user_info_twitter" style="display: inline; font-size: 12px; margin-left: 14px;">twitter.com/<span id="user_info_twitter_input" style="color: #6cb7f0">@if(isset($user_info->social_meta->twitter)){{$user_info->social_meta->twitter}}@endif</span></label>
+                                            <label for="user_info_twitter" class="preview-link">twitter.com/<span id="user_info_twitter_input" style="color: #6cb7f0">@if(isset($user_info->social_meta->twitter)){{$user_info->social_meta->twitter}}@endif</span></label>
                                         </div>
                                         <div class="form-group input-icon-left m-b-10 twitter-link">
-                                            <i class="fab fa-twitter twitter-link" onclick="openSocialLink('twitter')"></i>
+                                            <i class="fab fa-twitter twitter-link" onclick="openSocialLink('twitter')" style="cursor: pointer"></i>
                                             <input type="text" class="form-control form-control-secondary" placeholder="Twitter Name" id="user_info_twitter" name="user_info_twitter" value="@if(isset($user_info->social_meta->twitter)){{$user_info->social_meta->twitter}}@endif" maxlength="50">
                                         </div>
                                         <div>
-                                            <label for="user_info_facebook" style="display: inline; font-size: 12px;margin-left: 14px;">facebook.com/<span id="user_info_facebook_input" style="color: #3b5998">@if(isset($user_info->social_meta->facebook)){{$user_info->social_meta->facebook}}@endif</span></label>
+                                            <label for="user_info_facebook" class="preview-link">facebook.com/<span id="user_info_facebook_input" style="color: #3b5998">@if(isset($user_info->social_meta->facebook)){{$user_info->social_meta->facebook}}@endif</span></label>
                                         </div>
                                         <div class="form-group input-icon-left m-b-10 facebook-link">
-                                            <i class="fab fa-facebook facebook-link" onclick="openSocialLink('facebook')"></i>
+                                            <i class="fab fa-facebook facebook-link" onclick="openSocialLink('facebook')" style="cursor: pointer"></i>
                                             <input type="text" class="form-control form-control-secondary" placeholder="Facebook URL" id="user_info_facebook" name="user_info_facebook" value="@if(isset($user_info->social_meta->facebook)){{$user_info->social_meta->facebook}}@endif" maxlength="100">
                                         </div>
 
                                         <div class="divider"><span>Password Reset</span></div>
                                         <div class="form-group input-icon-left m-b-10 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                            <i class="fas fa-lock"></i>
+                                            <i class="fas fa-lock" onclick="checkPassword()"></i>
                                             <input type="password" id="user_info_password" name="user_info_password" class="form-control form-control-secondary" placeholder="Password" autocomplete="off">
                                             @if ($errors->has('password'))
                                                 <span class="help-block">
@@ -167,13 +204,13 @@
                                         </div>
                                         <div class="form-group input-icon-left m-b-10">
                                             <i class="fas fa-unlock"></i>
-                                            <input type="password" id="user_info_password-confirm" name="user_info_password_confirmation" class="form-control form-control-secondary" placeholder="Repeat Password" autocomplete="off">
+                                            <input type="password" id="user_info_password_confirmation" name="user_info_password_confirmation" class="form-control form-control-secondary" placeholder="Repeat Password" autocomplete="off">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-md-3 control-label"></label>
                                             <div class="col-md-8">
-                                                <input class="btn btn-primary" value="Save Changes" type="submit">
+                                                <input type="button" class="btn btn-primary" onclick="formValidate()" value="Save Changes" >
                                                 <span></span>
                                                 <a href="/{{ $user->display_name }}"><input class="btn btn-default" value="Cancel" type="button"></a>
                                             </div>
@@ -203,5 +240,23 @@
             onError:function(errormessage){ console.log('onError:'+errormessage) }
         };
         new Cropper('cropperContainer', cropperContainerOptions);
+
+        var cropperContainerOptions2 = {
+            uploadUrl:'/util/canopyImageUpload',
+            cropUrl:'/util/canopyImageCrop',
+            imgEyecandy:false,
+            doubleZoomControls:false,
+            rotateControls: false,
+            loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+            onBeforeImgUpload: function(){ console.log('onBeforeImgUpload') },
+            onAfterImgUpload: function(){ console.log('onAfterImgUpload') },
+            onImgDrag: function(){ console.log('onImgDrag') },
+            onImgZoom: function(){ console.log('onImgZoom') },
+            onBeforeImgCrop: function(){ console.log('onBeforeImgCrop') },
+            onAfterImgCrop:function(){ console.log('onAfterImgCrop') },
+            onReset:function(){ console.log('onReset') },
+            onError:function(errormessage){ console.log('onError:'+errormessage) }
+        };
+        new Cropper('cropperContainer2', cropperContainerOptions2);
     </script>
 @endsection

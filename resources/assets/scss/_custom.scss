@@ -7,6 +7,10 @@ textarea:focus, button:focus, input:focus{
   outline: none;
 }
 
+.website-link:hover {
+  color:#2c009f;
+}
+
 .youtube-link:hover {
   color:#FF0000;
 }
@@ -26,4 +30,10 @@ textarea:focus, button:focus, input:focus{
   width: 212px;
   height: 160px;
   object-fit: cover;
+}
+
+.preview-link {
+  display: inline;
+  font-size: 10px;
+  margin-left: 10px;
 }

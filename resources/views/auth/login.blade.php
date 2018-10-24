@@ -22,7 +22,7 @@
                 </div>-->
                   <div class="form-group input-icon-left m-b-10 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                     <i class="fas fa-user"></i>
-                    <input id="email" name="email" type="email" class="form-control form-control-secondary" placeholder="E-Mail Address"  value="{{ old('email') }}" required autofocus autocomplete="on">
+                    <input id="email" name="email" type="email" class="form-control form-control-secondary" placeholder="E-Mail Address" value="{{ old('email') }}" autocomplete="on" autofocus required>
 
                     @if ($errors->has('email'))
                       <span class="help-block">
