@@ -53,3 +53,37 @@ function openSocialLink(link){
         window.open(url,'_blank');
     }
 }
+
+function formValidate() {
+    var value = $('#user_info_password').val();
+    let validPassword=true;
+    if ( value.length > 0 ){
+        validPassword = checkPassword();
+    }
+
+    if(validPassword ===true){
+        document.forms['profile-edit'].submit();
+        return true;
+    } else {
+        return false;
+    }
+}
+function checkPassword() {
+    let password1 = $('#user_info_password').val();
+    let passwordVerify = $('#user_info_password_confirmation').val();
+
+    // Length between 7-20 characters
+    // Minimum Requirements:
+    //      1 Uppercase Letter, 1 Lowercase Letter, 1 Number and 1 Special Character
+    var pwdStrength = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{7,20}$/;
+
+    if(!pwdStrength.test(password1)){
+        alert("Password not strong enough!\n\nPasswords must include:\n1 Uppercase Letter, 1 Lowercase Letter, 1 Number, 1 Special Character and between 7-20 character in length.");
+        return false;
+    }
+    if(password1 !== passwordVerify){
+        alert("Passwords do not match.");
+        return false;
+    }
+    return true;
+}
