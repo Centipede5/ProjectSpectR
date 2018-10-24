@@ -27,7 +27,7 @@
           <a href="#"><img src="/img/user/avatar-sm.jpg" alt=""></a>
           <div class="profile-info">
             <h5>{{ $user->display_name }}</h5>
-            <span>@nathan</span>
+            <span>&commat;{{  $user->display_name }}</span>
           </div>
         </div>
       </div>
@@ -60,8 +60,9 @@
           <!-- widget about -->
           <div class="widget widget-about">
             @if(isset($user_info->bio))
-            <h5 class="widget-title">About</h5>
-            <p>{{ $user_info->bio }}</p>
+              <h5 class="widget-title">About {{$user->name}}</h5>
+              <span><a href="/{{$user->display_name}}">&commat;{{$user->display_name}}</a></span>
+              <p>{{ $user_info->bio }}</p>
             @endif
             <ul>
               <li><i class="far fa-calendar-check"></i>Joined {{ $user->created_date }}</li>

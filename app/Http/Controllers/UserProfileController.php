@@ -180,6 +180,17 @@ class UserProfileController extends Controller
                 ]);
         }
 
+
+        // SQL UPDATE: Update `users` table with a new Name if it changed
+        if($user->name != $request->input('user_info_name'))
+        {
+            DB::table('users')
+                ->where('id', $user->id)
+                ->update([
+                    'name' => $request->input('user_info_name')
+                ]);
+        }
+
         $social_meta = [
             'website'  => $request->input('user_info_website'),
             'youtube'  => $request->input('user_info_youtube'),
@@ -192,7 +203,7 @@ class UserProfileController extends Controller
             if($key=='website'){
                 $hasHttp = strpos($value,'http://');
                 $hasHttps = strpos($value,'https://');
-                if($hasHttp!==0 && $hasHttps!==0){
+                if($hasHttp!==0 && $hasHttps!==0 && strlen($value) > 0){
                     $social_meta['website'] = "http://" . $value;
                 }
             }

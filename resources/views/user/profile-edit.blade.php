@@ -62,7 +62,8 @@
                     <!-- widget about -->
                     <div class="widget widget-about">
                         @if(isset($user_info->bio))
-                            <h5 class="widget-title">About</h5>
+                            <h5 class="widget-title">About {{$user->name}}</h5>
+                            <a href="/">&commat;{{$user->display_name}}</a>
                             <p>{{ $user_info->bio }}</p>
                         @endif
                         <ul>
@@ -108,6 +109,15 @@
                                             @if ($errors->has('display_name'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('display_name') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div class="form-group input-icon-left m-b-10">
+                                            <i class="fas fa-user-secret"></i>
+                                            <input type="text" class="form-control form-control-secondary {{ $errors->has('name') ? ' has-error' : '' }}" placeholder="Nickname" id="user_info_name" name="user_info_name" value="{{$user->name}}" maxlength="20" required>
+                                            @if ($errors->has('name'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('name') }}</strong>
                                                 </span>
                                             @endif
                                         </div>
