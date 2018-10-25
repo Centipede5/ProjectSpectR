@@ -13,7 +13,7 @@ input:focus {
 }
 
 .website-link:hover {
-  color: #2c009f;
+  color: #0000EE;
 }
 
 .youtube-link:hover {
@@ -1331,6 +1331,10 @@ section.error-404 form {
 .review .review-good.review-bad p:before {
   content: "\F068";
   color: #e9594a;
+}
+
+.profile-about {
+  padding-top: 10px;
 }
 
 .hero {

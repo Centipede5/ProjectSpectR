@@ -64,7 +64,7 @@
                         @if(isset($user_info->bio))
                             <h5 class="widget-title">About {{$user->name}}</h5>
                             <a href="/">&commat;{{$user->display_name}}</a>
-                            <p>{{ $user_info->bio }}</p>
+                            <p class="profile-about">{{ $user_info->bio }}</p>
                         @endif
                         <ul>
                             <li><i class="far fa-calendar-check"></i>Joined {{ $user->created_date }}</li>
