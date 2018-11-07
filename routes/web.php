@@ -101,6 +101,10 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
+Route::get('/cropper', function () {
+    return view('cropper');
+});
+
 Route::post('/contact', 'ContactController@index');
 
 Route::get('/future', 'HomeController@future')->name('future');
@@ -125,6 +129,8 @@ Route::post('/util/profileImageUpload', 'FileUploadController@profileImageUpload
 Route::post('/util/profileImageCrop', 'FileUploadController@profileImageCrop');
 Route::post('/util/canopyImageUpload', 'FileUploadController@canopyImageUpload');
 Route::post('/util/canopyImageCrop', 'FileUploadController@canopyImageCrop');
+Route::post('/util/sliderImageUpload', 'FileUploadController@sliderImageUpload');
+Route::post('/util/sliderImageCrop', 'FileUploadController@sliderImageCrop');
 
 /* SUPER ADMIN */
 Route::get('/super-admin', 'SuperAdminController@index')

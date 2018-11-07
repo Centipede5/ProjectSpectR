@@ -1,9 +1,9 @@
 <header id="header">
 <div class="container">
 @if(env('APP_DEV_MODE'))
-    @include('layouts.navigation')
+    @include('layouts.navigation-dev')
 @else
-    @include('layouts.navigation-temp')
+    @include('layouts.navigation')
 @endif
 </div>
 </header>
