@@ -97,4 +97,11 @@ class FileUploadController extends Controller
     public function canopyImageCrop () {
         (new ImageProcessController())->canopyImageCrop();
     }
+    public function sliderImageUpload () {
+        (new ImageProcessController())->sliderImageUpload();
+    }
+
+    public function sliderImageCrop () {
+        (new ImageProcessController())->sliderImageCrop();
+    }
 }

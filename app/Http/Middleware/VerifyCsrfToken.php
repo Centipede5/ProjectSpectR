@@ -15,6 +15,8 @@ class VerifyCsrfToken extends Middleware
         'util/profileImageUpload',
         'util/profileImageCrop',
         'util/canopyImageUpload',
-        'util/canopyImageCrop'
+        'util/canopyImageCrop',
+        'util/sliderImageUpload',
+        'util/sliderImageCrop'
     ];
 }

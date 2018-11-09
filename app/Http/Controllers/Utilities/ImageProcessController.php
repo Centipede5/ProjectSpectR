@@ -507,6 +507,7 @@ class ImageProcessController extends Controller
         $angle = $_POST['rotation'];
 
         $jpeg_quality = 100;
+
         $output_temp_filename = "uploads/temp_" . Auth::user()->id."-".rand(100,999);
         $imgType = getimagesize($imgUrl);
 
@@ -614,6 +615,275 @@ class ImageProcessController extends Controller
             );
 
             LogIt::userLog("Canopy Image Updated");
+        }
+
+        unlink($imgUrl);
+        print json_encode($response);
+    }
+
+    public function sliderImageUpload () {
+        LogIt::trace($_FILES["img"]);
+
+        # Validation Checks
+        ## 1) The User is logged in and they have the correct permissions
+        if(Auth::guest()) {
+            $response = array(
+                "status" => 'error',
+                "message" => 'LOGGED OUT: You are no longer logged in. Please Login and try again.',
+            );
+            LogIt::error("FAILED: Upload Canopy Image UNAUTHORIZED - User Not Logged In");
+            print json_encode($response);
+            return;
+        }
+
+        LogIt::userLog("Uploading new SLIDER Image: " . $_FILES["img"]["name"]);
+        LogIt::trace("PASSED: User Verification");
+
+        ## 2) Image Upload has no errors
+        if ($_FILES["img"]["error"] > 0) {
+            $response = array(
+                "status" => 'error',
+                "message" => 'ERROR: '. $this->codeToMessage($_FILES["img"]["error"]),
+            );
+            print json_encode($response);
+            return;
+        }
+
+        LogIt::trace("PASSED: Verify No Upload Errors");
+
+        ## 3) Check Image MIME type
+        $allowedMimes   = array("image/png", "image/jpeg");
+        $mimeType       = $_FILES["img"]["type"];
+        if ( !in_array($mimeType, $allowedMimes)) {
+            $response = array(
+                "status" => 'error',
+                "message" => 'Incorrect MIME type uploaded. Please use a JPG or PNG image.',
+            );
+
+            LogIt::userLog("FAILED: Incorrect MIME Type Uploaded: " . $mimeType);
+
+            print json_encode($response);
+            return;
+        }
+
+        LogIt::trace("PASSED: File MIME Type");
+
+        ## 4) Allow certain file extensions - PNG, JPEG, and GIF
+        $allowedExts    = array("jpeg", "jpg", "JPEG", "JPG", "png", "PNG");
+        $extension      = pathinfo($_FILES["img"]["name"], PATHINFO_EXTENSION);
+        if ( !in_array($extension, $allowedExts)) {
+            $response = array(
+                "status" => 'error',
+                "message" => 'Incorrect File type uploaded. Please use a JPG or PNG image.',
+            );
+
+            LogIt::userLog("FAILED: Incorrect File Type Uploaded");
+
+            print json_encode($response);
+            return;
+        }
+
+        LogIt::trace("PASSED: File Extension Check");
+
+        ## 5) Check Size - larger than 400x400 and under 2MB
+        $imgWidth       = getimagesize($_FILES["img"]["tmp_name"])[0];
+        $imgHeight      = getimagesize($_FILES["img"]["tmp_name"])[1];
+        $filesize       = filesize($_FILES["img"]["tmp_name"]);
+        if($imgWidth < 400 || $imgHeight < 400 || $filesize < 10000){
+            $response = array(
+                "status" => 'error',
+                "message" => 'Image Size is to small. Please Upload a larger image.',
+            );
+
+            LogIt::userLog("FAILED: Image Uploaded to small.");
+
+            print json_encode($response);
+            return;
+        }
+
+        LogIt::trace("PASSED: Image Size Greater than 400");
+
+        ## 6) Check write Access to Directory
+        $tempImagePath  = "temp/";
+        if(is_writable($tempImagePath)){
+            ## Clear out any Temp files that the user has created. Users may be uploading several times.
+            $mask = $tempImagePath . "temp_" . "SLIDER" . "*.*";
+            array_map('unlink', glob($mask));
+
+            $mask = "uploads/temp_" . "SLIDER" . "*.*";
+            array_map('unlink', glob($mask));
+
+            LogIt::trace("PASSED: CLEARING OLD FILES");
+        } else {
+            $response = Array(
+                "status" => 'error',
+                "message" => 'Can`t upload File; no write Access'
+            );
+            LogIt::trace($response);
+
+            print json_encode($response);
+            return;
+        }
+
+        LogIt::trace("PASSED: Directory Path Writable");
+        LogIt::info("=========== IMAGE VALIDATION PASSED ===========");
+
+        /*
+         * The Uploaded file has been validated and is CLEARED for processing
+         */
+
+        # Process the Image
+        // 1) Rename the image - ID-UNIQID-RAND-DISPLAY_NAME-SITENAME-PURPOSE.jpg
+        // 2) Resize and compress the source image - 400x*
+        // 3) Move to the archive location
+        //          - Override existing images
+        // 4) Create the 3 cropped image sizes: 90, 126, and 400
+        // 5) Upload/Copy new images to - AWS S3
+        // 6) Update the "users" table with the new file name for the user images
+        // 7) Delete all other user Avatars on AWS and the local set of images
+
+        $filename = $_FILES["img"]["tmp_name"];
+        list($width, $height) = getimagesize( $_FILES["img"]["tmp_name"] );
+
+        // TODO: Archiving the uncompressed / original files the user uploads can potentially become heavy and unnecessary. Need to decide on how to clean this up periodically.
+        // 1) Rename the image for Archive - ID-DISPLAY_NAME-PURPOSE
+        // Remove old files
+        $mask = "../storage/user_uploads/" . "SLIDER" . "*.*";
+        array_map('unlink', glob($mask));
+        $archivePath = "../storage/user_uploads/";
+        $archiveImgName = "SLIDER" . "-slider." . $extension;   // Original Image renamed and stored for admin reference
+        copy($filename,  $archivePath . $archiveImgName);   // Copy Uploaded image to the archive
+
+        // Moving image to PUBLIC to be edited
+        $newImgName = "temp_" . "SLIDER" . "-". rand(100,999) . ".". $extension;
+        move_uploaded_file($filename,  $tempImagePath . $newImgName);   // Move the image to public to be edited
+
+        $response = array(
+            "status" => 'success',
+            "imgType" => 'canopy',
+            "url" => $tempImagePath.$newImgName,
+            "width" => $width,
+            "height" => $height
+        );
+
+        print json_encode($response);
+    }
+
+    /**
+     * Every user will get 4 images saved for their user Canopy
+     * 90x90    - Nav Bar and comments
+     * 126x126  - Friends Widget
+     * 400X400  - Canopy Image
+     * Original - Uncropped, but downsized
+     */
+    public function sliderImageCrop () {
+        // 90 = .51
+        // 126 = .70
+        // 400 = 2.25
+
+        // Where the temp image is located
+        $imgUrl = $_POST['imgUrl'];
+        //$imgUrl = "public/temp/48-canopy.jpg";
+
+        // rotation angle
+        $angle = $_POST['rotation'];
+
+        $jpeg_quality = 100;
+
+        $output_temp_filename = "uploads/temp_SLIDER-".rand(100,999);
+        $imgType = getimagesize($imgUrl);
+        switch(strtolower($imgType['mime']))
+        {
+            case 'image/png':
+                $source_image = imagecreatefrompng($imgUrl);
+                $type = '.png';
+                break;
+            case 'image/jpeg':
+                $source_image = imagecreatefromjpeg($imgUrl);
+                $type = '.jpg';
+                break;
+//            case 'image/gif':
+//                $img_r = imagecreatefromgif($imgUrl);
+//                $source_image = imagecreatefromgif($imgUrl);
+//                $type = '.gif';
+//                break;
+            default: die('image type not supported');
+        }
+
+        //Check write Access to Directory
+        if(!is_writable(dirname($output_temp_filename))){
+            $response = Array(
+                "status" => 'error',
+                "message" => 'Can`t write cropped File'
+            );
+            LogIt::userLog("Error: Can`t write cropped File");
+        }else{
+
+            // TODO: Need to change this to renaming the old files and only remove them after the new images have been made. Works for now.
+            ## Clear out any user files that the user has created.
+            #        Users may have different file types that might
+            #        get left in the folder.
+            $mask = "uploads/" . "SLIDER". "*slider*.*";
+            array_map('unlink', glob($mask));
+
+            LogIt::trace("PASSED: CLEARING OLD SLIDER FILES");
+
+            // original sizes
+            $imgInitW = $_POST['imgInitW'];
+            $imgInitH = $_POST['imgInitH'];
+            ##########################################
+            # Resize Original and Use for Canopy Link
+            if($imgInitH>=$imgInitW){
+                $newImgW=1920;
+                $newImgH=round(($imgInitH * 1920) / $imgInitW);
+            } else {
+                $newImgH=1080;
+                $newImgW=round(($imgInitW * 1080) / $imgInitH);
+            }
+
+            $canopyImage = "SLIDER-" . strtolower(env('APP_NAME')) . "-" . "slider-orig".$type;
+            $output_filename = "uploads/" . $canopyImage;
+            $resizedImage = imagecreatetruecolor($newImgW, $newImgH);
+            imagecopyresampled($resizedImage, $source_image, 0, 0, 0, 0, $newImgW, $newImgH, $imgInitW, $imgInitH);
+            if($type==".jpg"){
+                imagejpeg($resizedImage, $output_filename, 100);
+            } else if ($type==".png"){
+                imagepng($resizedImage, $output_filename, 9);
+            }
+
+            ############
+            ## 1920 x 1080
+            $imgW = $_POST['imgW']*1.924;
+            $imgH = $_POST['imgH']*1.926;
+            // offsets
+            $imgY1 = $_POST['imgY1'] * 1.924;
+            $imgX1 = $_POST['imgX1'] * 1.926;
+            // crop box
+            $cropW = $_POST['cropW'] * 1.924;
+            $cropH = $_POST['cropH'] * 1.926;
+
+            $imgName = "SLIDER-" . strtolower(env('APP_NAME')) . "-slider".$type;
+            $output_filename = "uploads/" . "SLIDER-" . strtolower(env('APP_NAME')) . "-" . "slider".$type;
+
+            $resizedImage = imagecreatetruecolor($imgW, $imgH);
+            imagecopyresampled($resizedImage, $source_image, 0, 0, 0, 0, $imgW, $imgH, $imgInitW, $imgInitH);
+            $final_image = imagecreatetruecolor($cropW, $cropH);
+            imagecopyresampled($final_image, $resizedImage, 0, 0, $imgX1, $imgY1, $cropW, $cropH, $cropW, $cropH);
+
+            // TODO: Remove the commented out images if everything is working. There were there to bust the cache.
+            if($type==".jpg"){
+                imagejpeg($final_image, $output_filename, 80);
+            } else if ($type==".png"){
+                imagepng($final_image, $output_filename, 8);
+            }
+
+            $response = Array(
+                "status" => 'success',
+                "imgType" => 'canopy',
+                "url" => $output_filename."?refresh=".rand()
+            );
+
+            LogIt::userLog("SLIDER Image Updated");
         }
 
         unlink($imgUrl);

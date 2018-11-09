@@ -3,8 +3,11 @@
 @section('page-title')Contact Us @endsection
 
 @section('head')
-    <!-- plugins css -->
-    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/plugins/cropper/cropper.css" />
+    <style type="text/css">
+        #cropperContainer{ width:1000px; height:563px; position: relative; border:1px solid #ccc;}
+    </style>
+
 @endsection
 
 @section('main-content')
@@ -31,46 +34,7 @@
     <section class="p-t-10">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7 mx-auto">
-                    <form method="post" action="">
-                        {{ csrf_token() }}
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <b>Well done!</b> You successfully read this important alert message.
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email">
-                            <small class="form-text">We'll never share your email with anyone else.</small>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="subject">Subject</label>
-                                    <select id="subject" class="form-control select2">
-                                        <option>General</option>
-                                        <option>Partnership</option>
-                                        <option>Report Bug</option>
-                                        <option>Support</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea class="form-control" rows="6"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-lg btn-rounded btn-effect btn-shadow float-right">Submit</button>
-                    </form>
-                </div>
+                <div id="cropperContainer"><img src="/uploads/00-default-canopy-old.jpg" style="width: 100%;" /></div>
             </div>
         </div>
     </section>
@@ -78,10 +42,18 @@
 @endsection
 
 @section('footer-js')
-    <!-- plugins js -->
-    <script src="plugins/select2/js/select2.min.js"></script>
+    <script src="/plugins/cropper/cropper.js"></script>
     <script>
-        // select2
-        $('.select2').select2();
+        var cropperContainerOptions = {
+            uploadUrl:'/util/sliderImageUpload',
+            cropUrl:'/util/sliderImageCrop',
+            imgEyecandy:false,
+            doubleZoomControls:false,
+            rotateControls: false,
+            loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+            onError:function(errormessage){ console.log('onError:'+errormessage) }
+        };
+        new Cropper('cropperContainer', cropperContainerOptions);
+
     </script>
 @endsection
