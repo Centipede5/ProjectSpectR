@@ -43,22 +43,45 @@ class LoadPlatformsTable extends Command
         //scan JSON directory
         $DocDirectory = "resources/igdb/platforms";   //Directory to be scanned
 
-        $arrDocs = array_diff(scandir($DocDirectory), array('..', '.'));  //Scan the $DocDirectory and create an array list of all of the files and directories
+        $arrDocs = array_diff(scandir($DocDirectory), array('..', '.','.DS_Store'));  //Scan the $DocDirectory and create an array list of all of the files and directories
         natcasesort($arrDocs);
+
         if( isset($arrDocs) && is_array($arrDocs) )
         {
+
+            $data=[];
+            $ctr=1;
+            $totalCtr=1;
+
+            echo "Scanning...";
             foreach( $arrDocs as $a )   //For each document in the current document array
             {
                 // Directory search and count
-                if( is_file($DocDirectory . "/" . $a) && $a != "." && $a != ".." && substr($a,strlen($a)-3,3) != ".db" )      //The "." and ".." are directories.  "." is the current and ".." is the parent
+                if( is_file($DocDirectory . "/" . $a) && $a != "." && $a != ".." && $a != ".DS_Store" && substr($a,strlen($a)-3,3) != ".db" )      //The "." and ".." are directories.  "." is the current and ".." is the parent
                 {
-                    $this->loadJson($a);
+                    if($totalCtr==count($arrDocs)) {
+                        array_push($data, $this->loadJson($a));
+                        $this->massInsert($data);
+                        break;
+                    } else if ($ctr<100) {
+                        array_push($data, $this->loadJson($a));
+                        $ctr++;
+                    } else {
+                        array_push($data, $this->loadJson($a));
+                        $this->massInsert($data);
+                        $ctr=0;
+                        $data=[];
+                    }
+
+                    echo ".";
+                    $totalCtr++;
                 }
             }
+            echo PHP_EOL . "Total Inserted: " . $totalCtr . PHP_EOL . PHP_EOL;
         }
     }
 
-    public function loadJson ($file) {
+    private function loadJson ($file) {
         // Loop through and pull in each file
         // Decode File
         // Insert Contents into table
@@ -67,7 +90,7 @@ class LoadPlatformsTable extends Command
         $jsonOutput = file_get_contents($filePath);
         $myJson     = json_decode($jsonOutput,true);
 
-        echo $myJson['name'] . " - ID: " . $myJson['id'] . PHP_EOL;
+        //echo $myJson['name'] . " - ID: " . $myJson['id'] . PHP_EOL;
 
         $myJson['id'] = (!isset($myJson['id'])) ? "unknown" : $myJson['id'];
         $myJson['name'] = (!isset($myJson['name'])) ? "unknown" : $myJson['name'];
@@ -84,17 +107,24 @@ class LoadPlatformsTable extends Command
         $myJson['generation'] = (!isset($myJson['generation'])) ? "unknown" : $myJson['generation'];
         $myJson['alternative_name'] = (!isset($myJson['alternative_name'])) ? "none" : $myJson['alternative_name'];
 
-        DB::table('platforms')->insert(
-            [
-                'igdb_id'           => $myJson['id'],
-                'name'              => $myJson['name'],
-                'slug'              => $myJson['slug'],
-                'logo'              => $myJson['logo']['url'],
-                'website'           => $myJson['website'],
-                'summary'           => $myJson['versions'][0]['summary'],
-                'alternative_name'  => $myJson['alternative_name'],
-                'generation'        => $myJson['generation']
-            ]
-        );
+        return [
+            'igdb_id'           => $myJson['id'],
+            'name'              => $myJson['name'],
+            'slug'              => $myJson['slug'],
+            'logo'              => $myJson['logo']['url'],
+            'website'           => $myJson['website'],
+            'summary'           => $myJson['versions'][0]['summary'],
+            'alternative_name'  => $myJson['alternative_name'],
+            'generation'        => $myJson['generation']
+        ];
+    }
+
+    private function massInsert ($data) {
+        echo PHP_EOL ."Inserting " . count($data) . " records" . PHP_EOL;
+        DB::table('platforms')->insert($data);
+    }
+
+    private function customFixes (){
+
     }
 }

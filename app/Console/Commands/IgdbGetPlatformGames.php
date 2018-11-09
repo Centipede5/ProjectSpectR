@@ -38,32 +38,61 @@ class IgdbGetPlatformGames extends Command
      */
     public function handle()
     {
+        // There are currently 154 Platforms.
+        // I don't have all there IDs so I start at zero and go to 169
+        // Currently searching PS3,PS4,Xbox360,XboxOne, and Switch
+        $platformArray = [9,12,48,49,130];
 
         // There are currently 154 Platforms.
         // I don't have all there IDs so I start at zero and go to 169
-        $platformArray = [48,49,130];
         foreach($platformArray as $i){
             echo "Checking ID: " . $i;
-
             $games = \IGDB::getPlatformGames($i);
+
             if ($games!=false){
-                echo " | Building " . PHP_EOL;
+                echo " | FOUND -> " . $games->id .PHP_EOL;
+                // Dump Response to file for use later
+                $fp = fopen("resources/igdb/platform_games/".$i.'.json', 'w');
+                fwrite($fp, json_encode($games));
+                fclose($fp);
 
-                echo "Adding " . PHP_EOL;
-
-                foreach ($games->games as $game){
-                    echo $game . PHP_EOL;
-                    DB::table('igdb_game_ids')->insert(
-                        [
-                            'igdb_id' => $game,
-                            'platform_id' => $i
-                        ]
-                    );
-                }
+//                foreach ($games->games as $game){
+//                    echo $game . PHP_EOL;
+//                    DB::table('igdb_game_ids')->insert(
+//                        [
+//                            'igdb_id' => $game,
+//                            'platform_id' => $i
+//                        ]
+//                    );
+//                }
             } else {
                 echo " | FAILED".PHP_EOL;
             }
             sleep(1);
         }
+
+
+//        foreach($platformArray as $i){
+//            echo "Checking ID: " . $i;
+//
+//            $games = \IGDB::getPlatformGames($i);
+//            if ($games!=false){
+//                echo " | Building " . PHP_EOL;
+//                echo "Adding " . PHP_EOL;
+//
+//                foreach ($games->games as $game){
+//                    echo $game . PHP_EOL;
+//                    DB::table('igdb_game_ids')->insert(
+//                        [
+//                            'igdb_id' => $game,
+//                            'platform_id' => $i
+//                        ]
+//                    );
+//                }
+//            } else {
+//                echo " | FAILED".PHP_EOL;
+//            }
+//            sleep(1);
+//        }
     }
 }

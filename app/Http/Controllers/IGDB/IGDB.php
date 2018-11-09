@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\IGDB;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\DB;
 
 class IGDB
 {
@@ -25,22 +26,22 @@ class IGDB
      * @var array
      */
     const VALID_RESOURCES = [
-        'games' => 'games',
         'characters' => 'characters',
+        'collections' => 'collections',
         'companies' => 'companies',
+        'franchises' => 'franchises',
+        'games' => 'games',
         'game_engines' => 'game_engines',
         'game_modes' => 'game_modes',
+        'genres' => 'genres',
         'keywords' => 'keywords',
         'people' => 'people',
         'platforms' => 'platforms',
-        'pulses' => 'pulses',
-        'themes' => 'themes',
-        'collections' => 'collections',
         'player_perspectives' => 'player_perspectives',
+        'pulses' => 'pulses',
+        'release_dates' => 'release_dates',
         'reviews' => 'reviews',
-        'franchises' => 'franchises',
-        'genres' => 'genres',
-        'release_dates' => 'release_dates'
+        'themes' => 'themes'
     ];
 
 
@@ -68,8 +69,41 @@ class IGDB
         $this->httpClient = new Client();
     }
 
-    public function test () {
-        echo "It Works!";
+    public function updateApiCounter () {
+
+        # Get monthly total API calls
+        $apiCalls = DB::table('igdb_api_usage')->get();
+        $totalCalls=0;
+        foreach($apiCalls as $apiCall){
+
+            $now = time(); // or your date as well
+            $your_date = strtotime($apiCall->updated_at);
+            $daysPassed = round(($now - $your_date) / (60 * 60 * 24));
+
+            if($daysPassed>=30){
+                DB::table('igdb_api_usage')
+                    ->where('id', $apiCall->id)
+                    ->update(['count' => 0,'updated_at' => \Carbon\Carbon::now()]);
+                $apiCount = 0;
+            } else {
+                $apiCount = $apiCall->count;
+            }
+
+            $totalCalls = $apiCount + $totalCalls;
+            if($apiCall->id == date("j")){
+                $currentDailyCount = $apiCount;
+            }
+        }
+
+        if ($totalCalls>2999) {
+            throw new \Exception('API Limit has been reached for the month');
+        } else {
+            $newDaily = $currentDailyCount + 1;
+            DB::table('igdb_api_usage')
+                ->where('id', date("j"))
+                ->update(['count' => $newDaily]);
+        }
+
     }
 
     /**
@@ -284,6 +318,52 @@ class IGDB
         $apiData = $this->apiGet($apiUrl, $params);
 
         return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Get game information by ID
+     *
+     * @param integer $gameId
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getGames($gameId, $fields = ['*'])
+    {
+        $this->updateApiCounter();
+
+        $apiUrl = $this->getEndpoint('games');
+        $apiUrl .= $gameId;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->apiGet($apiUrl, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
+     * Get people information by ID
+     *
+     * @param integer $personId
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getPopularGames($fields = ['*'])
+    {
+        $apiUrl = $this->getEndpoint('games');
+        $apiUrl .= "filter[rating][gt]=90&expand=games";
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->apiGet($apiUrl, $params);
+
+        return $this->decodeMultiple($apiData);
     }
 
     /**

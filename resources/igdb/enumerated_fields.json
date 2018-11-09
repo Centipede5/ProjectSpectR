@@ -1,0 +1,111 @@
+{
+    "acheivement_rank": {
+        "PlayStation": {
+            "1": "Bronze",
+            "2": "Silver",
+            "3": "Gold",
+            "4": "Platinum"
+        }
+    },
+    "acheivement_source": {
+        "1": "Playstation",
+        "2": "XBOX",
+        "3": "Steam"
+    },
+    "credit_category": {
+        "1": "voice_actor",
+        "2": "language",
+        "3": "company_credit",
+        "4": "employee",
+        "5": "misc",
+        "6": "support_company"
+    },
+    "date_category": {
+        "0": "“YYYY MMM DD”, for example “2001 Nov 13”",
+            "1": "“YYYY-MMM”, for example “1999-May”",
+            "2": "“YYYY”, for example “1995”",
+            "3": "“YYYY-Q1”, for example “2012-Q1”",
+            "4": "“YYYY-Q2”, for example “2012-Q2”",
+            "5": "“YYYY-Q3”, for example “2012-Q3”",
+            "6": "“YYYY-Q4”, for example “2012-Q4”",
+            "7": "“TBD”"
+    },
+    "esrb_rating": {
+        "1": "RP",
+        "2": "EC",
+        "3": "E",
+        "4": "E10+",
+        "5": "T",
+        "6": "M",
+        "7": "AO"
+    },
+    "feed_item_category": {
+        "1": "Pulse Article",
+        "2": "Coming Soon",
+        "3": "New Trailer",
+        "5": "User Contributed Item",
+        "6": "User contributions item",
+        "7": "Page Contributed Item"
+    },
+    "game_category": {
+        "0": "Main game",
+        "1": "DLC / Addon",
+        "2": "Expansion",
+        "3": "Bundle",
+        "4": "Standalone expansion"
+    },
+    "game_status": {
+        "0": "Released",
+        "2": "Alpha",
+        "3": "Beta",
+        "4": "Early access",
+        "5": "Offline",
+        "6": "Cancelled"
+    },
+    "gender": {
+        "0": "Male",
+        "1": "Female",
+        "2": "Unknown"
+    },
+    "pegi_rating": {
+        "1": "3",
+        "2": "7",
+        "3": "12",
+        "4": "16",
+        "5": "18"
+    },
+    "region": {
+        "1": "Europe (EU)",
+        "2": "North America (NA)",
+        "3": "Australia (AU)",
+        "4": "New Zealand (NZ)",
+        "5": "Japan (JP)",
+        "6": "China (CH)",
+        "7": "Asia (AS)",
+        "8": "Worldwide",
+        "9": "Hong Kong (HK)",
+        "10": "South Korea (KR)"
+    },
+    "species": {
+        "1": "Human",
+        "2": "Alien",
+        "3": "Animal",
+        "4": "Android",
+        "5": "Unknown"
+    },
+    "website_category": {
+        "1": "official",
+        "2": "wikia",
+        "3": "wikipedia",
+        "4": "facebook",
+        "5": "twitter",
+        "6": "twitch",
+        "8": "instagram",
+        "9": "youtube",
+        "10": "iphone",
+        "11": "ipad",
+        "12": "android",
+        "13": "steam",
+        "14": "Reddit"
+    }
+}

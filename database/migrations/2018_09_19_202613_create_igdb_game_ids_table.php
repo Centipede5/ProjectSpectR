@@ -17,6 +17,7 @@ class CreateIgdbGameIdsTable extends Migration
             $table->increments('id');
             $table->string('igdb_id', 256);
             $table->string('platform_id', 256);
+            $table->string('slug', 256)->nullable();
             $table->timestamps();
         });
     }

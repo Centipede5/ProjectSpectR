@@ -27,6 +27,7 @@ class CreateGamesTable extends Migration
             $table->date('release_date_na')->nullable();
             $table->date('release_date_jp')->nullable();
             $table->date('release_date_eu')->nullable();
+            $table->integer('igdb_id')->nullable();
             $table->timestamps();
         });
     }
