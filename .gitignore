@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /public/demo
+/public/uploads
 /resources/assets/dev
 /storage/*.key
 /vendor
