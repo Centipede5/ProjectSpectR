@@ -6,7 +6,7 @@
             <nav class="nav">
                 <ul>
                     <li class="has-dropdown">
-                        <a href="/">Home</a>
+                        <a href="/">Home DEV</a>
                         <ul>
                             <li><a href="home-magazine.html">Home Magazine</a></li>
                             <li><a href="home-blog.html">Home Blog</a></li>
