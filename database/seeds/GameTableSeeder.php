@@ -22,9 +22,7 @@ class GameTableSeeder extends Seeder
             'summary'  => '',
             'image_portrait' =>'marvels-spider-man-portrait.png',
             'image_landscape' => 'marvels-spider-man-landscape.jpg',
-            'release_date_na' => '2018-09-07',
-            'release_date_jp' => '2018-09-07',
-            'release_date_eu' => '2018-09-07'
+            'release_date' => '2018-09-07'
         ]);
         $game2 = Game::create([
             'slug'  => 'shadow-of-the-tomb-raider',
@@ -36,9 +34,7 @@ class GameTableSeeder extends Seeder
             'summary'  => '',
             'image_portrait' =>'default-portrait.jpg',
             'image_landscape' => 'shadow-of-the-tomb-raider-landscape.jpg',
-            'release_date_na' => '2018-09-14',
-            'release_date_jp' => '2018-09-14',
-            'release_date_eu' => '2018-09-14'
+            'release_date' => '2018-09-14'
         ]);
         $game3 = Game::create([
             'slug'  => 'mega-man-11',
@@ -50,9 +46,7 @@ class GameTableSeeder extends Seeder
             'image_portrait' =>'default-portrait.jpg',
             'image_landscape' => 'mega-man-11-landscape.png',
             'platforms' => '{"0":"PS4","1":"Xbox","2":"PC","3":"SWITCH"}',
-            'release_date_na' => '2018-10-02',
-            'release_date_jp' => '2018-10-04',
-            'release_date_eu' => '2018-10-02'
+            'release_date' => '2018-10-02'
         ]);
         $game4 = Game::create([
             'slug'  => 'super-mario-party',
@@ -64,9 +58,7 @@ class GameTableSeeder extends Seeder
             'summary'  => '',
             'image_portrait' =>'default-portrait.jpg',
             'image_landscape' => 'super-mario-party-landscape.jpg',
-            'release_date_na' => '2018-10-05',
-            'release_date_jp' => '2018-10-05',
-            'release_date_eu' => '2018-10-05'
+            'release_date' => '2018-10-05'
         ]);
         $game6 = Game::create([
             'slug'  => 'assassins-creed-odyssey',
@@ -78,9 +70,7 @@ class GameTableSeeder extends Seeder
             'summary'  => '',
             'image_portrait' =>'default-portrait.jpg',
             'image_landscape' => 'default-landscape.jpg',
-            'release_date_na' => '2018-10-05',
-            'release_date_jp' => '2018-10-05',
-            'release_date_eu' => '2018-10-05'
+            'release_date' => '2018-10-05'
         ]);
         $game7 = Game::create([
             'slug'  => 'cod-black-ops-4',
@@ -92,9 +82,7 @@ class GameTableSeeder extends Seeder
             'summary'  => '',
             'image_portrait' =>'default-portrait.jpg',
             'image_landscape' => 'cod-black-ops-4-landscape.png',
-            'release_date_na' => '2018-10-12',
-            'release_date_jp' => '2018-10-12',
-            'release_date_eu' => '2018-10-12'
+            'release_date' => '2018-10-12'
         ]);
         $game8 = Game::create([
             'slug'  => 'soulcalibur-6',
@@ -106,9 +94,7 @@ class GameTableSeeder extends Seeder
             'summary'  => '',
             'image_portrait' =>'default-portrait.jpg',
             'image_landscape' => 'soulcalibur-6-landscape.jpg',
-            'release_date_na' => '2018-10-19',
-            'release_date_jp' => '2018-10-19',
-            'release_date_eu' => '2018-10-19'
+            'release_date' => '2018-10-19'
         ]);
         $game9 = Game::create([
             'slug'  => 'red-dead-redemption-2',
@@ -120,9 +106,7 @@ class GameTableSeeder extends Seeder
             'summary'  => 'America, 1899. The end of the Wild West era has begun. After a robbery goes badly wrong in the western town of Blackwater, Arthur Morgan and the Van der Linde gang are forced to flee. With federal agents and the best bounty hunters in the nation massing on their heels, the gang must rob, steal and fight their way across the rugged heartland of America in order to survive. As deepening internal divisions threaten to tear the gang apart, Arthur must make a choice between his own ideals and loyalty to the gang who raised him.',
             'image_portrait' =>'default-portrait.jpg',
             'image_landscape' => 'red-dead-redemption-2-landscape.jpg',
-            'release_date_na' => '2018-10-26',
-            'release_date_jp' => '2018-10-26',
-            'release_date_eu' => '2018-10-26'
+            'release_date' => '2018-10-26'
         ]);
         $game10 = Game::create([
             'slug'  => 'fallout-76',
@@ -134,9 +118,7 @@ class GameTableSeeder extends Seeder
             'summary'  => 'Work together, or not, to survive. Under the threat of nuclear annihilation, you’ll experience the largest, most dynamic world ever created in the legendary Fallout universe.',
             'image_portrait' =>'default-portrait.jpg',
             'image_landscape' => 'default-landscape.jpg',
-            'release_date_na' => '2018-11-14',
-            'release_date_jp' => '2018-11-14',
-            'release_date_eu' => '2018-11-14'
+            'release_date' => '2018-11-14'
         ]);
         $game11 = Game::create([
             'slug'  => 'battlefield-5',
@@ -148,9 +130,7 @@ class GameTableSeeder extends Seeder
             'summary'  => 'The most intense, immersive Battlefield yet. Every battle is different. Every soldier is unique. Every story is untold. Find out everything you want to know about Battlefield V\'s maps, modes, and exciting new details on single-player and multiplayer. ',
             'image_portrait' =>'default-portrait.jpg',
             'image_landscape' => 'default-landscape.jpg',
-            'release_date_na' => '2018-11-14',
-            'release_date_jp' => '2018-11-14',
-            'release_date_eu' => '2018-11-14'
+            'release_date' => '2018-11-14',
         ]);
     }
 }

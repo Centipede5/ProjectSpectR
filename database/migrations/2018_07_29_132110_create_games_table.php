@@ -24,9 +24,7 @@ class CreateGamesTable extends Migration
             $table->text('summary')->nullable();
             $table->string('image_portrait', 255)->nullable();
             $table->string('image_landscape', 255)->nullable();
-            $table->date('release_date_na')->nullable();
-            $table->date('release_date_jp')->nullable();
-            $table->date('release_date_eu')->nullable();
+            $table->date('release_date')->nullable();
             $table->integer('igdb_id')->nullable();
             $table->timestamps();
         });

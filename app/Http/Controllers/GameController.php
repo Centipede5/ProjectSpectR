@@ -22,8 +22,8 @@ class GameController extends Controller
         $currentDate = date('Y-m-d');
 
         if ($filter=='home-recent'){
-            $games = Game::where('release_date_na', '>=', $currentDate)
-                ->orderBy('release_date_na')
+            $games = Game::where('release_date', '>=', $currentDate)
+                ->orderBy('release_date')
                 ->take(6)
                 ->get();
         } else {
