@@ -19,7 +19,7 @@ class LoadPlatformsTable extends Command
      *
      * @var string
      */
-    protected $description = 'Load in the platform data from the igdb/platforms directory into the platforms table.';
+    protected $description = 'Load Platform JSON data into the platforms table.';
 
     /**
      * Create a new command instance.
@@ -38,11 +38,12 @@ class LoadPlatformsTable extends Command
      */
     public function handle()
     {
+        echo "-- PLATFORMS TABLE --" . PHP_EOL;
+        echo "[CLEARING TABLE]" . PHP_EOL;
         DB::table('platforms')->delete();
 
         //scan JSON directory
         $DocDirectory = "resources/igdb/platforms";   //Directory to be scanned
-
         $arrDocs = array_diff(scandir($DocDirectory), array('..', '.','.DS_Store'));  //Scan the $DocDirectory and create an array list of all of the files and directories
         natcasesort($arrDocs);
 
@@ -53,7 +54,7 @@ class LoadPlatformsTable extends Command
             $ctr=1;
             $totalCtr=1;
 
-            echo "Scanning...";
+            echo "[SCANNING]" . PHP_EOL;
             foreach( $arrDocs as $a )   //For each document in the current document array
             {
                 // Directory search and count
@@ -77,7 +78,7 @@ class LoadPlatformsTable extends Command
                     $totalCtr++;
                 }
             }
-            echo PHP_EOL . "Total Inserted: " . $totalCtr . PHP_EOL . PHP_EOL;
+            echo "[COMPLETED] Total Records Inserted: " . $totalCtr . PHP_EOL . PHP_EOL;
         }
     }
 
@@ -120,11 +121,7 @@ class LoadPlatformsTable extends Command
     }
 
     private function massInsert ($data) {
-        echo PHP_EOL ."Inserting " . count($data) . " records" . PHP_EOL;
+        echo PHP_EOL . "[INSERT]" . PHP_EOL;
         DB::table('platforms')->insert($data);
-    }
-
-    private function customFixes (){
-
     }
 }

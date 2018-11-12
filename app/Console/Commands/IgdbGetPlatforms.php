@@ -19,7 +19,7 @@ class IgdbGetPlatforms extends Command
      *
      * @var string
      */
-    protected $description = 'Connect to the IGDB API and Cache the JSON Response into the igdb/platforms table.';
+    protected $description = 'Complete Platform Information is pulled in when it connects and save response to JSON.';
 
     /**
      * Create a new command instance.

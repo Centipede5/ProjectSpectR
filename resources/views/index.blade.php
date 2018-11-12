@@ -36,7 +36,7 @@
         <div class="col-12 col-sm-6 col-md-4">
           <div class="card card-lg">
             <div class="card-img bottom-border-ps4">
-              <a href="game-post.html"><img src="/img/game/{{$game->image_landscape}}" class="card-img-top" alt="{{$game->slug}}"></a>
+              <a href="game-post.html"><img src="{{$game->image_landscape}}" class="card-img-top" alt="{{$game->slug}}"></a>
               <div style="margin: -40px 0 18px 0">
 
                 @foreach(json_decode($game->platforms) as $platform)
@@ -52,7 +52,7 @@
             </div>
             <div class="card-block">
               <h4 class="card-title"><a href="/game/{{$game->slug}}">{{$game->title}}</a></h4>
-              <div class="card-meta"><span>{{$game->release_date_na}}</span></div>
+              <div class="card-meta"><span>{{$game->release_date}}</span></div>
               <p class="card-text">{{$game->synopsis}}</p>
             </div>
           </div>

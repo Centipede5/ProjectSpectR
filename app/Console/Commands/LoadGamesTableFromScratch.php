@@ -4,23 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use App\Platform;
 
 class LoadGamesTableFromScratch extends Command
 {
-    private $regions = [
-        '1' => "Europe (EU)",
-        '2' => "North America (NA)",
-        '3' => "Australia (AU)",
-        '4' => "New Zealand (NZ)",
-        '5' => "Japan (JP)",
-        '6' => "China (CH)",
-        '7' => "Asia (AS)",
-        '8' => "Worldwide",
-        '9' => "Hong Kong (HK)",
-        '10' => "South Korea (KR)"
-    ];
-
     /**
      * The name and signature of the console command.
      *
@@ -33,9 +19,15 @@ class LoadGamesTableFromScratch extends Command
      *
      * @var string
      */
-    protected $description = 'Load in the game data from the igdb/games directory into the platforms table.';
+    protected $description = 'Rebuilds the GAMES table with available JSONs';
 
+    /**
+     * Stores all of the available Platforms that are in the platforms table
+     *
+     * @var
+     */
     private $platformList;
+
     /**
      * Create a new command instance.
      *
@@ -44,8 +36,6 @@ class LoadGamesTableFromScratch extends Command
     public function __construct()
     {
         parent::__construct();
-
-        $this->platformList = DB::table('platforms')->select('igdb_id','slug')->get();
     }
 
     /**
@@ -55,6 +45,8 @@ class LoadGamesTableFromScratch extends Command
      */
     public function handle()
     {
+        echo "-- GAMES TABLE -" .PHP_EOL;
+        $this->platformList = DB::table('platforms')->select('igdb_id','slug')->get();
         DB::table('games')->delete();
 
         //scan JSON directory
@@ -69,7 +61,7 @@ class LoadGamesTableFromScratch extends Command
             $ctr=1;
             $totalCtr=1;
 
-            echo "Scanning..." . PHP_EOL;
+            echo "[SCANNING]" . PHP_EOL;
             foreach( $arrDocs as $a )   //For each document in the current document array
             {
                 // Directory search and count
@@ -78,6 +70,14 @@ class LoadGamesTableFromScratch extends Command
                     if($totalCtr==count($arrDocs)) {
                         array_push($data, $this->loadJson($a));
                         $this->massInsert($data);
+                        $output_str =  "Total: " . $totalCtr . " / " . count($arrDocs);
+                        echo $output_str;
+                        $line_size = strlen($output_str);
+                        while($line_size >= 0){
+                            echo "\010";
+                            $line_size--;
+                        }
+
                         break;
                     } else if ($ctr<50) {
                         array_push($data, $this->loadJson($a));
@@ -85,6 +85,14 @@ class LoadGamesTableFromScratch extends Command
                     } else {
                         array_push($data, $this->loadJson($a));
                         $this->massInsert($data);
+                        $output_str =  "Total: " . $totalCtr . " / " . count($arrDocs);
+                        echo $output_str;
+                        $line_size = strlen($output_str);
+                        while($line_size >= 0){
+                            echo "\010";
+                            $line_size--;
+                        }
+
                         $ctr=0;
                         $data=[];
                     }
@@ -93,19 +101,7 @@ class LoadGamesTableFromScratch extends Command
                 }
             }
             echo PHP_EOL . "Total Inserted: " . $totalCtr . PHP_EOL . PHP_EOL;
-            $this->customFixes();
         }
-    }
-
-    private function loadJsonDemo ($file) {
-
-        $filePath = "resources/igdb/games/". $file;
-
-        $jsonOutput = file_get_contents($filePath);
-        $myJson     = json_decode($jsonOutput,true);
-
-        echo $myJson['slug'].PHP_EOL;
-        $this->getReleaseDate($myJson['release_dates']);
     }
 
     private function loadJson ($file) {
@@ -159,18 +155,27 @@ class LoadGamesTableFromScratch extends Command
         # genres->array
         # dlcs->array
         # first_release_date
-        $first_release_date = date("Y-m-d", substr($myJson['first_release_date'], 0, 10));
+        //$first_release_date = $myJson['first_release_date'];
+        if(isset($myJson['first_release_date'])){
+            $first_release_date = (strlen($myJson['first_release_date']) == 12) ? date("Y-m-d", substr($myJson['first_release_date'],0,9)) : date("Y-m-d", substr($myJson['first_release_date'],0,10));
+        } else {
+            $first_release_date = null;
+        }
         # pulse_count
         # platforms->array
         $platforms = [];
-        foreach($myJson['platforms'] as $platform){
-            $platformList = json_decode($this->platformList);
-            foreach($platformList as $x){
-                if($platform == $x->igdb_id)
-                {
-                    array_push($platforms,$x->slug);
+        if(isset($myJson['platforms'])){
+            foreach($myJson['platforms'] as $platform){
+                $platformList = json_decode($this->platformList);
+                foreach($platformList as $x){
+                    if($platform == $x->igdb_id)
+                    {
+                        array_push($platforms,$x->slug);
+                    }
                 }
             }
+        } else {
+            array_push($platforms,"unknown");
         }
         $platforms = json_encode($platforms);
         # release_dates->array->[category][platform][date][region][human][y][m]
@@ -178,6 +183,8 @@ class LoadGamesTableFromScratch extends Command
         # screenshots->array->[url][cloudinary_id][width][height]
         # videos->array->[name][video)id]
         # cover->[url][cloudinary_id][width][height]
+        $image_portrait = (isset($myJson['cover']['cloudinary_id'])) ? "https://images.igdb.com/igdb/image/upload/t_720p/" . $myJson['cover']['cloudinary_id'] . ".jpg" : null;
+        $image_landscape = (isset($myJson['screenshots'][0]['cloudinary_id'])) ? "https://images.igdb.com/igdb/image/upload/t_720p/" . $myJson['screenshots'][0]['cloudinary_id'] . ".jpg" : null;
         # esrb->[synopsis][rating]
         $synopsis = (isset($myJson['esrb']['synopsis'])) ? $myJson['esrb']['synopsis'] : null;
         if(!isset($synopsis) || $synopsis==""){
@@ -196,60 +203,17 @@ class LoadGamesTableFromScratch extends Command
             'platforms'         => $platforms,
             'synopsis'          => $synopsis,
             'summary'           => $summary,
-//            'image_portrait'    => $myJson[''],
-//            'image_landscape'   => $myJson[''],
-            'release_date_na'   => $first_release_date,
-            'release_date_jp'   => $first_release_date,
-            'release_date_eu'   => $first_release_date,
+            'image_portrait'    => $image_portrait,
+            'image_landscape'   => $image_landscape,
+            'release_date'      => $first_release_date,
             'igdb_id'           => $igdb_id,
             'created_at'        => \Carbon\Carbon::now(),
             'updated_at'        => \Carbon\Carbon::now()
         ];
     }
 
-    private function getReleaseDate($releaseDates){
-        $regions = [
-            "EU" => null,
-            "NA" => null,
-            "JP" => null,
-        ];
-        $hasRegion=0;
-        foreach ($releaseDates as $date){
-            if(isset($date["region"])){
-                switch ($date["region"]){
-                    case 1:
-                        $regions["EU"] = "EU";
-                        break;
-                    case 2:
-                        $regions["NA"] = "NA";
-                        break;
-                    case 5:
-                        $regions["JP"] = "JP";
-                        break;
-                    default:
-                        break;
-                }
-                $hasRegion++;
-            } else {
-                echo "No Region - " . date("Y-m-d", substr($date["date"], 0, 10)) . PHP_EOL;
-            }
-        }
-        echo $hasRegion . PHP_EOL;
-
-        foreach($regions as $region => $val){
-            echo $region . PHP_EOL;
-        }
-    }
-
-
     private function massInsert ($data) {
-        echo PHP_EOL ."Inserting " . count($data) . " records" . PHP_EOL;
+        echo PHP_EOL;
         DB::table('games')->insert($data);
-    }
-
-    private function customFixes (){
-        DB::table('games')->where('igdb_id', 517)->update(['slug' => 'fear']);
-        DB::table('games')->where('igdb_id', 514)->update(['slug' => 'fear-3']);
-        DB::table('games')->where('igdb_id', 520)->update(['slug' => 'fear-2-project-origin']);
     }
 }

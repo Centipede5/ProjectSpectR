@@ -5,6 +5,10 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class LoadIgdbGameIdsTable
+ * @package App\Console\Commands
+ */
 class LoadIgdbGameIdsTable extends Command
 {
     /**
@@ -19,7 +23,7 @@ class LoadIgdbGameIdsTable extends Command
      *
      * @var string
      */
-    protected $description = 'Load in the Igdb Game Ids data from the igdb/platform_games directory into the igdb_game_ids table.';
+    protected $description = 'Load in the Igdb Game Ids for each platform that has a platform_games JSON.';
 
     /**
      * Create a new command instance.
@@ -38,14 +42,16 @@ class LoadIgdbGameIdsTable extends Command
      */
     public function handle()
     {
+        echo "-- GAME IDS TABLE -" . PHP_EOL;
+        echo "[CLEARING TABLE]" . PHP_EOL;
         DB::table('igdb_game_ids')->delete();
 
         //scan JSON directory
         $DocDirectory = "resources/igdb/platform_games";   //Directory to be scanned
-
         $arrDocs = array_diff(scandir($DocDirectory), array('..', '.','.DS_Store'));  //Scan the $DocDirectory and create an array list of all of the files and directories
         natcasesort($arrDocs);
 
+        echo "[SCANNING]" . PHP_EOL;
         if( isset($arrDocs) && is_array($arrDocs) )
         {
             foreach( $arrDocs as $a )   //For each document in the current document array
@@ -59,26 +65,28 @@ class LoadIgdbGameIdsTable extends Command
         }
     }
 
+    /**
+     * Loads in the JSON file to be processed
+     *
+     * @param $file
+     */
     private function loadJson ($file) {
         // Loop through and pull in each file
         // Decode File
         // Insert Contents into table
         $filePath = "resources/igdb/platform_games/". $file;
-
         $jsonOutput = file_get_contents($filePath);
         $myJson     = json_decode($jsonOutput,true);
 
-        echo PHP_EOL . "Loading ID: " . $myJson['id'] . PHP_EOL;
+        echo "Loading Platform ID [" . $myJson['id'] . "] ";
         $data=[];
         $ctr=0;
         $totalCtr=1;
         if ($myJson!=false){
-            echo "Inserting...";
             foreach ($myJson['games'] as $game) {
                 if($totalCtr==count($myJson['games'])) {
                     array_push($data, ['igdb_id' => $game,'platform_id' => $myJson['id']]);
                     $this->massInsert($data);
-                    echo "[LAST]";
                     break;
                 } else if($ctr<100) {
                     array_push($data, ['igdb_id' => $game,'platform_id' => $myJson['id']]);
@@ -96,15 +104,14 @@ class LoadIgdbGameIdsTable extends Command
         } else {
             echo " | FAILED".PHP_EOL;
         }
-            sleep(1);
     }
 
+    /**
+     * Takes an Array of Data to be inserted
+     * @param $data
+     */
     private function massInsert ($data) {
         echo ".";
         DB::table('igdb_game_ids')->insert($data);
-    }
-
-    private function customFixes (){
-
     }
 }

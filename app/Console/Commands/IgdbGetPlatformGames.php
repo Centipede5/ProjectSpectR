@@ -19,7 +19,7 @@ class IgdbGetPlatformGames extends Command
      *
      * @var string
      */
-    protected $description = 'Connect to the IGDB API to get List of Game Ids that are on each platform';
+    protected $description = '[MANUALLY CONFIGURED] Connects to the IGDB API to get List of Game Ids that are on each platform.';
 
     /**
      * Create a new command instance.
@@ -55,44 +55,10 @@ class IgdbGetPlatformGames extends Command
                 $fp = fopen("resources/igdb/platform_games/".$i.'.json', 'w');
                 fwrite($fp, json_encode($games));
                 fclose($fp);
-
-//                foreach ($games->games as $game){
-//                    echo $game . PHP_EOL;
-//                    DB::table('igdb_game_ids')->insert(
-//                        [
-//                            'igdb_id' => $game,
-//                            'platform_id' => $i
-//                        ]
-//                    );
-//                }
             } else {
                 echo " | FAILED".PHP_EOL;
             }
             sleep(1);
         }
-
-
-//        foreach($platformArray as $i){
-//            echo "Checking ID: " . $i;
-//
-//            $games = \IGDB::getPlatformGames($i);
-//            if ($games!=false){
-//                echo " | Building " . PHP_EOL;
-//                echo "Adding " . PHP_EOL;
-//
-//                foreach ($games->games as $game){
-//                    echo $game . PHP_EOL;
-//                    DB::table('igdb_game_ids')->insert(
-//                        [
-//                            'igdb_id' => $game,
-//                            'platform_id' => $i
-//                        ]
-//                    );
-//                }
-//            } else {
-//                echo " | FAILED".PHP_EOL;
-//            }
-//            sleep(1);
-//        }
     }
 }

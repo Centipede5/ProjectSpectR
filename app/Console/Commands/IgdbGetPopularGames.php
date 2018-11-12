@@ -19,7 +19,7 @@ class IgdbGetPopularGames extends Command
      *
      * @var string
      */
-    protected $description = 'Cycle through all of the Game Ids with a rating higher than 90 and cache the Game JSONs';
+    protected $description = '[UNNECESSARY] Originally used to pull in a handful of games to launch with.';
 
     /**
      * Create a new command instance.
