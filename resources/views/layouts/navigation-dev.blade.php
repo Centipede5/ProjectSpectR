@@ -2,7 +2,7 @@
     <div class="navbar">
         <div class="navbar-left">
             <a class="navbar-toggle"><i class="fas fa-bars"></i></a>
-            <a href="/" class="logo"><img src="/img/title_logo_white.png" alt="ProjectSpectR"></a>
+            <a href="/" class="logo"><img src="/img/title_logo_white.png" alt="SpectreGaming.club"></a>
             <nav class="nav">
                 <ul>
                     <li class="has-dropdown">

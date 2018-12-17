@@ -13,4 +13,4 @@ let mix = require('laravel-mix');
 
 //mix.js('resources/assets/js/app.js', 'public/js');
 
-mix.sass('resources/assets/scss/ProjectSpectR.scss', 'public/css').version();
+mix.sass('resources/assets/scss/SpectreGaming.scss', 'public/css').version();

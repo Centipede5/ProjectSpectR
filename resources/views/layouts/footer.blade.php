@@ -47,7 +47,7 @@
                 <a href="https://www.twitch.tv/" target="_blank" data-toggle="tooltip" title="twitch"><i class="fab fa-twitch"></i></a>
                 <a href="https://www.youtube.com/user" target="_blank" data-toggle="tooltip" title="youtube"><i class="fab fa-youtube"></i></a>
             </div>
-            <p>Copyright &copy; 2018 ProjectSpectR. All rights reserved.</p>
+            <p>Copyright &copy; 2018 SpectreGaming.club. All rights reserved.</p>
         </div>
     </div>
 </footer>
