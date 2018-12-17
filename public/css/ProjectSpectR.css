@@ -4271,6 +4271,10 @@ input[type="file"] {
   background-color: #327dde;
 }
 
+.badge-mobile {
+  background-color: #0070ff;
+}
+
 .badge-playstation-4,
 .badge-ps4 {
   background-color: #003791;
@@ -4291,11 +4295,7 @@ input[type="file"] {
   border-bottom: solid #00a2ff;
 }
 
-.badge-success {
-  background-color: #0E9A49;
-}
-
-.badge-xbox-one,
+.badge-xboxone,
 .badge-xbox {
   background-color: #107C10;
 }
@@ -4314,30 +4314,34 @@ input[type="file"] {
   border-bottom: solid #CE181E;
 }
 
-.badge-warning {
-  color: #fff;
-  background-color: #FF8E2B;
-}
-
 .badge-pc {
   color: #fff;
   background-color: #305f80;
 }
 
-.badge-info {
-  background-color: #52BAFF;
+.badge-steam {
+  background-color: #305f80;
 }
 
 .badge-uplay {
   background-color: #0070ff;
 }
 
-.badge-danger {
-  background-color: #e74c3c;
+.badge-success {
+  background-color: #0E9A49;
 }
 
-.badge-steam {
-  background-color: #305f80;
+.badge-warning {
+  color: #fff;
+  background-color: #FF8E2B;
+}
+
+.badge-info {
+  background-color: #52BAFF;
+}
+
+.badge-danger {
+  background-color: #e74c3c;
 }
 
 .badge-twitch {
@@ -4851,14 +4855,14 @@ input[type="file"] {
 }
 
 .card .card-img .card-likes a:before {
-  content: "\F08A";
+  content: "\F164";
   font-family: "Font Awesome 5 Free";
-  font-weight: 600;
   margin-right: 6px;
 }
 
 .card .card-img .card-likes a:hover:before {
-  content: "\F004";
+  content: "\F164";
+  font-weight: 600;
 }
 
 .card .card-img-top {

@@ -31,14 +31,14 @@
 				color: #fff;
 
 				&:before {
-					content: "\f08a";
+					content: "\f164";
 					font-family: "Font Awesome 5 Free";
-                    font-weight: 600;
 					margin-right: 6px;
 				}
 
 				&:hover:before {
-					content: "\f004";
+					content: "\f164";
+                    font-weight: 600;
 				}
 			}
 		}
