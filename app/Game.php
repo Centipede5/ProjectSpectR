@@ -9,6 +9,6 @@ class Game extends Model
     protected $table = 'games';
 
     public function getReleaseDateNaAttribute () {
-        return date("F d", strtotime($this->attributes['release_date_na']));
+        return date("F d", strtotime($this->attributes['release_date']));
     }
 }

@@ -28,7 +28,7 @@ class HomeController extends Controller
        $slides = $slides->getSlider('home-page');
 
        $games = new GameController();
-       $games = $games->getGames('home-recent');
+       $games = $games->getGames('home-recent', 'console-only');
        return view('index', compact('slides','games'));
     }
 
