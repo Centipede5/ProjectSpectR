@@ -79,7 +79,7 @@ class LoadGamesTableFromScratch extends Command
                         }
 
                         break;
-                    } else if ($ctr<50) {
+                    } else if ($ctr<40) {
                         array_push($data, $this->loadJson($a));
                         $ctr++;
                     } else {
@@ -126,7 +126,7 @@ class LoadGamesTableFromScratch extends Command
         # created_at
         # updated_at
         # summary
-        $summary =  (isset($myJson['summary'])) ? $myJson['summary'] : null;
+        $summary =  (isset($myJson['summary'])) ? substr($myJson['summary'],0,100) : 'N/A';
         # storyline
         # collection
         # franchise
@@ -142,9 +142,9 @@ class LoadGamesTableFromScratch extends Command
         # games->array
         # tags->array
         # developers->array
-        $developer = (isset($myJson['developers'])) ? json_encode($myJson['developers']) : null;
+        $developer = (isset($myJson['developers'])) ? json_encode($myJson['developers']) : json_encode(['Unknown']);
         # publishers->array
-        $publisher = (isset($myJson['publishers'])) ? json_encode($myJson['publishers']) : null;
+        $publisher = (isset($myJson['publishers'])) ? json_encode($myJson['publishers']) : json_encode(['Unknown']);
         # game_engines->array
         # category
         # time_to_beat->[normally][completely][hastly]
@@ -170,7 +170,36 @@ class LoadGamesTableFromScratch extends Command
                 foreach($platformList as $x){
                     if($platform == $x->igdb_id)
                     {
-                        array_push($platforms,$x->slug);
+                        switch($x->slug){
+                            case "win":
+                                $thePlatform = "pc";
+                                break;
+                            case "steam":
+                                $thePlatform = "pc";
+                                break;
+                            case "mac":
+                                $thePlatform = "pc";
+                                break;
+                            case "linux":
+                                $thePlatform = "pc";
+                                break;
+                            case "nintendo-switch":
+                                $thePlatform = "switch";
+                                break;
+                            case "ios":
+                                $thePlatform = "mobile";
+                                break;
+                            case "android":
+                                $thePlatform = "mobile";
+                                break;
+                            default:
+                                $thePlatform = $x->slug;
+                                break;
+                        }
+
+                        if (!in_array(strtoupper($thePlatform),$platforms)){
+                            array_push($platforms,strtoupper($thePlatform));
+                        }
                     }
                 }
             }
@@ -186,9 +215,9 @@ class LoadGamesTableFromScratch extends Command
         $image_portrait = (isset($myJson['cover']['cloudinary_id'])) ? "https://images.igdb.com/igdb/image/upload/t_720p/" . $myJson['cover']['cloudinary_id'] . ".jpg" : null;
         $image_landscape = (isset($myJson['screenshots'][0]['cloudinary_id'])) ? "https://images.igdb.com/igdb/image/upload/t_720p/" . $myJson['screenshots'][0]['cloudinary_id'] . ".jpg" : null;
         # esrb->[synopsis][rating]
-        $synopsis = (isset($myJson['esrb']['synopsis'])) ? $myJson['esrb']['synopsis'] : null;
+        $synopsis = (isset($myJson['esrb']['synopsis'])) ? substr($myJson['esrb']['synopsis'],0,100) : 'N/A';
         if(!isset($synopsis) || $synopsis==""){
-            $synopsis = (isset($myJson['pegi']['synopsis'])) ? $myJson['pegi']['synopsis'] : null;
+            $synopsis = (isset($myJson['pegi']['synopsis'])) ? substr($myJson['pegi']['synopsis'],0,100) : 'N/A';
         }
         # pegi->[synopsis][rating]
         # websites->array->[category][url]

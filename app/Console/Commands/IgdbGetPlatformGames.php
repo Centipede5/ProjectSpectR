@@ -41,7 +41,7 @@ class IgdbGetPlatformGames extends Command
         // There are currently 154 Platforms.
         // I don't have all there IDs so I start at zero and go to 169
         // Currently searching PS3,PS4,Xbox360,XboxOne, and Switch
-        $platformArray = [9,12,48,49,130];
+        $platformArray = [165];
 
         // There are currently 154 Platforms.
         // I don't have all there IDs so I start at zero and go to 169

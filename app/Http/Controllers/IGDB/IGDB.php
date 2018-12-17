@@ -101,7 +101,7 @@ class IGDB
             $newDaily = $currentDailyCount + 1;
             DB::table('igdb_api_usage')
                 ->where('id', date("j"))
-                ->update(['count' => $newDaily]);
+                ->update(['count' => $newDaily,'updated_at' => \Carbon\Carbon::now()]);
         }
 
     }
@@ -330,13 +330,35 @@ class IGDB
      */
     public function getGames($gameId, $fields = ['*'])
     {
-        $this->updateApiCounter();
-
         $apiUrl = $this->getEndpoint('games');
         $apiUrl .= $gameId;
 
         $params = array(
             'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->apiGet($apiUrl, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
+     * Get game information by ID
+     *
+     * @param integer $gameId
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getGamesByReleaseDate($releaseDate, $fields = ['*'])
+    {
+        $apiUrl = $this->getEndpoint('release_dates');
+
+        $params = array(
+            'fields'            => implode(',', $fields),
+            'filter[date][gt]'  => $releaseDate,
+            'order'             => 'date:asc',
+            'limit'             => '50'
         );
 
         $apiData = $this->apiGet($apiUrl, $params);
@@ -869,6 +891,7 @@ class IGDB
      */
     private function apiGet($url, $params)
     {
+        $this->updateApiCounter();   // Update Local API counter
         $url = $url . (strpos($url, '?') === false ? '?' : '') . http_build_query($params);
 
         try {
@@ -889,5 +912,4 @@ class IGDB
 
         return $response->getBody();
     }
-
 }
