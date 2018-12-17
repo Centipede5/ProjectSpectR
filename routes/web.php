@@ -111,7 +111,7 @@ Route::get('/cropper', function () {
 
 Route::post('/contact', 'ContactController@index');
 
-Route::get('/future', 'HomeController@future')->name('future');
+Route::get('/home-new', 'HomeController@future')->name('future');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

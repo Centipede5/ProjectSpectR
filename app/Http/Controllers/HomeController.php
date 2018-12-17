@@ -37,7 +37,7 @@ class HomeController extends Controller
         $slides = new SliderController();
         $slides = $slides->getSlider('home-page');
 
-        return view('future', compact('slides'));
+        return view('home-new', compact('slides'));
     }
 
 
