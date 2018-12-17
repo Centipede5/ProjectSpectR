@@ -21,6 +21,10 @@ Route::get('/demo', function () {
     return view('demo.index');
 });
 
+Route::get('/igdb-img-demo', function () {
+    return view('igdb-img-demo');
+});
+
 Route::get('/imagetest', function () {
     return view('imagetest');
 });
@@ -110,6 +114,8 @@ Route::post('/contact', 'ContactController@index');
 Route::get('/future', 'HomeController@future')->name('future');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/game/{slug}', 'GameController@getGame');
 
 Route::prefix('user/profile')->group(
     function () {
