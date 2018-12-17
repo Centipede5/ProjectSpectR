@@ -37,5 +37,8 @@ return [
     'igdb' => [
         'key' => env('IGDB_KEY'),
         'url' => env('IGDB_URL')
+    ],
+    'psnapi' => [
+        'url' => env('PSNAPI_URL')
     ]
 ];

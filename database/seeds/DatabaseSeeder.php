@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             SubscribeToUserSeeder::class,
             DefaultSlidesForSliders::class,
             GameTableSeeder::class,
-            IgdbApiUsageSeeder::class
+            IgdbApiUsageSeeder::class,
+            PsnApiUsageSeeder::class
         ]);
     }
 }
