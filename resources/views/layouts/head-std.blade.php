@@ -1,3 +1,13 @@
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131050960-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-131050960-1');
+    </script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -11,7 +21,9 @@
     <link rel="stylesheet" href="/plugins/animate/animate.min.css">
     <!-- Owl Carousel v2.3.4 -->
     <link rel="stylesheet" href="/plugins/owl-carousel/css/owl.carousel.min.css">
-    <!-- ProjectSpectR css -->
-    <link rel="stylesheet" href="{{ mix('/css/ProjectSpectR.css') }}">
+    <!-- SpectreGaming css -->
+    <!-- <link rel="stylesheet" href="{ mix('/css/SpectreGaming.css') }"> -->
+
+    <link rel="stylesheet" href="/css/SpectreGaming.css">
     <!-- jQuery 3.3.1 -->
     <script src="/plugins/jquery/jquery-3.3.1.min.js"></script>
