@@ -139,12 +139,12 @@ Route::post('/util/sliderImageUpload', 'FileUploadController@sliderImageUpload')
 Route::post('/util/sliderImageCrop', 'FileUploadController@sliderImageCrop');
 
 /* SUPER ADMIN */
-Route::get('/super-admin', 'SuperAdminController@index')
+Route::get('/oniadmin', 'SuperAdminController@index')
     ->name('super_admin')
     ->middleware('auth');
-Route::get('/super-admin/manage-roles', 'SuperAdminController@manageRoles')
-    ->name('super_admin')
-    ->middleware('auth');
+//Route::get('/oniadmin/manage-roles', 'SuperAdminController@manageRoles')->middleware('auth');
+
+Route::get('/oniadmin/{thePage}', 'SuperAdminController@pages')->middleware('auth');
 
 /* USER ROUTES */
 Route::get('/{user}', 'UserProfileController@index')->name('user-profile');
