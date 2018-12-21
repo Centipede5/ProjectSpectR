@@ -245,6 +245,57 @@ class PSNAPI
         return $saleIds;
     }
 
+
+    public function getGamesByEndpoint($endPoint)
+    {
+        // 1) Get the Total Results Count
+        $apiUrl =  rtrim($this->baseUrl, '/').'/'.$endPoint.'/';
+        $paramsForTotal = [
+            'size'=>0,
+            'bucket'=>'games',
+            'start'=>0
+        ];
+
+        $apiDataForTotal = $this->apiGet($apiUrl, $paramsForTotal);
+        $dataWithTotal = $this->decodeMultiple($apiDataForTotal);
+
+        $totalResults =  $dataWithTotal->{'data'}->{'attributes'}->{'total-results'};
+
+        echo "Games Expected: " . $totalResults . PHP_EOL;
+
+        // 2) Determine the amount of API Iterations
+        $apiSize = 60;
+        $apiCallCount = ceil($totalResults / $apiSize);
+
+        // 3) Make Each API Call and Strip out duplicates
+        $games = [];
+        $validGames = [];
+        $totalCounter=1;
+        for($i=0;$i<$apiCallCount;$i++){
+            $apiStart = $apiSize * $i;
+            $params = [
+                'size'=>$apiSize,
+                'bucket'=>'games',
+                'start'=>$apiStart
+            ];
+
+            echo $i . ") " . $apiStart . "/" . $totalResults. PHP_EOL;
+
+            $apiData = $this->apiGet($apiUrl, $params);
+            $apiGames = $this->decodeMultiple($apiData);
+            // Clean Up Duplicate Game Listings
+            foreach($apiGames->{'included'} as $game){
+                // Build a list of ALL the Game Ids excluding the legacy-sku's
+                if($game->{'type'} != 'legacy-sku'){
+                    $totalCounter++;
+                    array_push($games,$game);
+                }
+            }
+        }
+        // 4) Return Results
+        return $games;
+    }
+
     public function updateApiCounter () {
 
         # Get monthly total API calls
