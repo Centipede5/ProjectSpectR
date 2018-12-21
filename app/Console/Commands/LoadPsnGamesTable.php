@@ -38,7 +38,8 @@ class LoadPsnGamesTable extends Command
      */
     public function handle()
     {
-        //
+        DB::table('psn_games')->delete();
+
         $subDirectoryList = [];
         $DocDirectory = "resources/psn/games";   //Directory to be scanned
 
@@ -55,8 +56,12 @@ class LoadPsnGamesTable extends Command
             }
         }
         echo "DIRECTORIES FOUND: " . count($subDirectoryList) . PHP_EOL;
-        echo "SCANNING DIRECTORIES" . PHP_EOL;
+        echo "SCANNING DIRECTORIES FOR FILES" . PHP_EOL;
 
+        $subDirCtr=1;
+        $fileCtr=0;
+        $data=[];
+        $ctr=1;
         foreach ($subDirectoryList as $dirName){
             $DocDirectory = "resources/psn/games/" . $dirName;
             $arrDocs = array_diff(scandir($DocDirectory), array('..', '.', '.db'));
@@ -64,42 +69,29 @@ class LoadPsnGamesTable extends Command
 
             if( isset($arrDocs) && is_array($arrDocs) )
             {
-                $data=[];
-                $ctr=1;
                 $totalCtr=1;
-
-                echo "[SCANNING]";
-                foreach( $arrDocs as $a )   //For each document in the current document array
-                {
-                    echo $a;
-                    // Directory search and count
+                foreach( $arrDocs as $a ){
+                    echo ".";
                     if( is_file($DocDirectory . "/" . $a)) {
-                        if($totalCtr==count($arrDocs)) {
+                        $fileCtr++;
+                        // 1) Insert for the last time
+                        if($totalCtr==count($arrDocs) && $subDirCtr == count($subDirectoryList)) {
                             array_push($data, $this->loadJson($dirName,$a));
                             $this->massInsert($data);
-                            $output_str =  "Total: " . $totalCtr . " / " . count($arrDocs);
-                            echo $output_str;
-                            $line_size = strlen($output_str);
-                            while($line_size >= 0){
-                                echo "\010";
-                                $line_size--;
-                            }
 
                             break;
-                        } else if ($ctr<40) {
+                        }
+                        // if the loop count is less than 40, just add the data for later
+                        else if ($ctr<40) {
                             array_push($data, $this->loadJson($dirName,$a));
                             $ctr++;
-                        } else {
+                        }
+                        // If the Counter hits 40, Inert
+                        else {
                             array_push($data, $this->loadJson($dirName,$a));
                             $this->massInsert($data);
-                            $output_str =  "Total: " . $totalCtr . " / " . count($arrDocs);
-                            echo $output_str;
-                            $line_size = strlen($output_str);
-                            while($line_size >= 0){
-                                echo "\010";
-                                $line_size--;
-                            }
 
+                            // Reset Counter and data
                             $ctr=0;
                             $data=[];
                         }
@@ -107,10 +99,13 @@ class LoadPsnGamesTable extends Command
                         $totalCtr++;
                     }
                 }
-                echo PHP_EOL . "Total Inserted: " . $totalCtr . PHP_EOL . PHP_EOL;
             }
-
+            $subDirCtr++;
         }
+
+        DB::table('psn_games')->update(['created_at'=> \Carbon\Carbon::now(),'updated_at'=>\Carbon\Carbon::now()]);
+
+        echo "TOTAL FILES FOUND: " . $fileCtr . PHP_EOL;
     }
 
     private function loadJson ($dirName,$file) {
@@ -120,128 +115,114 @@ class LoadPsnGamesTable extends Command
         $filePath = "resources/psn/games/" . $dirName . "/" . $file;
         $jsonOutput = file_get_contents($filePath);
         $myJson     = json_decode($jsonOutput,true);
-        $name = $myJson['attributes']['name'];
-        $price = $myJson['attributes']['skus'][0]['prices']['plus-user']['actual-price']['display'];
+
         ### Process JSON ###
-//        # igdb_id
-//        # The main IGDB Game ID
-//        $igdb_id = $myJson['id'];
-//        # name
-//        # The Name of the Game
-//        $name = $myJson['name'];
-//        # slug
-//        # The non-spaced slug should always be set, but if not, use an altered name
-//        $slug = (isset($myJson['slug'])) ? $myJson['slug'] : strtolower(str_replace(" ", "-",$myJson['name']));
-//        # url
-//        # created_at
-//        # updated_at
-//        # summary
-//        $summary =  (isset($myJson['summary'])) ? substr($myJson['summary'],0,100) : 'N/A';
-//        # storyline
-//        # collection
-//        # franchise
-//        # franchises->array
-//        # hypes
-//        # rating
-//        # popularity
-//        # aggregated_rating
-//        # aggregated_rating_count
-//        # total_rating
-//        # total_rating_count
-//        # rating_count
-//        # games->array
-//        # tags->array
-//        # developers->array
-//        $developer = (isset($myJson['developers'])) ? json_encode($myJson['developers']) : json_encode(['Unknown']);
-//        # publishers->array
-//        $publisher = (isset($myJson['publishers'])) ? json_encode($myJson['publishers']) : json_encode(['Unknown']);
-//        # game_engines->array
-//        # category
-//        # time_to_beat->[normally][completely][hastly]
-//        # player_perspectives->array
-//        # game_modes->array
-//        # keywords->array
-//        # themes->array
-//        # genres->array
-//        # dlcs->array
-//        # first_release_date
-//        //$first_release_date = $myJson['first_release_date'];
-//        if(isset($myJson['first_release_date'])){
-//            $first_release_date = (strlen($myJson['first_release_date']) == 12) ? date("Y-m-d", substr($myJson['first_release_date'],0,9)) : date("Y-m-d", substr($myJson['first_release_date'],0,10));
-//        } else {
-//            $first_release_date = null;
-//        }
-//        # pulse_count
-//        # platforms->array
-//        $platforms = [];
-//        if(isset($myJson['platforms'])){
-//            foreach($myJson['platforms'] as $platform){
-//                $platformList = json_decode($this->platformList);
-//                foreach($platformList as $x){
-//                    if($platform == $x->igdb_id)
-//                    {
-//                        switch($x->slug){
-//                            case "win":
-//                                $thePlatform = "pc";
-//                                break;
-//                            case "steam":
-//                                $thePlatform = "pc";
-//                                break;
-//                            case "mac":
-//                                $thePlatform = "pc";
-//                                break;
-//                            case "linux":
-//                                $thePlatform = "pc";
-//                                break;
-//                            case "nintendo-switch":
-//                                $thePlatform = "switch";
-//                                break;
-//                            case "ios":
-//                                $thePlatform = "mobile";
-//                                break;
-//                            case "android":
-//                                $thePlatform = "mobile";
-//                                break;
-//                            default:
-//                                $thePlatform = $x->slug;
-//                                break;
-//                        }
-//
-//                        if (!in_array(strtoupper($thePlatform),$platforms)){
-//                            array_push($platforms,strtoupper($thePlatform));
-//                        }
-//                    }
-//                }
-//            }
-//        } else {
-//            array_push($platforms,"unknown");
-//        }
-//        $platforms = json_encode($platforms);
-//        # release_dates->array->[category][platform][date][region][human][y][m]
-//        # alternative_names->array[name][comment]
-//        # screenshots->array->[url][cloudinary_id][width][height]
-//        # videos->array->[name][video)id]
-//        # cover->[url][cloudinary_id][width][height]
-//        $image_portrait = (isset($myJson['cover']['cloudinary_id'])) ? "https://images.igdb.com/igdb/image/upload/t_720p/" . $myJson['cover']['cloudinary_id'] . ".jpg" : null;
-//        $image_landscape = (isset($myJson['screenshots'][0]['cloudinary_id'])) ? "https://images.igdb.com/igdb/image/upload/t_720p/" . $myJson['screenshots'][0]['cloudinary_id'] . ".jpg" : null;
-//        # esrb->[synopsis][rating]
-//        $synopsis = (isset($myJson['esrb']['synopsis'])) ? substr($myJson['esrb']['synopsis'],0,100) : 'N/A';
-//        if(!isset($synopsis) || $synopsis==""){
-//            $synopsis = (isset($myJson['pegi']['synopsis'])) ? substr($myJson['pegi']['synopsis'],0,100) : 'N/A';
-//        }
-//        # pegi->[synopsis][rating]
-//        # websites->array->[category][url]
-//        # external[steam]
-//        # multiplayer_modes[platform][offlinecoop][onlinecoop][lancoop][campaigncoop][splitscreenonline][splitscreen][dropin][offlinecoopmax][onlinecoopmax][onlinemax][offlinemax]
+        $psn_id                         =   $myJson['id'];
+        $name                           =   $myJson['attributes']['name'];
+        $release_date                   =   $myJson['attributes']['release-date'];
+        $genres                         =   (isset($myJson['attributes']['genres']) && count($myJson['attributes']['genres'])>0) ? json_encode($myJson['attributes']['genres']) : null;
+
+        $platforms=[];
+        if (isset($myJson['attributes']['platforms']) && count($myJson['attributes']['platforms'])>0){
+            foreach($myJson['attributes']['platforms'] as $platform){
+                array_push($platforms,$platform);
+            }
+        } else {
+            $platforms = null;
+        }
+        $platforms                      = json_encode($platforms);
+        $provider_name                  =   $myJson['attributes']['provider-name'];
+
+        $content_descriptors=[];
+        if (isset($myJson['attributes']['content-rating']['content-descriptors']) && count($myJson['attributes']['content-rating']['content-descriptors'])>0){
+            foreach($myJson['attributes']['content-rating']['content-descriptors'] as $content){
+                array_push($content_descriptors,$content['name']);
+            }
+        } else {
+            $content_descriptors = null;
+        }
+        $content_descriptors            =   json_encode($content_descriptors);
+        $psn_store_url                  =   "https://store.playstation.com/en-us/product/".$psn_id;
+        $thumbnail_url_base             =   $myJson['attributes']['thumbnail-url-base'];
+
+        $images=[];
+        if (isset($myJson['attributes']['media-list']) && count($myJson['attributes']['media-list'])>0){
+            if (isset($myJson['attributes']['media-list']['promo']['images']) && count($myJson['attributes']['media-list']['promo']['images'])>0){
+                foreach($myJson['attributes']['media-list']['promo']['images'] as $image){
+                    array_push($images,$image['url']);
+                }
+            }
+        } else {
+            $images = null;
+        }
+        $images                         =   json_encode($images);
+
+        $videos=[];
+        if (isset($myJson['attributes']['media-list']) && count($myJson['attributes']['media-list'])>0){
+            if (isset($myJson['attributes']['media-list']['promo']['videos']) && count($myJson['attributes']['media-list']['promo']['videos'])>0){
+                foreach($myJson['attributes']['media-list']['promo']['videos'] as $video){
+                    array_push($videos,$video['url']);
+                }
+            }
+        } else {
+            $videos = null;
+        }
+        $videos                         =   json_encode($videos);
+        $star_rating_score              =   (isset($myJson['attributes']['star-rating']['score'])) ? $myJson['attributes']['star-rating']['score'] : null;
+        $star_rating_count              =   (isset($myJson['attributes']['star-rating']['total'])) ? $myJson['attributes']['star-rating']['total'] : null;
+        $primary_classification         =   (isset($myJson['attributes']['primary-classification'])) ? $myJson['attributes']['primary-classification'] : null;
+        $secondary_classification       =   (isset($myJson['attributes']['secondary-classification'])) ? $myJson['attributes']['secondary-classification'] : null;
+        $tertiary_classification        =   (isset($myJson['attributes']['tertiary-classification'])) ? $myJson['attributes']['tertiary-classification'] : null;
+        $ps_camera_compatibility        =   (isset($myJson['attributes']['ps-camera-compatibility'])) ? $myJson['attributes']['ps-camera-compatibility'] : null;
+        $ps_move_compatibility          =   (isset($myJson['attributes']['ps-move-compatibility'])) ? $myJson['attributes']['ps-move-compatibility'] : null;
+        $ps_vr_compatibility            =   (isset($myJson['attributes']['ps-vr-compatibility'])) ? $myJson['attributes']['ps-vr-compatibility'] : null;
+        $game_content_type              =   (isset($myJson['attributes']['game-content-type'])) ? $myJson['attributes']['game-content-type'] : null;
+        $file_size                      =   (isset($myJson['attributes']['file-size']['value'])) ? $myJson['attributes']['file-size']['value'] . " " . $myJson['attributes']['file-size']['unit'] : null;
+        $actual_price_display           =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['actual-price']['display']))  ? $myJson['attributes']['skus'][0]['prices']['plus-user']['actual-price']['display'] : null;
+        $actual_price_value             =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['actual-price']['value'])) ? $myJson['attributes']['skus'][0]['prices']['plus-user']['actual-price']['value'] : null;
+        $strikethrough_price_display    =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['strikethrough-price']['display'])) ? $myJson['attributes']['skus'][0]['prices']['plus-user']['strikethrough-price']['display'] : null;
+        $strikethrough_price_value      =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['strikethrough-price']['value'])) ? $myJson['attributes']['skus'][0]['prices']['plus-user']['strikethrough-price']['value'] : null;
+        $discount_percentage            =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['discount-percentage'])) ? $myJson['attributes']['skus'][0]['prices']['plus-user']['discount-percentage'] : null;
+        $sale_start_date                =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['start-date'])) ? $myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['start-date'] : null;
+        $sale_end_date                  =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['end-date'])) ? $myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['end-date'] : null;
 
         return [
-            'name'              => $name,
-            'price'             => $price,
+            'psn_id'                        => $psn_id,
+            'name'                          => $name,
+            'release_date'                  => $release_date,
+            //'genres'                        => $genres,
+            'platforms'                     => $platforms,
+            'provider_name'                 => $provider_name,
+            //'psn_store_url'                 => $psn_store_url,
+            //'content_descriptors'           => $content_descriptors,
+            'thumbnail_url_base'            => $thumbnail_url_base,
+            'images'                        => $images,
+            'videos'                        => $videos,
+            'star_rating_score'             => $star_rating_score,
+            'star_rating_count'             => $star_rating_count,
+            'primary_classification'        => $primary_classification,
+            'secondary_classification'      => $secondary_classification,
+            'tertiary_classification'       => $tertiary_classification,
+            'ps_camera_compatibility'       => $ps_camera_compatibility,
+            'ps_move_compatibility'         => $ps_move_compatibility,
+            'ps_vr_compatibility'           => $ps_vr_compatibility,
+            'game_content_type'             => $game_content_type,
+            //'file_size'                     => $file_size,
+            'actual_price_display'          => $actual_price_display,
+            'actual_price_value'            => $actual_price_value,
+            'strikethrough_price_display'   => $strikethrough_price_display,
+            'strikethrough_price_value'     => $strikethrough_price_value,
+            'discount_percentage'           => $discount_percentage,
+            'sale_start_date'               => $sale_start_date,
+            'sale_end_date'                 => $sale_end_date,
+            //'created_at'                    => \Carbon\Carbon::now(),
+            //'updated_at'                    => \Carbon\Carbon::now()
         ];
+
     }
 
     private function massInsert ($data) {
-        echo PHP_EOL;
-        //DB::table('psn_games')->insert($data);
+        echo "| Insert: " . count($data) . PHP_EOL;
+        DB::table('psn_games')->insert($data);
     }
 }
