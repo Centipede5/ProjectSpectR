@@ -28,7 +28,7 @@ class CreatePsnGamesTable extends Migration
             $table->text('images')->nullable();
             $table->text('videos')->nullable();
             $table->string('star_rating_score', 10)->nullable();
-            $table->string('star_rating_count', 10)->nullable();
+            $table->unsignedInteger('star_rating_count')->nullable();
             $table->string('primary_classification', 50)->nullable();
             $table->string('secondary_classification', 50)->nullable();
             $table->string('tertiary_classification', 50)->nullable();

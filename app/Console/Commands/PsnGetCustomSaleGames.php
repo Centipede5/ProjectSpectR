@@ -37,6 +37,7 @@ class PsnGetCustomSaleGames extends Command
      */
     public function handle()
     {
+        ini_set('memory_limit','512M');
         $continue = true;
         $saleEndPoints =[];
 
@@ -55,7 +56,8 @@ class PsnGetCustomSaleGames extends Command
         }
 
         foreach($saleEndPoints as $endPoint){
-            echo "Getting Games... " . PHP_EOL;
+            echo "Getting Games for: " . $endPoint . PHP_EOL;
+            sleep(2);
             if(!$this->option('excludeApiCall')){
                 $saleGames = \PSNAPI::getCustomSaleGames($endPoint);
                 echo "Total Games: " . count($saleGames) . PHP_EOL;
@@ -77,6 +79,7 @@ class PsnGetCustomSaleGames extends Command
                 $this->createCSV($endPoint);
             }
         }
+        $this->call('psn:loadGamesTable');
     }
 
     /**

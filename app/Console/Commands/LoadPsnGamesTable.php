@@ -71,18 +71,24 @@ class LoadPsnGamesTable extends Command
             {
                 $totalCtr=1;
                 foreach( $arrDocs as $a ){
-                    echo ".";
                     if( is_file($DocDirectory . "/" . $a)) {
                         $fileCtr++;
                         // 1) Insert for the last time
                         if($totalCtr==count($arrDocs) && $subDirCtr == count($subDirectoryList)) {
                             array_push($data, $this->loadJson($dirName,$a));
                             $this->massInsert($data);
+                            $output_str =  " Total: " . $fileCtr;
+                            echo $output_str;
+                            $line_size = strlen($output_str);
+                            while($line_size >= 0){
+                                echo "\010";
+                                $line_size--;
+                            }
 
                             break;
                         }
                         // if the loop count is less than 40, just add the data for later
-                        else if ($ctr<40) {
+                        else if ($ctr<30) {
                             array_push($data, $this->loadJson($dirName,$a));
                             $ctr++;
                         }
@@ -90,6 +96,13 @@ class LoadPsnGamesTable extends Command
                         else {
                             array_push($data, $this->loadJson($dirName,$a));
                             $this->massInsert($data);
+                            $output_str =  "Total: " . $fileCtr;
+                            echo $output_str;
+                            $line_size = strlen($output_str);
+                            while($line_size >= 0){
+                                echo "\010";
+                                $line_size--;
+                            }
 
                             // Reset Counter and data
                             $ctr=0;
@@ -105,7 +118,7 @@ class LoadPsnGamesTable extends Command
 
         DB::table('psn_games')->update(['created_at'=> \Carbon\Carbon::now(),'updated_at'=>\Carbon\Carbon::now()]);
 
-        echo "TOTAL FILES FOUND: " . $fileCtr . PHP_EOL;
+        echo PHP_EOL . "TOTAL FILES FOUND and ADDED: " . $fileCtr . PHP_EOL;
     }
 
     private function loadJson ($dirName,$file) {
@@ -190,11 +203,11 @@ class LoadPsnGamesTable extends Command
             'psn_id'                        => $psn_id,
             'name'                          => $name,
             'release_date'                  => $release_date,
-            //'genres'                        => $genres,
+            'genres'                        => $genres,
             'platforms'                     => $platforms,
             'provider_name'                 => $provider_name,
-            //'psn_store_url'                 => $psn_store_url,
-            //'content_descriptors'           => $content_descriptors,
+            'psn_store_url'                 => $psn_store_url,
+            'content_descriptors'           => $content_descriptors,
             'thumbnail_url_base'            => $thumbnail_url_base,
             'images'                        => $images,
             'videos'                        => $videos,
@@ -207,7 +220,7 @@ class LoadPsnGamesTable extends Command
             'ps_move_compatibility'         => $ps_move_compatibility,
             'ps_vr_compatibility'           => $ps_vr_compatibility,
             'game_content_type'             => $game_content_type,
-            //'file_size'                     => $file_size,
+            'file_size'                     => $file_size,
             'actual_price_display'          => $actual_price_display,
             'actual_price_value'            => $actual_price_value,
             'strikethrough_price_display'   => $strikethrough_price_display,
@@ -215,14 +228,14 @@ class LoadPsnGamesTable extends Command
             'discount_percentage'           => $discount_percentage,
             'sale_start_date'               => $sale_start_date,
             'sale_end_date'                 => $sale_end_date,
-            //'created_at'                    => \Carbon\Carbon::now(),
-            //'updated_at'                    => \Carbon\Carbon::now()
+            'created_at'                    => \Carbon\Carbon::now(),
+            'updated_at'                    => \Carbon\Carbon::now()
         ];
 
     }
 
     private function massInsert ($data) {
-        echo "| Insert: " . count($data) . PHP_EOL;
+        echo PHP_EOL;
         DB::table('psn_games')->insert($data);
     }
 }
