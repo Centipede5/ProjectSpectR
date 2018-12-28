@@ -16,7 +16,7 @@
         });
     });
 </script>
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
 @endsection
 
 @section('main-content')
@@ -79,8 +79,7 @@
                   </div>
                 <div class="divider"><span>I am not a machine</span></div>
                 <div class="g-recaptcha-outer">
-                  <script src='https://www.google.com/recaptcha/api.js'></script>
-                  <div class="g-recaptcha" data-sitekey="6LeBwhwUAAAAAG1RDj-rS2Wu4WYNoV021q0z-LNY"></div>
+                  <div class="g-recaptcha" data-sitekey="6LdoeIUUAAAAAEpNO3r5HKXx5zEu675htSUAFXIH"></div>
                 </div>
                 <div class="divider"><span>Terms of Service</span></div>
                 <label class="custom-control custom-checkbox custom-checkbox-primary">
