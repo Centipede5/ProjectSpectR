@@ -214,6 +214,7 @@ return [
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
         'IGDB' => App\Http\Controllers\IGDB\Facades\IGDB::class,
+        'IGDBv3' => App\Http\Controllers\IGDBv3\Facades\IGDBv3::class,
         'PSNAPI' => App\Http\Controllers\PSNAPI\Facades\PSNAPI::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,

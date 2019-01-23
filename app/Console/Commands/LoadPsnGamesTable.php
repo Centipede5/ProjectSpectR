@@ -132,7 +132,7 @@ class LoadPsnGamesTable extends Command
         ### Process JSON ###
         $psn_id                         =   $myJson['id'];
         $name                           =   $myJson['attributes']['name'];
-        $release_date                   =   $myJson['attributes']['release-date'];
+        $release_date                   =   date("Y-m-d", strtotime($myJson['attributes']['release-date']));
         $genres                         =   (isset($myJson['attributes']['genres']) && count($myJson['attributes']['genres'])>0) ? json_encode($myJson['attributes']['genres']) : null;
 
         $platforms=[];
@@ -196,8 +196,8 @@ class LoadPsnGamesTable extends Command
         $strikethrough_price_display    =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['strikethrough-price']['display'])) ? $myJson['attributes']['skus'][0]['prices']['plus-user']['strikethrough-price']['display'] : null;
         $strikethrough_price_value      =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['strikethrough-price']['value'])) ? $myJson['attributes']['skus'][0]['prices']['plus-user']['strikethrough-price']['value'] : null;
         $discount_percentage            =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['discount-percentage'])) ? $myJson['attributes']['skus'][0]['prices']['plus-user']['discount-percentage'] : null;
-        $sale_start_date                =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['start-date'])) ? $myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['start-date'] : null;
-        $sale_end_date                  =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['end-date'])) ? $myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['end-date'] : null;
+        $sale_start_date                =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['start-date'])) ? date("Y-m-d H:i:s", strtotime($myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['start-date'])) : null;
+        $sale_end_date                  =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['end-date'])) ? date("Y-m-d H:i:s", strtotime($myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['end-date'])) : null;
 
         return [
             'psn_id'                        => $psn_id,

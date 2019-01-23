@@ -43,9 +43,9 @@ class IgdbGetGamesByReleaseDate extends Command
 
         $foundGamesList = [];
         for($i=0;$i<90;$i++) {
-            $startTime = strtotime("December 01 2018 + $i days") . "000";
+            $startTime = strtotime("Today + $i days") . "000";
 
-            echo "------- API CALL -------" . PHP_EOL;
+            echo "------- API CALL => " . date("m-d-Y", strtotime("Today + $i days")) . " -------" . PHP_EOL;
             $games = \IGDB::getGamesByReleaseDate($startTime,['game']);
             if ($games != false) {
                 foreach ($games as $game) {

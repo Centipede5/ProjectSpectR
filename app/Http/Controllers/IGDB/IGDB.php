@@ -367,6 +367,29 @@ class IGDB
     }
 
     /**
+     * Get game information by Updated Date
+     *
+     * @param string $updatedDate
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getGamesByUpdatedDate($updatedDate, $fields = ['*'])
+    {
+        $apiUrl = $this->getEndpoint('release_dates');
+
+        $params = array(
+            'fields'                    => implode(',', $fields),
+            'filter[updated_at][gt]'    => $updatedDate,
+            'limit'                     => '50'
+        );
+
+        $apiData = $this->apiGet($apiUrl, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
      * Get people information by ID
      *
      * @param integer $personId
