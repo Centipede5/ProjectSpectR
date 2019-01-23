@@ -4,7 +4,7 @@
 
 @section('main-content')
     <!-- main -->
-    <section class="bg-image bg-image-sm" style="background-image: url('/img/bg/bg-login.jpg');">
+    <section class="bg-image bg-image-sm" style="background-image: url('/img/background/background-2.jpg');">
         <div class="overlay"></div>
       <div class="container">
         <div class="row">

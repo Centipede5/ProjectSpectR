@@ -6,7 +6,7 @@
             <nav class="nav">
                 <ul>
                     <li class="has-dropdown mega-menu mega-games">
-                        <a href="games.html">Games</a>
+                        <a href="games.html">HOT</a>
                         <ul>
                             <li>
                                 <div class="container">
@@ -54,6 +54,15 @@
                                     </div>
                                 </div>
                             </li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="forums.html">Games</a>
+                        <ul>
+                            <li><a href="forums.html">Reviews</a></li>
+                            <li><a href="forum-topic.html">Game Movies</a></li>
+                            <li><a href="forum-post.html">Posts - Blogs / Video Post</a></li>
+                            <li><a href="forum-create.html">Game Movie</a></li>
                         </ul>
                     </li>
                     <li class="has-dropdown">
@@ -174,13 +183,12 @@
                         <a data-toggle="dropdown"><img id="avatar-image-mini" name="profile-image-mini" src="{{ env('APP_USR_IMG_LOC') }}/{{ substr(Auth::user()->profile_image,0,-4) . "-90x90" . substr(Auth::user()->profile_image,-4) }}" alt=""> <span>{{ Auth::user()->display_name }}</span></a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item active"  href="/{{ Auth::user()->display_name }}"><i class="fas fa-user"></i> Profile</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-envelope-open"></i> <del>Inbox</del></a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-heart"></i> <del>Games</del></a>
-                            <a href="{{ route('list_drafts') }}" class="dropdown-item"><i class="fas fa-cog"></i> Drafts</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-envelope-open"></i> Messages</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-heart"></i> Favorite Games</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Settings</a>
                             @can('god-mode')
                                 <a href="{{ route('super_admin') }}" class="dropdown-item"><i class="fas fa-cog"></i> Super Admin</a>
                             @endcan
-                            <a class="dropdown-item" href="#"><i class="fas fa-cog"></i> <del>Settings</del></a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out"></i> Logout</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
