@@ -42,10 +42,10 @@ class IgdbGetGamesByUpdatedDate extends Command
         $currentIds = $this->scanJsonDir();
 
         $foundGamesList = [];
-        for($i=0;$i<60;$i++) {
-            $startTime = strtotime("December 28 + $i days") . "000";  // Needs to be just Today when running nightly
+        for($i=0;$i<30;$i++) {
+            $startTime = strtotime("January 1 + $i days") . "000";  // Needs to be just Today when running nightly
 
-            echo "------- API CALL => " . date("m-d-Y", strtotime("December 28 + $i days")) . " -------" . PHP_EOL;
+            echo "------- API CALL => " . date("m-d-Y", strtotime("January 1 + $i days")) . " -------" . PHP_EOL;
             $games = \IGDB::getGamesByUpdatedDate($startTime,['game']);
             if ($games != false) {
                 foreach ($games as $game) {
