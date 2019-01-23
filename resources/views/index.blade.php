@@ -28,7 +28,7 @@
       <div class="heading">
         <i class="fab fa-steam-symbol"></i>
         <h2>Upcoming Games</h2>
-        <p>Check Out the Hottest Games that are Coming Soon!</p>
+        <p>Check Out Some Of The Hottest Games That Are Coming Soon!</p>
       </div>
       <div class="row">
 
@@ -36,7 +36,7 @@
         <div class="col-12 col-sm-6 col-md-4">
           <div class="card card-lg">
             <div class="card-img bottom-border-ps4">
-              <a href="game-post.html"><img src="{{$game->image_landscape}}" class="card-img-top" alt="{{$game->slug}}"></a>
+              <a href="https://www.igdb.com/games/{{$game->slug}}" target="_blank"><img src="{{$game->image_landscape}}" class="card-img-top" alt="{{$game->slug}}"></a>
               <div style="margin: -40px 0 18px 0">
 
                 @foreach(json_decode($game->platforms) as $platform)
@@ -51,7 +51,7 @@
               </div>
             </div>
             <div class="card-block">
-              <h4 class="card-title"><a href="/game/{{$game->slug}}">{{$game->title}}</a></h4>
+              <h4 class="card-title"><a href="https://www.igdb.com/games/{{$game->slug}}" target="_blank">{{$game->title}}</a></h4>
               <div class="card-meta"><span>{{$game->release_date}}</span></div>
               <p class="card-text">{{$game->synopsis}}</p>
             </div>
@@ -59,91 +59,7 @@
         </div>
         @endforeach
       </div>
-      <div class="text-center"><a class="btn btn-primary btn-shadow btn-rounded btn-effect btn-lg m-t-10" href="games.html">Show More</a></div>
-    </div>
-  </section>
-
-  <section class="bg-secondary no-border-bottom p-y-80">
-    <div class="container">
-      <div class="heading">
-        <i class="fa fa-star"></i>
-        <h2>Recent Reviews</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      </div>
-      <div class="owl-carousel owl-list">
-        <div class="card card-review">
-          <a class="card-img" href="review-post.html">
-          <img src="/img/game/marvels-spider-man-portrait.png" alt="">
-          <div class="badge badge-ps4">8.7</div>
-        </a>
-          <div class="card-block">
-            <h4 class="card-title"><a href="review-post.html">Spider-Man</a></h4>
-            <p>A spectacular adventure.</p>
-          </div>
-        </div>
-        <div class="card card-review">
-          <a class="card-img" href="review-post.html">
-          <img src="/img/game/octopath-traveler-2018-portrait.png" alt="">
-          <div class="badge badge-nintendo">9.3</div>
-        </a>
-          <div class="card-block">
-            <h4 class="card-title"><a href="review-post.html">Octopath Traveler</a></h4>
-            <p>Whichever path you travel, this JRPG holds beauty and excellent combat in store.</p>
-          </div>
-        </div>
-        <div class="card card-review">
-          <a class="card-img" href="review-post.html">
-          <img src="/img/game/divinity-original-sin-2-definitive-edition-portrait.png" alt="">
-          <div class="badge badge-xboxone">9.6</div>
-        </a>
-          <div class="card-block">
-            <h4 class="card-title"><a href="review-post.html">Divinity: Original Sin 2 Definitive Edition</a></h4>
-            <p>This brand new Divinity: Original Sin 2 package shows Larian Studios know how to polish a diamond.</p>
-          </div>
-        </div>
-        <div class="card card-review">
-          <a class="card-img" href="review-post.html">
-          <img src="/img/game/donut-county-2018-portrait.png" alt="">
-          <div class="badge badge-pc">7.8</div>
-        </a>
-          <div class="card-block">
-            <h4 class="card-title"><a href="review-post.html">Donut County</a></h4>
-            <p>Drop it like it’s hot.</p>
-          </div>
-        </div>
-        <div class="card card-review">
-          <a class="card-img" href="review-post.html">
-          <img src="img/review/review-5.jpg" alt="">
-          <div class="badge badge-success">8.9</div>
-        </a>
-          <div class="card-block">
-            <h4 class="card-title"><a href="review-post.html">Grand Theft Auto: 5</a></h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-        <div class="card card-review">
-          <a class="card-img" href="review-post.html">
-          <img src="img/review/review-6.jpg" alt="">
-          <div class="badge badge-warning">4.7</div>
-        </a>
-          <div class="card-block">
-            <h4 class="card-title"><a href="review-post.html">Dayz</a></h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-        <div class="card card-review">
-          <a class="card-img" href="review-post.html">
-          <img src="img/review/review-7.jpg" alt="">
-          <div class="badge badge-danger">3.1</div>
-        </a>
-          <div class="card-block">
-            <h4 class="card-title">
-              <a href="review-post.html">Liberty City</a>
-            </h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-      </div>
+      <div class="text-center"><a class="btn btn-primary btn-shadow btn-rounded btn-effect btn-lg m-t-10" href="javascript:alert('Coming Soon. Work in Progress.')">Show More</a></div>
     </div>
   </section>
 
@@ -164,8 +80,8 @@
   <section class="bg-primary promo">
     <div class="container">
       @guest
-      <h2>Get envolved and join a Community</h2>
-      <a class="btn btn-outline-default" href="/register" target="_blank" role="button">Sign Me Up! <i class="fas fa-users"></i></a>
+      <h2>Get envolved and join the Community</h2>
+        <a class="btn btn-outline-default" href="https://www.facebook.com/groups/SpectreGameClub/" target="_blank" role="button">Facebook Group <i class="fas fa-users"></i></a>
       @else
         <h2>Check out the list of known Release Dates</h2>
         <a class="btn btn-outline-default" href="/schedule" target="_blank" role="button">Schedule <i class="fas fa-calendar-alt"></i></a>

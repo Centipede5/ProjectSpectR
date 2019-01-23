@@ -39,6 +39,11 @@ class GameController extends Controller
                     foreach ($platformArray as $platform){
                         $pos = $pos + strpos($game->platforms,$platform);
                     }
+
+                    if($game->synopsis == "N/A"){
+                        $game->synopsis = $game->summary;
+                    }
+
                     if($game->image_landscape == null || $pos == 0){
                         $gameLimit=$gameLimit-1;
                         unset($games[$key]);
