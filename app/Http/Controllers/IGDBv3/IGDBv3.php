@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\IGDB;
+namespace App\Http\Controllers\IGDBv3;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
