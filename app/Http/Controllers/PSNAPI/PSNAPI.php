@@ -2,27 +2,37 @@
 
 namespace App\Http\Controllers\PSNAPI;
 
+use App\Http\Controllers\LogIt;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class PSNAPI
+ * @package App\Http\Controllers\PSNAPI
+ */
 class PSNAPI
 {
-    /**
-     * @var string
-     */
-    protected $psnKey;
-
     /**
      * @var \GuzzleHttp\Client
      */
     protected $httpClient;
 
     /**
+     * The baseUrl is set within the constructor. It is defined in the .env file.
      * @var string
      */
     protected $baseUrl;
 
     /**
+     * This is the maximum allowed items return size for each API CALL
+     *
+     * @var int
+     */
+    protected $maxReturnSize = 60;
+    /**
+     * These are a list of valid endpoints that can be
+     * used with a readable variable name
+     *
      * @var array
      */
     const VALID_RESOURCES = [
@@ -32,7 +42,9 @@ class PSNAPI
         'PLAYSTATIONPLUS'   => 'STORE-MSF77008-PLAYSTATIONPLUS',
         'WEEKLYDEALS'       => 'STORE-MSF77008-WEEKLYDEALS',
         'BUNDLESGRID'       => 'STORE-MSF77008-BUNDLESGRID',
-        'SEPARATOR2'        => 'STORE-MSF77008-SEPARATOR2'
+        'SEPARATOR2'        => 'STORE-MSF77008-SEPARATOR2',
+        'THISWEEK'          => 'STORE-MSF77008-NEWTHISWEEK',
+        'COMINGSOON'        => 'STORE-MSF77008-PS3PSNPREORDERS'
     ];
 
     # Known Possible End Points
@@ -124,19 +136,19 @@ class PSNAPI
     //STORE-MSF77008-VIRTUALREALITYG
     //STORE-MSF77008-WEEKLYDEALS
 
-
     /**
-     * PSN constructor.
+     * PSN API constructor
      *
-     * @param $key
-     *
+     * url is defined within the .env file under PSNAPI_URL
      * @param $url
      *
      * @throws \Exception
      */
     public function __construct($url)
     {
+        LogIt::info("TEST: " . $url);
         if (!is_string($url) || empty($url)) {
+            // TODO: Add a system Alert here
             throw new \Exception('PSNAPI Request URL is required!');
         }
 
@@ -145,12 +157,89 @@ class PSNAPI
     }
 
     /**
-     * Get people information by ID
+     * MAIN Method: Takes a given endpoint and returns the data as JSON
      *
-     * @param integer $limit
+     * @param $endPoint
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getGamesByEndpoint($endPoint)
+    {
+        # 1) Get the Total Item Results Count
+        //   This will return a small result set that contains the total count of games available with the API CALL
+        $apiUrl =  rtrim($this->baseUrl, '/').'/'.$endPoint.'/';
+        $paramsForTotal = [
+            'size'=>0,
+            'bucket'=>'games',
+            'start'=>0
+        ];
+
+        $apiDataForTotal = $this->apiGet($apiUrl, $paramsForTotal);
+        $dataWithTotal = $this->decodeResponse($apiDataForTotal);
+        $totalResults =  $dataWithTotal->{'data'}->{'attributes'}->{'total-results'};
+        echo "Games Expected: " . $totalResults . PHP_EOL;
+
+        # 2) Determine the amount of API Iterations
+        $apiCallCount = ceil($totalResults / $this->maxReturnSize);
+        echo "Making " . $apiCallCount . " API Calls..." . PHP_EOL;
+
+        # 3) Make Each API Call, Strip out duplicates and Return Complete List of Games
+        $games = []; // Array of Games
+        $totalCounter=0;
+        for($i=0;$i<$apiCallCount;$i++){
+            $apiStart = $this->maxReturnSize * $i;
+            $params = [
+                'start'  => $apiStart,
+                'size'   => $this->maxReturnSize,
+                'bucket' => 'games'
+            ];
+
+            echo $i+1 . ") " . $apiStart . "/" . $totalResults. PHP_EOL;
+
+            $apiData = $this->apiGet($apiUrl, $params);
+            $apiGames = $this->decodeResponse($apiData);
+
+            // Build a list of ALL the Game Data and Clean Up
+            // Duplicate Game Listings by stripping out the legacy-sku's
+            foreach($apiGames->{'included'} as $game){
+                if($game->{'type'} != 'legacy-sku'){
+                    $totalCounter++;
+                    array_push($games,$game);
+                }
+            }
+        }
+
+        # 4) Return Results
+        return $games;
+    }
+
+
+    /**
+     * Get the games that are Unreleased and available for pre-order
      *
+     * @param int $limit
      * @return \StdClass
-     * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getFutureGames($limit=0)
+    {
+        $params = [];
+        $apiUrl = $this->getEndpoint('COMINGSOON');
+
+        if($limit!=0){
+            $params = [
+                'size' => $limit
+            ];
+        }
+
+        $apiData = $this->apiGet($apiUrl, $params);
+        return $this->decodeResponse($apiData);
+    }
+
+    /**
+     * @param int $limit
+     * @return \StdClass
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getPSVRGames($limit=0)
     {
@@ -164,65 +253,16 @@ class PSNAPI
         }
 
         $apiData = $this->apiGet($apiUrl, $params);
-        return $this->decodeMultiple($apiData);
+        return $this->decodeResponse($apiData);
     }
 
-    public function getCustomSaleGames($endPoint)
-    {
-        // 1) Get the Total Results Count
-        $apiUrl =  rtrim($this->baseUrl, '/').'/'.$endPoint.'/';
-        $paramsForTotal = [
-            'size'=>0,
-            'bucket'=>'games',
-            'start'=>0
-        ];
-
-        $apiDataForTotal = $this->apiGet($apiUrl, $paramsForTotal);
-        $dataWithTotal = $this->decodeMultiple($apiDataForTotal);
-
-        $totalResults =  $dataWithTotal->{'data'}->{'attributes'}->{'total-results'};
-
-        echo "Games Expected: " . $totalResults . PHP_EOL;
-
-        // 2) Determine the amount of API Iterations
-        $apiSize = 60;
-        $apiCallCount = ceil($totalResults / $apiSize);
-
-        // 3) Make Each API Call and Strip out duplicates
-        $games = [];
-        $validGames = [];
-        $totalCounter=1;
-        for($i=0;$i<$apiCallCount;$i++){
-            $apiStart = $apiSize * $i;
-            $params = [
-                'size'=>$apiSize,
-                'bucket'=>'games',
-                'start'=>$apiStart
-            ];
-
-            echo $i . ") " . $apiStart . "/" . $totalResults. PHP_EOL;
-
-            $apiData = $this->apiGet($apiUrl, $params);
-            $apiGames = $this->decodeMultiple($apiData);
-            // Clean Up Duplicate Game Listings
-            foreach($apiGames->{'included'} as $game){
-                // Build a list of ALL the Game Ids excluding the legacy-sku's
-                if($game->{'type'} != 'legacy-sku'){
-                    $totalCounter++;
-                    array_push($games,$game);
-                }
-            }
-        }
-        // 4) Return Results
-        return $games;
-    }
 
     /**
      * getSaleItems will search through the base API and
      * Return the Children under the STORE-MSF77008-SAVE item id
      *
      * @return array
-     * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getSaleItems () {
         $saleIds = [];   // The Sale URL IDs
@@ -230,7 +270,7 @@ class PSNAPI
 
         $params = [];
         $apiData = $this->apiGet($apiUrl, $params);
-        $items = $this->decodeMultiple($apiData);
+        $items = $this->decodeResponse($apiData);
 
         // $items will include several of the BASE API End Points
         // The STORE-MSF77008-SAVE end point contains the Current Sales
@@ -245,60 +285,72 @@ class PSNAPI
         return $saleIds;
     }
 
-
-    public function getGamesByEndpoint($endPoint)
+    /**
+     * This will build and return the base API URL including the given endpoint.
+     * It also will validate the given ENDPOINT with those registered in VALID_RESOURCES
+     *
+     * @param $name
+     * @return mixed
+     */
+    private function getEndpoint($name)
     {
-        // 1) Get the Total Results Count
-        $apiUrl =  rtrim($this->baseUrl, '/').'/'.$endPoint.'/';
-        $paramsForTotal = [
-            'size'=>0,
-            'bucket'=>'games',
-            'start'=>0
-        ];
-
-        $apiDataForTotal = $this->apiGet($apiUrl, $paramsForTotal);
-        $dataWithTotal = $this->decodeMultiple($apiDataForTotal);
-
-        $totalResults =  $dataWithTotal->{'data'}->{'attributes'}->{'total-results'};
-
-        echo "Games Expected: " . $totalResults . PHP_EOL;
-
-        // 2) Determine the amount of API Iterations
-        $apiSize = 60;
-        $apiCallCount = ceil($totalResults / $apiSize);
-
-        // 3) Make Each API Call and Strip out duplicates
-        $games = [];
-        $validGames = [];
-        $totalCounter=1;
-        for($i=0;$i<$apiCallCount;$i++){
-            $apiStart = $apiSize * $i;
-            $params = [
-                'size'=>$apiSize,
-                'bucket'=>'games',
-                'start'=>$apiStart
-            ];
-
-            echo $i . ") " . $apiStart . "/" . $totalResults. PHP_EOL;
-
-            $apiData = $this->apiGet($apiUrl, $params);
-            $apiGames = $this->decodeMultiple($apiData);
-            // Clean Up Duplicate Game Listings
-            foreach($apiGames->{'included'} as $game){
-                // Build a list of ALL the Game Ids excluding the legacy-sku's
-                if($game->{'type'} != 'legacy-sku'){
-                    $totalCounter++;
-                    array_push($games,$game);
-                }
-            }
-        }
-        // 4) Return Results
-        return $games;
+        return rtrim($this->baseUrl, '/').'/'.self::VALID_RESOURCES[$name].'/';
     }
 
-    public function updateApiCounter () {
+    /**
+     * Using cURL to issue a GET request
+     *
+     * @param $url
+     * @param $params
+     * @return \Psr\Http\Message\StreamInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    private function apiGet($url, $params)
+    {
+        // Update the API counter within psn_api_usage table
+        try{
+            $this->updateApiCounter();
+        } catch (\Exception $e) {
+            // TODO: Add a system Alert here
+            echo "ERROR!!!! " . PHP_EOL;
+            LogIt::error($e);
+            die($e);
+        }
 
-        # Get monthly total API calls
+        // Build the Final URL for the API call using the given $params
+        $url = $url . (strpos($url, '?') === false ? '?' : '') . http_build_query($params);
+        LogIt::info("[API CALL]" . $url);
+
+        try {
+            $response = $this->httpClient->request(
+                'GET', $url, [
+                    'headers' => [
+                        'Accept' => 'application/json'
+                    ]
+                ]
+            );
+        } catch (RequestException $exception) {
+            // TODO: Add a system Alert here
+            if ($response = $exception->getResponse()) {
+                throw new \Exception($exception);
+            }
+            throw new \Exception($exception);
+        } catch (Exception $exception) {
+            // TODO: Add a system Alert here
+            throw new \Exception($exception);
+        }
+
+        return $response->getBody();
+    }
+
+    /**
+     * Increments the daily counter in psn_api_usage. This is used to track each API Request.
+     *
+     * @throws \Exception
+     */
+    public function updateApiCounter()
+    {
+        // Get monthly total API calls
         $apiCalls = DB::table('psn_api_usage')->get();
         $totalCalls=0;
         foreach($apiCalls as $apiCall){
@@ -323,6 +375,7 @@ class PSNAPI
         }
 
         if ($totalCalls>2999) {
+            // TODO: Add a system Alert here
             throw new \Exception('API Limit has been reached for the month');
         } else {
             $newDaily = $currentDailyCount + 1;
@@ -330,99 +383,20 @@ class PSNAPI
                 ->where('id', date("j"))
                 ->update(['count' => $newDaily,'updated_at' => \Carbon\Carbon::now()]);
         }
-
-    }
-
-    /*
-     *  Internally used Methods, set visibility to public to enable more flexibility
-     */
-    /**
-     * @param $name
-     * @return mixed
-     */
-    private function getEndpoint($name)
-    {
-        return rtrim($this->baseUrl, '/').'/'.self::VALID_RESOURCES[$name].'/';
-    }
-
-    /**
-     * Decode the response from PSN, extract the single resource object.
-     * (Don't use this to decode the response containing list of objects)
-     *
-     * @param  string $apiData the api response from IGDB
-     * @throws \Exception
-     * @return \StdClass  an PSN resource object
-     */
-    private function decodeSingle(&$apiData)
-    {
-        $resObj = json_decode($apiData);
-
-        if (isset($resObj->status)) {
-            $msg = "Error " . $resObj->status . " " . $resObj->message;
-            throw new \Exception($msg);
-        }
-
-        if (!is_array($resObj) || count($resObj) == 0) {
-            return false;
-        }
-
-        return $resObj[0];
     }
 
     /**
      * Decode the response from PSN, extract the multiple resource object.
+     * This was migrated from the IGDB Controller that had extra logic that was unnecessary.
+     * This might be a great place to refactor the API response
      *
      * @param  string $apiData the api response from IGDB
      * @throws \Exception
      * @return \StdClass  an PSN resource object
      */
-    private function decodeMultiple(&$apiData)
+    private function decodeResponse(&$apiData)
     {
         $resObj = json_decode($apiData);
-
-                return $resObj;
-//        if (isset($resObj->status)) {
-//            $msg = "Error " . $resObj->status . " " . $resObj->message;
-//            throw new \Exception($msg);
-//        } else {
-//            //$itemsArray = $resObj->items;
-//            if (!is_array($resObj)) {
-//                return false;
-//            } else {
-//                return $resObj;
-//            }
-//        }
-    }
-
-    /**
-     * Using CURL to issue a GET request
-     *
-     * @param $url
-     * @param $params
-     * @return mixed
-     * @throws \Exception
-     */
-    private function apiGet($url, $params)
-    {
-        $this->updateApiCounter();   // Update Local API counter
-        $url = $url . (strpos($url, '?') === false ? '?' : '') . http_build_query($params);
-
-        try {
-            $response = $this->httpClient->request('GET', $url, [
-                'headers' => [
-                    'user-key' => $this->psnKey,
-                    'Accept' => 'application/json'
-                ]
-            ]);
-        } catch (RequestException $exception) {
-            if ($response = $exception->getResponse()) {
-                throw new \Exception($exception);
-            }
-            throw new \Exception($exception);
-        } catch (Exception $exception) {
-            throw new \Exception($exception);
-        }
-
-        return $response->getBody();
+        return $resObj;
     }
 }
