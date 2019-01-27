@@ -126,7 +126,7 @@ class LoadGamesTableFromScratch extends Command
         # created_at
         # updated_at
         # summary
-        $summary =  (isset($myJson['summary'])) ? substr($myJson['summary'],0,100) : 'N/A';
+        $summary =  (isset($myJson['summary'])) ? substr($myJson['summary'],0,250) : 'N/A';
         # storyline
         # collection
         # franchise
@@ -215,9 +215,13 @@ class LoadGamesTableFromScratch extends Command
         $image_portrait = (isset($myJson['cover']['cloudinary_id'])) ? "https://images.igdb.com/igdb/image/upload/t_720p/" . $myJson['cover']['cloudinary_id'] . ".jpg" : null;
         $image_landscape = (isset($myJson['screenshots'][0]['cloudinary_id'])) ? "https://images.igdb.com/igdb/image/upload/t_720p/" . $myJson['screenshots'][0]['cloudinary_id'] . ".jpg" : null;
         # esrb->[synopsis][rating]
-        $synopsis = (isset($myJson['esrb']['synopsis'])) ? substr($myJson['esrb']['synopsis'],0,100) : 'N/A';
-        if(!isset($synopsis) || $synopsis==""){
-            $synopsis = (isset($myJson['pegi']['synopsis'])) ? substr($myJson['pegi']['synopsis'],0,100) : 'N/A';
+        $synopsis = (isset($myJson['esrb']['synopsis'])) ? substr($myJson['esrb']['synopsis'],0,200) . '...' : 'N/A';
+        if($synopsis=='N/A'){
+            $synopsis = (isset($myJson['pegi']['synopsis'])) ? substr($myJson['pegi']['synopsis'],0,200) . '...' : 'N/A';
+        }
+
+        if($summary!='N/A' && $synopsis == 'N/A'){
+            $synopsis = (strlen($summary)<200) ? $summary : substr($summary,0,200) . "...";
         }
         # pegi->[synopsis][rating]
         # websites->array->[category][url]

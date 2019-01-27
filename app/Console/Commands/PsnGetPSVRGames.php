@@ -40,7 +40,7 @@ class PsnGetPSVRGames extends Command
         $endPoint = 'STORE-MSF77008-VIRTUALREALITYG';
         echo "Getting Games... " . PHP_EOL;
         if(!$this->option('excludeApiCall')){
-            $saleGames = \PSNAPI::getCustomSaleGames($endPoint);
+            $saleGames = \PSNAPI::getGamesByEndpoint($endPoint);
             echo "Total Games: " . count($saleGames) . PHP_EOL;
             if ($saleGames != false) {
                 echo "LOADING JSON" . PHP_EOL;

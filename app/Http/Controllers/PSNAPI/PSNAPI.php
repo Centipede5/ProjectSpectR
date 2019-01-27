@@ -146,9 +146,9 @@ class PSNAPI
      */
     public function __construct($url)
     {
-        LogIt::info("TEST: " . $url);
         if (!is_string($url) || empty($url)) {
             // TODO: Add a system Alert here
+
             throw new \Exception('PSNAPI Request URL is required!');
         }
 
@@ -212,7 +212,6 @@ class PSNAPI
         # 4) Return Results
         return $games;
     }
-
 
     /**
      * Get the games that are Unreleased and available for pre-order

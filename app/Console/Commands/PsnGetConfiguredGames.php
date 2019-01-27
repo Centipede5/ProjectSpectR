@@ -14,7 +14,7 @@ class PsnGetConfiguredGames extends Command
     protected $signature = 'psn:getConfiguredGames {--excludeApiCall}';
 
     /**
-     * The console command description.
+     * Loop through a given list of Endpoints within the command set at the top of the command execution
      *
      * @var string
      */
@@ -39,11 +39,12 @@ class PsnGetConfiguredGames extends Command
     {
         ini_set('memory_limit','512M');
         $gameEndPoints =[
-            'STORE-MSF77008-PS4ALLGAMESCATEG',
-            'STORE-MSF77008-PS3ALLPS3GAMES',
-            'STORE-MSF77008-PSVITAALLGAMES',
-            'STORE-MSF77008-PSPALLPSPGAMES',
-            'STORE-MSF77008-VIRTUALREALITYG'
+            'STORE-MSF77008-PS3PSNPREORDERS',
+//            'STORE-MSF77008-PS4ALLGAMESCATEG',
+//            'STORE-MSF77008-PS3ALLPS3GAMES',
+//            'STORE-MSF77008-PSVITAALLGAMES',
+//            'STORE-MSF77008-PSPALLPSPGAMES',
+//            'STORE-MSF77008-VIRTUALREALITYG'
         ];
 
         // Returns the Children under the STORE-MSF77008-SAVE item id
@@ -74,6 +75,7 @@ class PsnGetConfiguredGames extends Command
             }
         }
 
+        echo "REBUILDING psn_game TABLE" . PHP_EOL;
         $this->call('psn:loadGamesTable');
     }
 
