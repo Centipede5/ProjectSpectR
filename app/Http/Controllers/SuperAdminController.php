@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\PsnGames;
 use Illuminate\Http\Request;
 use Gate;
 use App\Role;
+use App\Game;
 
 
 class SuperAdminController extends Controller
@@ -26,12 +28,40 @@ class SuperAdminController extends Controller
         dd("Error: Method Not Found | " . __CLASS__ . ":" . $thePage . "()");
     }
 
-
     private function manageRoles () {
         $roles = Role::all();
         // Only allow access to
         if(Gate::allows('god-mode')) {
             return view('super-admin.manage-roles', compact('roles'));
+        }
+        return redirect('/access-denied');
+    }
+
+    private function gameSync () {
+        $gameList = Game::where('psn_id', '=', null)
+            ->where('release_date', '<', date("Y-m-d", strtotime("+ 2 months")))
+            ->orderBy('release_date', 'DESC')
+            ->take(100)
+            ->get();
+
+        // Only allow access to
+        if(Gate::allows('god-mode')) {
+            return view('super-admin.game-sync', compact('gameList'));
+        }
+        return redirect('/access-denied');
+    }
+
+    public function gameGetSync (Request $data) {
+
+        $game = substr($data['game'],0,5);
+        $games = PsnGames::where('name', 'like', $game.'%')
+            ->orderBy('release_date', 'DESC')
+            ->take(50)
+            ->get();
+
+        // Only allow access to
+        if(Gate::allows('god-mode')) {
+            return $games;
         }
         return redirect('/access-denied');
     }

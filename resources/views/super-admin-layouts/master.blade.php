@@ -31,6 +31,7 @@
 <!-- end::Scroll Top -->
 @include('super-admin-layouts.quick-sticky-nav-right')
 @include('super-admin-layouts.footer-js')
+@yield('footer-js')
 </body>
 <!-- end::Body -->
 </html>

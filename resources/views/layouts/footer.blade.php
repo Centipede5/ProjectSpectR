@@ -45,7 +45,7 @@
                 <a href="https://twitter.com/SpectreGameClub" target="_blank" data-toggle="tooltip" title="twitter"><i class="fab fa-twitter"></i></a>
                 <a href="https://steamcommunity.com/" target="_blank" data-toggle="tooltip" title="steam"><i class="fab fa-steam-symbol"></i></a>
                 <a href="https://www.twitch.tv/" target="_blank" data-toggle="tooltip" title="twitch"><i class="fab fa-twitch"></i></a>
-                <a href="https://www.youtube.com/uigdb:getGamesByReleaseDateser" target="_blank" data-toggle="tooltip" title="youtube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.youtube.com/" target="_blank" data-toggle="tooltip" title="youtube"><i class="fab fa-youtube"></i></a>
             </div>
             <p>Copyright &copy; 2018 SpectreGaming.club. All rights reserved.</p>
         </div>
