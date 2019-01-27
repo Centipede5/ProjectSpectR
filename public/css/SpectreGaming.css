@@ -4276,7 +4276,8 @@ input[type="file"] {
 }
 
 .badge-playstation-4,
-.badge-ps4 {
+.badge-ps4,
+.badge-psvita {
   background-color: #003791;
   -webkit-transition: .2s ease-in-out;
   transition: .2s ease-in-out;
@@ -4287,7 +4288,10 @@ input[type="file"] {
 .badge-playstation-4[href]:hover,
 .badge-ps4[href]:active,
 .badge-ps4[href]:focus,
-.badge-ps4[href]:hover {
+.badge-ps4[href]:hover,
+.badge-psvita[href]:active,
+.badge-psvita[href]:focus,
+.badge-psvita[href]:hover {
   background-color: #003da0;
 }
 
