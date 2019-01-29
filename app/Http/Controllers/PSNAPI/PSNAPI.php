@@ -318,7 +318,7 @@ class PSNAPI
 
         // Build the Final URL for the API call using the given $params
         $url = $url . (strpos($url, '?') === false ? '?' : '') . http_build_query($params);
-        LogIt::info("[API CALL]" . $url);
+        LogIt::info("[API CALL] " . $url);
 
         try {
             $response = $this->httpClient->request(
@@ -346,6 +346,8 @@ class PSNAPI
      * Increments the daily counter in psn_api_usage. This is used to track each API Request.
      *
      * @throws \Exception
+     *
+     * TODO: I need to separate the DB usage for any instances that the DB is not setup
      */
     public function updateApiCounter()
     {
