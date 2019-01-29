@@ -19,7 +19,7 @@ class IgdbGetGamesByUpdatedDate extends Command
      *
      * @var string
      */
-    protected $description = 'Description Missing';
+    protected $description = 'This is built to be ran frequently';
 
     /**
      * Create a new command instance.

@@ -19,7 +19,7 @@ class LoadGamesTableFromScratch extends Command
      *
      * @var string
      */
-    protected $description = 'Rebuilds the GAMES table with available JSONs';
+    protected $description = '[DELETE] [DO NOT USE] OLD - Rebuilds the GAMES table with available JSONs';
 
     /**
      * Stores all of the available Platforms that are in the platforms table

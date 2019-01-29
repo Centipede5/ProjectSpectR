@@ -19,7 +19,7 @@ class IgdbGetGames extends Command
      *
      * @var string
      */
-    protected $description = '[WARNING] DO NOT USE THIS! Cycles through manually set Game Ids one at a time and caches the Game JSONs';
+    protected $description = '[DELETE][WARNING] DO NOT USE THIS! Cycles through manually set Game Ids one at a time and caches the Game JSONs';
 
     /**
      * Create a new command instance.

@@ -39,6 +39,5 @@ class BuildIgdbTables extends Command
     {
         $this->call('igdb:loadPlatformsTable');
         $this->call('igdb:loadIgdbGameIdsTable');
-        $this->call('igdb:loadGamesTableFromScratch');
     }
 }

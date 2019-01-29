@@ -88,7 +88,7 @@ class LoadPsnGamesTable extends Command
                             break;
                         }
                         // if the loop count is less than 40, just add the data for later
-                        else if ($ctr<30) {
+                        else if ($ctr<5) {
                             array_push($data, $this->loadJson($dirName,$a));
                             $ctr++;
                         }
@@ -131,7 +131,9 @@ class LoadPsnGamesTable extends Command
 
         ### Process JSON ###
         $psn_id                         =   $myJson['id'];
-        $name                           =   $myJson['attributes']['name'];
+
+        //
+        $name                           =   $this->processString($myJson['attributes']['name']);
         $release_date                   =   date("Y-m-d", strtotime($myJson['attributes']['release-date']));
         $genres                         =   (isset($myJson['attributes']['genres']) && count($myJson['attributes']['genres'])>0) ? json_encode($myJson['attributes']['genres']) : null;
 
@@ -237,5 +239,25 @@ class LoadPsnGamesTable extends Command
     private function massInsert ($data) {
         echo PHP_EOL;
         DB::table('psn_games')->insert($data);
+    }
+
+    private function processString($string){
+
+        // Strip special characters
+        $string = preg_replace("/(™|®|©|&trade;|&reg;|&copy;|&#8482;|&#174;|&#169;)/", "", $string);
+
+        // Replace apostrophe to standard style
+        $string = str_replace("’","'",$string);
+
+        // (PS3 Only)
+        // (PS3/PSP/PS Vita)
+
+        $string = str_replace(" (PS3 Only)","",$string);
+        $string = str_replace(" (PS3/PSP/PS Vita)","",$string);
+        $string = str_replace(" (PS3/PSP/PS VITA)","",$string);
+        $string = str_replace("(PS3/PSP/PS Vita)","",$string);
+        $string = str_replace(" (PS3/PSP)","",$string);
+
+        return $string;
     }
 }

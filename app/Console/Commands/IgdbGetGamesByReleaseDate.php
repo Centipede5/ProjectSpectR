@@ -19,7 +19,7 @@ class IgdbGetGamesByReleaseDate extends Command
      *
      * @var string
      */
-    protected $description = 'Compares the Available JSONs with the GameIDs table. If a JSON is missing, an API call will be made to get it.';
+    protected $description = '[DELETE] Compares the Available JSONs with the GameIDs table. If a JSON is missing, an API call will be made to get it.';
 
     /**
      * Create a new command instance.

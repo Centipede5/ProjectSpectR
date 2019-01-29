@@ -18,7 +18,7 @@ class SpectreAutoMatchIgdbId extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Looks for a direct Title match and date match with IGDB and PSN';
 
     /**
      * Create a new command instance.
@@ -37,6 +37,7 @@ class SpectreAutoMatchIgdbId extends Command
      */
     public function handle()
     {
+        DB::table('game_id_sync')->delete();
         $subDirectoryList = [];
         $DocDirectory = "resources/psn/games";   //Directory to be scanned
 
@@ -101,47 +102,64 @@ class SpectreAutoMatchIgdbId extends Command
             ->whereDate('release_date', $release_date)
             ->get();
 
-        if(count($gamesFound)>0){
-            if(count($gamesFound)==1){
-                foreach ($gamesFound as $game){
-                    $this->updateRecords($game->igdb_id,$psn_id);
-                }
-                return true;
+        if(count($gamesFound)==1){
+            foreach ($gamesFound as $game){
+                $this->updateRecords($game->igdb_id,$psn_id);
             }
-            return false;
+            return true;
         } else {
-            if (strlen($name) >= 6){
-                $smName = substr($name,0,6);
-            } elseif (strlen($name) < 6 && strlen($name) > 3) {
-                $smName = substr($name,0,3);
-            } else {
-                $smName = $name;
-            }
-            $gamesFound = DB::table('games')
-                ->where('title', 'like' , $smName)
-                ->whereDate('release_date', $release_date)
-                ->get();
-            if(count($gamesFound)>0){
-                if(count($gamesFound)==1){
-                    foreach ($gamesFound as $game){
-                        if($game->psn_id != $psn_id){
-                            $this->updateRecords($game->igdb_id,$psn_id);
-                            echo PHP_EOL . "[2nd ROUND] " . $game->title . PHP_EOL;
-                        }
-                    }
-                } else {
-                    echo PHP_EOL . "[MULTIPLE]" . PHP_EOL;
-                }
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         }
+
+//        if(count($gamesFound)>0){
+//            if(count($gamesFound)==1){
+//                foreach ($gamesFound as $game){
+//                    $this->updateRecords($game->igdb_id,$psn_id);
+//                }
+//                return true;
+//            }
+//            return false;
+//        } else {
+//            if (strlen($name) >= 6){
+//                $smName = substr($name,0,6);
+//            } elseif (strlen($name) < 6 && strlen($name) > 3) {
+//                $smName = substr($name,0,3);
+//            } else {
+//                $smName = $name;
+//            }
+//            $gamesFound = DB::table('games')
+//                ->where('title', 'like' , $smName)
+//                ->whereDate('release_date', $release_date)
+//                ->get();
+//            if(count($gamesFound)>0){
+//                if(count($gamesFound)==1){
+//                    foreach ($gamesFound as $game){
+//                        if($game->psn_id != $psn_id){
+//                            $this->updateRecords($game->igdb_id,$psn_id);
+//                            echo PHP_EOL . "[2nd ROUND] " . $game->title . PHP_EOL;
+//                        }
+//                    }
+//                } else {
+//                    echo PHP_EOL . "[MULTIPLE]" . PHP_EOL;
+//                }
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        }
     }
 
     private function updateRecords($igdb_id,$psn_id){
-        echo "+";
-        DB::table('games')->where('igdb_id', $igdb_id)->update(['psn_id' => $psn_id]);
-        DB::table('psn_games')->where('psn_id', $psn_id)->update(['igdb_id' => $igdb_id]);
+        $gamesFound = DB::table('game_id_sync')
+                ->where('igdb_id', '=' , $igdb_id)
+                ->get();
+        if(count($gamesFound)==0) {
+            echo "+";
+            //DB::table('games')->where('igdb_id', $igdb_id)->update(['psn_id' => $psn_id]);
+            //DB::table('psn_games')->where('psn_id', $psn_id)->update(['igdb_id' => $igdb_id]);
+            DB::table('game_id_sync')->insert(['psn_id' => $psn_id, 'igdb_id' => $igdb_id, 'created_at' =>  \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()]);
+        } else {
+            echo "[Already Matched] " . $igdb_id . PHP_EOL;
+        }
     }
 }

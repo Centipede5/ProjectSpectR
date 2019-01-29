@@ -19,7 +19,7 @@ class IgdbGetPopularGames extends Command
      *
      * @var string
      */
-    protected $description = '[UNNECESSARY] Originally used to pull in a handful of games to launch with.';
+    protected $description = '[DELETE] [UNNECESSARY] Originally used to pull in a handful of games to launch with.';
 
     /**
      * Create a new command instance.

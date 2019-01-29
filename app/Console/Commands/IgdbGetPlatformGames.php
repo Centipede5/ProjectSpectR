@@ -19,7 +19,7 @@ class IgdbGetPlatformGames extends Command
      *
      * @var string
      */
-    protected $description = '[MANUALLY CONFIGURED] Connects to the IGDB API to get List of Game Ids that are on each platform.';
+    protected $description = '[DELETE] [MANUALLY CONFIGURED] Connects to the IGDB API to get List of Game Ids that are on each platform.';
 
     /**
      * Create a new command instance.

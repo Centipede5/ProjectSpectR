@@ -49,17 +49,16 @@ class IgdbGetMissingGamesDeepScan extends Command
 
         $gameCount = count($loadedGames);
 
-        echo $gameCount . PHP_EOL;
-
+        echo "Current Games Loaded: " . $gameCount . PHP_EOL;
 
         //Build Missing Games Array
         $missingGames = [];
-        for ($i=1;$i<5000; $i++){
+        for ($i=25000;$i<35000; $i++){
             if(!in_array($i,$loadedGames)){
                 array_push($missingGames,$i);
             }
         }
-        echo count($missingGames) . PHP_EOL;
+        echo "Missing Games: " . count($missingGames) . PHP_EOL;
 //
         $reqApiCalls = count($missingGames) / 50 . PHP_EOL;
 //
@@ -94,6 +93,8 @@ class IgdbGetMissingGamesDeepScan extends Command
             $this->getGames($games);
             $ctr++;
         }
+
+        $this->call('spectre:loadGamesTableWithData');
     }
 
     private function getGames($i){
@@ -102,36 +103,19 @@ class IgdbGetMissingGamesDeepScan extends Command
         if ($games!=false){
             sleep(2);
             foreach ($games as $game){
+                if(strlen($game->id)>1){
+                    $newDir = substr($game->id,-2);
+                } else{
+                    $newDir = "0" . $game->id;
+                }
+
                 echo $game->id . "_" . $game->slug .PHP_EOL;
-                $fp = fopen("resources/igdb/games/" . $game->id . "_" . $game->slug .'.json', 'w');
+                $fp = fopen("resources/igdb/games/" . $newDir . "/" . $game->id . "_" . $game->slug .'.json', 'w');
                 fwrite($fp, json_encode($game));
                 fclose($fp);
             }
         } else {
             echo "FAILED".PHP_EOL;
         }
-    }
-
-    private function scanJsonDir(){
-        //scan JSON directory
-        $DocDirectory = "resources/igdb/games";   //Directory to be scanned
-
-        $arrDocs = array_diff(scandir($DocDirectory), array('..', '.','.DS_Store'));  //Scan the $DocDirectory and create an array list of all of the files and directories
-        natcasesort($arrDocs);
-
-        if( isset($arrDocs) && is_array($arrDocs) )
-        {
-            $games = [];
-            foreach( $arrDocs as $a )   //For each document in the current document array
-            {
-                // Directory search and count
-                if( is_file($DocDirectory . "/" . $a) && $a != "." && $a != ".." && $a != ".DS_Store" && substr($a,strlen($a)-3,3) != ".db" )      //The "." and ".." are directories.  "." is the current and ".." is the parent
-                {
-                    $game = explode("_",$a);
-                    array_push($games,$game[0]);
-                }
-            }
-        }
-        return $games;
     }
 }

@@ -18,7 +18,7 @@ class PsnLoadPSVRGames extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = '[DELETE] [DEPRECATED]';
 
     /**
      * Create a new command instance.

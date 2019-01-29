@@ -39,11 +39,11 @@ class PsnGetConfiguredGames extends Command
     {
         ini_set('memory_limit','512M');
         $gameEndPoints =[
-            'STORE-MSF77008-PS3PSNPREORDERS',
-//            'STORE-MSF77008-PS4ALLGAMESCATEG',
-//            'STORE-MSF77008-PS3ALLPS3GAMES',
-//            'STORE-MSF77008-PSVITAALLGAMES',
-//            'STORE-MSF77008-PSPALLPSPGAMES',
+//            'STORE-MSF77008-PS3PSNPREORDERS',
+            'STORE-MSF77008-PS4ALLGAMESCATEG',
+            'STORE-MSF77008-PS3ALLPS3GAMES',
+            'STORE-MSF77008-PSVITAALLGAMES',
+            'STORE-MSF77008-PSPALLPSPGAMES',
 //            'STORE-MSF77008-VIRTUALREALITYG'
         ];
 
@@ -103,7 +103,6 @@ class PsnGetConfiguredGames extends Command
                 $newGame['primary-classification'] = $game['attributes']['primary-classification'];
             }
             array_push($miniJson,$newGame);
-
 
             $fileName = "resources/psn/games/" . substr($game['id'],0,6) . "/" . $game['id'] . ".json";
             $dirname = dirname($fileName);

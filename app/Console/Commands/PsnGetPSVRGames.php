@@ -18,7 +18,7 @@ class PsnGetPSVRGames extends Command
      *
      * @var string
      */
-    protected $description = 'Returns all PSVR Games';
+    protected $description = '[DELETE] [DEPRECATED] Returns all PSVR Games';
 
     /**
      * Create a new command instance.
