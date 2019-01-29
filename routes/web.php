@@ -12,7 +12,7 @@
 */
 /// Testing
 ///
-Route::post('/oniadmins/gameGetSync', 'SuperAdminController@gameGetSync');
+Route::post('/oniadmin/gameGetSync', 'SuperAdminController@gameGetSync');
 
 Route::get('/demo/{page}.html', function ($page) {
     return view('demo.'.$page);

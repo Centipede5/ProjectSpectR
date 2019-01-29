@@ -27,10 +27,10 @@
 									<select id="game-list" name="game-list">
 										<option>--- SELECT GAME ---</option>
 										@foreach($gameList as $game)
-											<option id="{{ $game->slug }}" name="{{ $game->slug }}" value="{{ $game->id }}">{{ $game->title }} | {{ $game->release_date }}</option>
+											<option id="{{ $game->slug }}" name="{{ $game->slug }}" value="{{ $game->igdb_id }}">{{ $game->title }} | {{ $game->release_date }}</option>
 										@endforeach
 									</select>
-									<button>Skip</button>
+									<button id="skip-game">Skip</button>
 									<hr />
 										<div class="row mb-3 game-response">
 										</div>
