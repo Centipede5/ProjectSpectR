@@ -17,8 +17,6 @@ class VerifyCsrfToken extends Middleware
         'util/canopyImageUpload',
         'util/canopyImageCrop',
         'util/sliderImageUpload',
-        'util/sliderImageCrop',
-
-        'oniadmin/gameGetSync'
+        'util/sliderImageCrop'
     ];
 }
