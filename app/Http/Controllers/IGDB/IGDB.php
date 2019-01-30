@@ -613,6 +613,27 @@ class IGDB
      * @return \StdClass
      * @throws \Exception
      */
+    public function getPlatforms($platformId, $fields = ['name','logo','slug','url','created_at','updated_at','shortcut','website','summary','category','product_family','alternative_name','generation','versions'])
+    {
+        $apiUrl = $this->getEndpoint('platforms');
+        $apiUrl .= $platformId;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->apiGet($apiUrl, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+    /**
+     * Get platform information by ID
+     *
+     * @param integer $platformId
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
     public function getPlatformGames($platformId, $fields = ['games'])
     {
         $apiUrl = $this->getEndpoint('platforms');
