@@ -19,7 +19,7 @@ class IgdbGetMissingGamesDeepScan extends Command
      *
      * @var string
      */
-    protected $description = 'Builds a list of missing IGDB IDs and searches for them';
+    protected $description = 'Builds a list of missing IGDB IDs from the GAMES table and searches for them.';
 
     /**
      * Create a new command instance.
@@ -38,6 +38,7 @@ class IgdbGetMissingGamesDeepScan extends Command
      */
     public function handle()
     {
+        echo "==== GetMissingGamesDeepScan ===" . PHP_EOL;
         # Get list of all Ids
         $allGameIds = DB::table('games')->select('igdb_id')->orderBy('igdb_id', 'asc')->get();
         // Count of known Game Id's
@@ -51,18 +52,22 @@ class IgdbGetMissingGamesDeepScan extends Command
 
         echo "Current Games Loaded: " . $gameCount . PHP_EOL;
 
+        echo "Building Missing Games Array" . PHP_EOL;
         //Build Missing Games Array
         $missingGames = [];
-        for ($i=25000;$i<35000; $i++){
+        for ($i=1;$i<116000; $i++){
             if(!in_array($i,$loadedGames)){
+                if($i%10==0){
+                    echo ".";
+                }
                 array_push($missingGames,$i);
             }
         }
-        echo "Missing Games: " . count($missingGames) . PHP_EOL;
-//
+        echo PHP_EOL . "Missing Games: " . count($missingGames) . PHP_EOL;
+
         $reqApiCalls = count($missingGames) / 50 . PHP_EOL;
-//
-        echo "Old Game Count: " . $gameCount . " || New Game Count: " . count($missingGames) . PHP_EOL;
+
+        echo "New Games to Locate: " . count($missingGames) . PHP_EOL;
         echo "Required API Calls: " . ceil($reqApiCalls) . PHP_EOL;
 
         $grpCtr=1;
