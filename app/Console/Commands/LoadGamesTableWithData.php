@@ -5,6 +5,10 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class LoadGamesTableWithData
+ * @package App\Console\Commands
+ */
 class LoadGamesTableWithData extends Command
 {
     /**
@@ -19,7 +23,7 @@ class LoadGamesTableWithData extends Command
      *
      * @var string
      */
-    protected $description = 'New Game Loader - Uses fragmented directory structures';
+    protected $description = '[MAIN] Game Loader';
 
     /**
      * Stores all of the available Platforms that are in the platforms table
@@ -27,6 +31,60 @@ class LoadGamesTableWithData extends Command
      * @var
      */
     private $platformList;
+
+    /**
+     * List of bad/duplicated slugs that will cause an error during the insert
+     *
+     * @var array
+     */
+    public $badSlugs = [
+        74876,
+        86455,
+        89121,
+        90456,
+        90475,
+        90476,
+        90559,
+        90593,
+        90603,
+        90605,
+        91009,
+        91325,
+        93425,
+        93525,
+        93602,
+        93603,
+        93604,
+        93605,
+        93606,
+        93607,
+        93609,
+        93610,
+        93622,
+        93623,
+        93624,
+        93625,
+        93626,
+        93635,
+        94008,
+        96656,
+        98717,
+        100016,
+        100115,
+        100444,
+        101178,
+        101179,
+        101464,
+        103344,
+        103325,
+        106136,
+        106309,
+        107025,
+        107174,
+        108556,
+        109014,
+        109420,
+    ];
     /**
      * Create a new command instance.
      *
@@ -100,7 +158,7 @@ class LoadGamesTableWithData extends Command
                             break;
                         }
                         // if the loop count is less than 40, just add the data for later
-                        else if ($watchCtr<30) {
+                        else if ($watchCtr<75) {
                             array_push($jsonData, $this->loadJson($dirName,$a));
                             $watchCtr++;
                         }
@@ -131,7 +189,14 @@ class LoadGamesTableWithData extends Command
         echo PHP_EOL . "TOTAL FILES FOUND and ADDED: " . $totalFileCtr . PHP_EOL;
     }
 
-    private function loadJson ($dirName,$file) {
+    /**
+     * Processes the incoming JSON to be stored in the games table
+     *
+     * @param $dirName
+     * @param $file
+     * @return array
+     */
+    private function loadJson ($dirName, $file) {
         // Loop through and pull in each file
         // Decode File
         // Insert Contents into table
@@ -149,6 +214,9 @@ class LoadGamesTableWithData extends Command
         # slug
         # The non-spaced slug should always be set, but if not, use an altered name
         $slug = (isset($myJson['slug'])) ? $myJson['slug'] : strtolower(str_replace(" ", "-",$myJson['name']));
+
+        if(in_array($igdb_id,$this->badSlugs)){$slug = "delete". "-" . $igdb_id;}
+
         # url
         # created_at
         # updated_at
@@ -231,7 +299,7 @@ class LoadGamesTableWithData extends Command
                 }
             }
         } else {
-            array_push($platforms,"unknown");
+            array_push($platforms,"Unknown");
         }
         $platforms = json_encode($platforms);
         # release_dates->array->[category][platform][date][region][human][y][m]
@@ -250,6 +318,7 @@ class LoadGamesTableWithData extends Command
         if($summary!='N/A' && $synopsis == 'N/A'){
             $synopsis = (strlen($summary)<200) ? $summary : substr($summary,0,200) . "...";
         }
+
         # pegi->[synopsis][rating]
         # websites->array->[category][url]
         # external[steam]
@@ -272,6 +341,11 @@ class LoadGamesTableWithData extends Command
         ];
     }
 
+    /**
+     * The main table insert where you can send multiple rows to be added
+     *
+     * @param $jsonData
+     */
     private function massInsert ($jsonData) {
         DB::table('games')->insert($jsonData);
     }
