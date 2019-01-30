@@ -19,7 +19,7 @@ class IgdbGetGamesByUpdatedDate extends Command
      *
      * @var string
      */
-    protected $description = 'This is built to be ran frequently';
+    protected $description = '[DO NOT USE] THis needs to be updated';
 
     /**
      * Create a new command instance.
@@ -41,8 +41,13 @@ class IgdbGetGamesByUpdatedDate extends Command
         # Get list of currently available Game Ids from JSON files
         $currentIds = $this->scanJsonDir();
 
+        $now = time(); // or your date as well
+        $your_date = strtotime("2019-01-01");
+        $datediff = $now - $your_date;
+        $stop = round($datediff / (60 * 60 * 24));
+
         $foundGamesList = [];
-        for($i=0;$i<30;$i++) {
+        for($i=0;$i<$stop;$i++) {
             $startTime = strtotime("January 1 + $i days") . "000";  // Needs to be just Today when running nightly
 
             echo "------- API CALL => " . date("m-d-Y", strtotime("January 1 + $i days")) . " -------" . PHP_EOL;
