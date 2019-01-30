@@ -64,7 +64,7 @@ class LoadPlatformsTable extends Command
                         array_push($data, $this->loadJson($a));
                         $this->massInsert($data);
                         break;
-                    } else if ($ctr<100) {
+                    } else if ($ctr<50) {
                         array_push($data, $this->loadJson($a));
                         $ctr++;
                     } else {
@@ -116,7 +116,9 @@ class LoadPlatformsTable extends Command
             'website'           => $myJson['website'],
             'summary'           => $myJson['versions'][0]['summary'],
             'alternative_name'  => $myJson['alternative_name'],
-            'generation'        => $myJson['generation']
+            'generation'        => $myJson['generation'],
+            'created_at'        => \Carbon\Carbon::now(),
+            'updated_at'        => \Carbon\Carbon::now()
         ];
     }
 

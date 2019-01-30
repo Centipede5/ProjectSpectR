@@ -15,7 +15,7 @@ class CreatePlatformsTable extends Migration
     {
         Schema::create('platforms', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('igdb_id', 256);
+            $table->integer('igdb_id');
             $table->string('name', 256);
             $table->string('slug', 256);
             $table->string('logo', 256)->nullable();
