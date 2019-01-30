@@ -37,7 +37,7 @@ class SpectreLoadData extends Command
      */
     public function handle()
     {
-        $this->call('igdb:buildIgdbTables');
+        $this->call('igdb:loadIgdbTables');
         $this->call('spectre:loadGamesTableWithData');
         $this->call('psn:loadGamesTable');
         $this->call('spectre:matchIgdbIds');

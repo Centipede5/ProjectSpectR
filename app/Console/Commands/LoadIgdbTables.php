@@ -4,14 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class BuildIgdbTables extends Command
+class LoadIgdbTables extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'igdb:buildIgdbTables';
+    protected $signature = 'igdb:loadIgdbTables';
 
     /**
      * The console command description.
@@ -38,6 +38,6 @@ class BuildIgdbTables extends Command
     public function handle()
     {
         $this->call('igdb:loadPlatformsTable');
-        $this->call('igdb:loadIgdbGameIdsTable');
+        //$this->call('igdb:loadIgdbGameIdsTable');
     }
 }

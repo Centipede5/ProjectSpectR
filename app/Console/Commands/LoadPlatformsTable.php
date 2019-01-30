@@ -21,6 +21,19 @@ class LoadPlatformsTable extends Command
      */
     protected $description = 'Load Platform JSON data into the platforms table.';
 
+    public $slugUpdates = [
+        "ps4--1" => "ps4",
+        "turbografx16--1" => "turbografx16",
+        "snes--1" => "snes",
+        "odyssey--1" => "odyssey",
+        "steam--1" => "steam",
+        "pdp-8--1" => "pdp-8",
+        "edsac--1" => "edsac",
+        "pdp-7--1" => "pdp-7",
+        "plato--1" => "plato",
+        "microvision--1" => "microvision",
+        "microcomputer--1" => "microcomputer",
+    ];
     /**
      * Create a new command instance.
      *
@@ -74,7 +87,7 @@ class LoadPlatformsTable extends Command
                         $data=[];
                     }
 
-                    echo ".";
+                    //echo ".";
                     $totalCtr++;
                 }
             }
@@ -96,6 +109,10 @@ class LoadPlatformsTable extends Command
         $myJson['id'] = (!isset($myJson['id'])) ? "unknown" : $myJson['id'];
         $myJson['name'] = (!isset($myJson['name'])) ? "unknown" : $myJson['name'];
         $myJson['slug'] = (!isset($myJson['slug'])) ? "unknown" : $myJson['slug'];
+
+        $slug = $myJson['slug'];
+        if(array_key_exists($slug,$this->slugUpdates)){$myJson['slug'] = $this->slugUpdates[$slug];}
+
         $myJson['logo']['url'] = (!isset($myJson['logo']['url'])) ? "unknown" : $myJson['logo']['url'];
         $myJson['website'] = (!isset($myJson['website'])) ? "unknown" : $myJson['website'];
 
