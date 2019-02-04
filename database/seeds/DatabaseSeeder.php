@@ -20,7 +20,9 @@ class DatabaseSeeder extends Seeder
             DefaultSlidesForSliders::class,
             GameTableSeeder::class,
             IgdbApiUsageSeeder::class,
-            PsnApiUsageSeeder::class
+            PsnApiUsageSeeder::class,
+            NinApiUsageSeeder::class,
+            XboxApiUsageSeeder::class
         ]);
     }
 }

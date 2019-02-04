@@ -38,7 +38,18 @@ return [
         'key' => env('IGDB_KEY'),
         'url' => env('IGDB_URL')
     ],
+    'igdbv3' => [
+        'key' => env('IGDBv3_KEY'),
+        'url' => env('IGDBv3_URL')
+    ],
     'psnapi' => [
         'url' => env('PSNAPI_URL')
+    ],
+    'xboxapi' => [
+        'url' => env('XBOXAPI_URL'),
+        'games_array_url' => env('XBOXAPI_GAMES_ARRAY_URL'),
+    ],
+    'ninapi' => [
+        'url' => env('NINAPI_URL')
     ]
 ];
