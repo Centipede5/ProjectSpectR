@@ -180,7 +180,10 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Http\Controllers\IGDB\IGDBServiceProvider::class,
-        App\Http\Controllers\PSNAPI\PSNAPIServiceProvider::class
+        App\Http\Controllers\IGDBv3\IGDBv3ServiceProvider::class,
+        App\Http\Controllers\PSNAPI\PSNAPIServiceProvider::class,
+        App\Http\Controllers\XBOXAPI\XBOXAPIServiceProvider::class,
+        App\Http\Controllers\NINAPI\NINAPIServiceProvider::class
 
     ],
 
