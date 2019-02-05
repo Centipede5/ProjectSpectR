@@ -28,7 +28,13 @@ class XBOXAPI
      *
      * @var int
      */
-    protected $maxReturnSize = 60;
+    protected $maxReturnSize = 20;
+
+
+    protected $market = "US";
+    protected $languages = "en-us";
+    protected $mscv = "DGU1mcuYo0WMMp+F.1";
+
     /**
      * These are a list of valid endpoints that can be
      * used with a readable variable name
@@ -59,57 +65,87 @@ class XBOXAPI
         $this->httpClient = new Client();
     }
 
-    /**
-     * MAIN Method: Takes a given endpoint and returns the data as JSON
-     *
-     * @param $endPoint
-     * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getGamesByEndpoint($endPoint)
-    {
-        # 1) Get the Total Item Results Count
-        //   This will return a small result set that contains the total count of games available with the API CALL
-        $apiUrl =  rtrim($this->baseUrl, '/').'/'.$endPoint.'/';
-        $paramsForTotal = [
-            'size'=>0,
-            'bucket'=>'games',
-            'start'=>0
-        ];
 
-        $apiDataForTotal = $this->apiGet($apiUrl, $paramsForTotal);
-        $dataWithTotal = $this->decodeResponse($apiDataForTotal);
-        $totalResults =  $dataWithTotal->{'data'}->{'attributes'}->{'total-results'};
+    /**
+     * The Xbox Game IDs are stored within a javascript file and need to be parsed out
+     * This is a little ugly, but it works.
+     *
+     * @return array|mixed|string
+     */
+    public function getAllGameIds()
+    {
+        $gameArray = [];
+        $contents = file_get_contents('https://www.xbox.com/en-US/games/xbox-one/js/xcat-bi-urls.json');
+        $searchfor = 'fullGameArray';   //fullGameArray = ["BV9V78HQ6PK3", "9NB5XZ7DK7L7", etc.
+
+        // Search for the given string, clean and save the gameIds to a PHP Array
+        $pattern = preg_quote($searchfor, '/');
+        $pattern = "/^.*$pattern.*\$/m";
+        if(preg_match_all($pattern, $contents, $matches)){
+            $gameArray = implode("\n", $matches[0]);
+            $gameArray = str_replace('"','',substr($gameArray,17,-2));
+            $gameArray = explode(', ',$gameArray);
+        } else {
+            echo "ALERT: No matches found";
+        }
+
+        return $gameArray;
+    }
+
+    public function getGamesByEndpoint($gamesArray, $endPoint="products")
+    {
+        $apiUrl =  rtrim($this->baseUrl, '/').'/'.$endPoint.'/';
+
+        # 1) Get the Total Item Results Count
+        $totalResults =  count($gamesArray);
         echo "Games Expected: " . $totalResults . PHP_EOL;
 
         # 2) Determine the amount of API Iterations
         $apiCallCount = ceil($totalResults / $this->maxReturnSize);
         echo "Making " . $apiCallCount . " API Calls..." . PHP_EOL;
 
-        # 3) Make Each API Call, Strip out duplicates and Return Complete List of Games
-        $games = []; // Array of Games
+        # 3) Make Each API Call
+        $games = []; // Array of Games to return
+//        $gameIdsLoaded = []; // Array of Games to return
         $totalCounter=0;
         for($i=0;$i<$apiCallCount;$i++){
-            $apiStart = $this->maxReturnSize * $i;
+            $gameStart = $this->maxReturnSize * $i;
+            $gameEnd = $gameStart + $this->maxReturnSize;
+
+            $bigIds="";
+            for($ctr=$gameStart;$ctr<=$gameEnd;$ctr++){
+                if($ctr<$totalResults){
+                    $bigIds .= $gamesArray[$ctr] . ",";
+                }
+            }
+
             $params = [
-                'start'  => $apiStart,
-                'size'   => $this->maxReturnSize,
-                'bucket' => 'games'
+                'market'    => $this->market,
+                'languages' => $this->languages,
+                'MS-CV'     => $this->mscv,
+                'bigIds'    => trim($bigIds,',')
             ];
 
-            echo $i+1 . ") " . $apiStart . "/" . $totalResults. PHP_EOL;
+            echo $i+1 . ") " . $gameStart . "/" . $totalResults. PHP_EOL;
 
             $apiData = $this->apiGet($apiUrl, $params);
             $apiGames = $this->decodeResponse($apiData);
 
             // Build a list of ALL the Game Data and Clean Up
-            // Duplicate Game Listings by stripping out the legacy-sku's
-            foreach($apiGames->{'included'} as $game){
-                if($game->{'type'} != 'legacy-sku'){
-                    $totalCounter++;
-                    array_push($games,$game);
-                }
+            foreach($apiGames->{'Products'} as $game){
+//                array_push($gameIdsLoaded,$game->{'ProductId'});
+                $totalCounter++;
+                array_push($games,$game);
             }
+
+//            Missing Games that did not load from the API Call
+//            $checkingIds = explode(",",$bigIds);
+//
+//            foreach($checkingIds as $gameId){
+//                if(!in_array($gameId,$gameIdsLoaded)){
+//                    echo $gameId . PHP_EOL;
+//                }
+//            }
         }
 
         # 4) Return Results
