@@ -31,8 +31,9 @@
             <div class="col-sm-12 col-md-4">
                 <h4 class="footer-title">Subscribe</h4>
                 <p>This doesn't work, but you can try to Subscribe to our newsletter and get notification when new games are available.</p>
-                <div class="input-group m-t-25">
-                    <input type="text" class="form-control" placeholder="Email" />
+                <input id="subscriber-name" name="subscriber-name" type="text" class="form-control" placeholder="Name">
+                <div class="input-group m-t-5">
+                    <input id="subscriber-email" name="subscriber-email" type="email" class="form-control" placeholder="Email" />
                     <span class="input-group-btn">
                         <button class="btn btn-primary" type="button">Subscribe</button>
                     </span>
