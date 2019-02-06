@@ -58,8 +58,8 @@ class XboxGetAllGames extends Command
             $this->minimizeJSON();
         }
 
-//        echo "REBUILDING xbox_game TABLE" . PHP_EOL;
-//        $this->call('xbox:loadGamesTable');
+        echo "REBUILDING xbox_game TABLE" . PHP_EOL;
+        $this->call('xbox:loadGamesTable');
     }
 
     /**

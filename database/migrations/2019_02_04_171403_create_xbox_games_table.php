@@ -22,6 +22,7 @@ class CreateXboxGamesTable extends Migration
             $table->text('genres')->nullable();
             $table->string('platforms', 50)->nullable();
             $table->string('provider_name', 50)->nullable();
+            $table->string('developer_name', 50)->nullable();
             $table->string('content_descriptors', 255)->nullable();
             $table->string('xbox_store_url', 255)->nullable();
             $table->string('thumbnail_url_base', 255)->nullable();
@@ -30,7 +31,6 @@ class CreateXboxGamesTable extends Migration
             $table->string('star_rating_score', 10)->nullable();
             $table->unsignedInteger('star_rating_count')->nullable();
             $table->string('game_content_type', 20)->nullable();
-            $table->string('file_size', 10)->nullable();
             $table->string('actual_price_display', 10)->nullable();
             $table->unsignedInteger('actual_price_value')->nullable();
             $table->string('strikethrough_price_display', 10)->nullable();
