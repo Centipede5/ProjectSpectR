@@ -107,6 +107,7 @@ class LoadGamesTableWithData extends Command
 
         # Clear the GAMES table
         DB::table('games')->delete();
+        DB::table('game_id_sync')->delete();
 
         $subDirectoryList = [];
         $DocDirectory = "resources/igdb/games";   //Directory to be scanned
@@ -348,5 +349,12 @@ class LoadGamesTableWithData extends Command
      */
     private function massInsert ($jsonData) {
         DB::table('games')->insert($jsonData);
+
+        $igdb_id=[];
+        foreach ($jsonData as $game){
+            array_push($igdb_id,['igdb_id' => $game['igdb_id']]);
+        }
+
+        DB::table('game_id_sync')->insert($igdb_id);
     }
 }

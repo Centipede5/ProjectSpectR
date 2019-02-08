@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use DB;
+use App\Http\Controllers\XboxGamesController;
+
 class SpectreAutoMatchIgdbId extends Command
 {
     /**
@@ -19,6 +21,8 @@ class SpectreAutoMatchIgdbId extends Command
      * @var string
      */
     protected $description = 'Looks for a direct Title match and date match with IGDB and PSN';
+
+    private $platforms = ['psn','xbox'];
 
     /**
      * Create a new command instance.
@@ -38,64 +42,79 @@ class SpectreAutoMatchIgdbId extends Command
     public function handle()
     {
         DB::table('game_id_sync')->delete();
-        $subDirectoryList = [];
-        $DocDirectory = "resources/psn/games";   //Directory to be scanned
 
-        $arrDocs = array_diff(scandir($DocDirectory), array('..', '.', '.db'));  //Scan the $DocDirectory and create an array list of all of the files and directories
-        natcasesort($arrDocs);
-        if( isset($arrDocs) && is_array($arrDocs) ) {
-            foreach ($arrDocs as $a)   //For each document in the current document array
-            {
-                // Directory search and count
-                if (is_dir($DocDirectory . "/" . $a))      //The "." and ".." are directories.  "." is the current and ".." is the parent
-                {
-                    array_push($subDirectoryList, $a);
-                }
-            }
-        }
-        echo "DIRECTORIES FOUND: " . count($subDirectoryList) . PHP_EOL;
-        echo "SCANNING DIRECTORIES FOR FILES" . PHP_EOL;
+        foreach($this->platforms as $platform){
+            echo $platform . PHP_EOL;
 
-        $subDirCtr=1;
-        $fileCtr=0;
-        $gameCtr=0;
-        foreach ($subDirectoryList as $dirName){
-            $DocDirectory = "resources/psn/games/" . $dirName;
-            $arrDocs = array_diff(scandir($DocDirectory), array('..', '.', '.db'));
+            $subDirectoryList = [];
+            $DocDirectory = "resources/" . $platform . "/games";   //Directory to be scanned
+
+            $arrDocs = array_diff(scandir($DocDirectory), array('..', '.', '.db'));  //Scan the $DocDirectory and create an array list of all of the files and directories
             natcasesort($arrDocs);
-
-            if( isset($arrDocs) && is_array($arrDocs) )
-            {
-                $totalCtr=1;
-                foreach( $arrDocs as $a ){
-                    if( is_file($DocDirectory . "/" . $a)) {
-                        $fileCtr++;
-                        if($this->loadJson($dirName,$a)){
-                            $gameCtr++;
-                        }
-
-                        $totalCtr++;
+            if( isset($arrDocs) && is_array($arrDocs) ) {
+                foreach ($arrDocs as $a)   //For each document in the current document array
+                {
+                    // Directory search and count
+                    if (is_dir($DocDirectory . "/" . $a))      //The "." and ".." are directories.  "." is the current and ".." is the parent
+                    {
+                        array_push($subDirectoryList, $a);
                     }
                 }
             }
-            $subDirCtr++;
-        }
+            echo "DIRECTORIES FOUND: " . count($subDirectoryList) . PHP_EOL;
+            echo "SCANNING DIRECTORIES FOR FILES" . PHP_EOL;
 
-        echo PHP_EOL . "Games Matched: " . $gameCtr . "/" . $fileCtr . PHP_EOL;
+            $subDirCtr=1;
+            $fileCtr=0;
+            $gameCtr=0;
+            foreach ($subDirectoryList as $dirName){
+                $DocDirectory = "resources/" . $platform . "/games/" . $dirName;
+                $arrDocs = array_diff(scandir($DocDirectory), array('..', '.', '.db'));
+                natcasesort($arrDocs);
+
+                if( isset($arrDocs) && is_array($arrDocs) )
+                {
+                    $totalCtr=1;
+                    foreach( $arrDocs as $a ){
+                        if( is_file($DocDirectory . "/" . $a)) {
+                            $fileCtr++;
+                            if($this->loadJson($platform,$dirName,$a)){
+                                $gameCtr++;
+                            }
+
+                            $totalCtr++;
+                        }
+                    }
+                }
+                $subDirCtr++;
+            }
+
+            echo PHP_EOL . "Games Matched: " . $gameCtr . "/" . $fileCtr . PHP_EOL;
+        }
     }
 
-    private function loadJson ($dirName,$file) {
+    private function loadJson ($platform,$dirName,$file) {
         // Loop through and pull in each file
         // Decode File
         // Insert Contents into table
-        $filePath = "resources/psn/games/" . $dirName . "/" . $file;
-        $jsonOutput = file_get_contents($filePath);
-        $myJson     = json_decode($jsonOutput,true);
 
         ### Process JSON ###
-        $psn_id                         =   $myJson['id'];
-        $name                           =   $myJson['attributes']['name'];
-        $release_date                   =   date("Y-m-d", strtotime($myJson['attributes']['release-date']));
+        if($platform=="psn"){
+            $filePath = "resources/" . $platform . "/games/" . $dirName . "/" . $file;
+            $jsonOutput = file_get_contents($filePath);
+            $myJson     = json_decode($jsonOutput,true);
+
+            $game_id                        =   $myJson['id'];
+            $name                           =   $myJson['attributes']['name'];
+            $release_date                   =   date("Y-m-d", strtotime($myJson['attributes']['release-date']));
+        } else if($platform=="xbox"){
+            $xboxController = new XboxGamesController($file);
+            $game_id                        =   $xboxController->getXboxId();
+            $name                           =   $xboxController->getGameTitle();
+            $release_date                   =   $xboxController->getReleaseDate();
+        } else {
+            dd("ERROR");
+        }
 
         $gamesFound = DB::table('games')
             ->where('title', $name)
@@ -104,7 +123,7 @@ class SpectreAutoMatchIgdbId extends Command
 
         if(count($gamesFound)==1){
             foreach ($gamesFound as $game){
-                $this->updateRecords($game->igdb_id,$psn_id);
+                $this->updateRecords($game->igdb_id,$game_id);
             }
             return true;
         } else {
@@ -149,7 +168,7 @@ class SpectreAutoMatchIgdbId extends Command
 //        }
     }
 
-    private function updateRecords($igdb_id,$psn_id){
+    private function updateRecords($platform,$igdb_id,$game_id){
         $gamesFound = DB::table('game_id_sync')
                 ->where('igdb_id', '=' , $igdb_id)
                 ->get();
@@ -157,9 +176,25 @@ class SpectreAutoMatchIgdbId extends Command
             echo "+";
             //DB::table('games')->where('igdb_id', $igdb_id)->update(['psn_id' => $psn_id]);
             //DB::table('psn_games')->where('psn_id', $psn_id)->update(['igdb_id' => $igdb_id]);
-            DB::table('game_id_sync')->insert(['psn_id' => $psn_id, 'igdb_id' => $igdb_id, 'created_at' =>  \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()]);
-        } else {
-            echo "[Already Matched] " . $igdb_id . PHP_EOL;
+            if($platform=="psn"){
+                DB::table('game_id_sync')->insert(
+                    [
+                        'psn_id' => $game_id,
+                        'igdb_id' => $igdb_id,
+                        'created_at' =>  \Carbon\Carbon::now(),
+                        'updated_at' => \Carbon\Carbon::now()
+                    ]);
+            } else if ($platform=="xbox"){
+                DB::table('game_id_sync')->insert(
+                    [
+                        'xbox_id' => $game_id,
+                        'igdb_id' => $igdb_id,
+                        'created_at' =>  \Carbon\Carbon::now(),
+                        'updated_at' => \Carbon\Carbon::now()
+                    ]);
+            }
+          } else {
+            echo PHP_EOL. "[Already Matched] " . $igdb_id . PHP_EOL;
         }
     }
 }

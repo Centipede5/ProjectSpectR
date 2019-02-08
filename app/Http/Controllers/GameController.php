@@ -62,7 +62,14 @@ class GameController extends Controller
     public function getGame($slug) {
 
         $game = Game::where('slug', $slug)->first();
-        $jsonFile = resource_path('igdb/games/'.$game->igdb_id . "_" . $game->slug . ".json");
+
+        if(strlen($game->igdb_id)>1){
+            $gameDir = substr($game->igdb_id,-2);
+        } else{
+            $gameDir = "0" . $game->igdb_id;
+        }
+
+        $jsonFile = resource_path('igdb/games/' . $gameDir . "/" .$game->igdb_id . "_" . $game->slug . ".json");
 
         $jsonOutput = file_get_contents($jsonFile);
         $gameInfo     = json_decode($jsonOutput,true);

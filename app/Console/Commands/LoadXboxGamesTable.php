@@ -41,23 +41,20 @@ class LoadXboxGamesTable extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
+        $gamesDir = "resources/xbox/games";   //Directory to be scanned
         DB::table('xbox_games')->delete();
 
         $subDirectoryList = [];
-        $DocDirectory = "resources/xbox/games";   //Directory to be scanned
-
-        $arrDocs = array_diff(scandir($DocDirectory), array('..', '.', '.db'));  //Scan the $DocDirectory and create an array list of all of the files and directories
+        $arrDocs = array_diff(scandir($gamesDir), array('..', '.', '.db'));  //Scan the $gamesDir and create an array list of all of the files and directories
         natcasesort($arrDocs);
         if( isset($arrDocs) && is_array($arrDocs) ) {
             foreach ($arrDocs as $a)   //For each document in the current document array
             {
                 // Directory search and count
-                if (is_dir($DocDirectory . "/" . $a))      //The "." and ".." are directories.  "." is the current and ".." is the parent
+                if (is_dir($gamesDir . "/" . $a))      //The "." and ".." are directories.  "." is the current and ".." is the parent
                 {
                     array_push($subDirectoryList, $a);
                 }
@@ -71,7 +68,7 @@ class LoadXboxGamesTable extends Command
         $data=[];
         $ctr=1;
         foreach ($subDirectoryList as $dirName){
-            $DocDirectory = "resources/xbox/games/" . $dirName;
+            $DocDirectory = $gamesDir . "/" . $dirName;
             $arrDocs = array_diff(scandir($DocDirectory), array('..', '.', '.db'));
             natcasesort($arrDocs);
 
@@ -84,7 +81,8 @@ class LoadXboxGamesTable extends Command
                         // 1) Insert for the last time
                         if($totalCtr==count($arrDocs) && $subDirCtr == count($subDirectoryList)) {
                             array_push($data, $this->loadJson($a));
-                            $this->massInsert($data);
+                            DB::table('xbox_games')->insert($data);
+                            echo PHP_EOL;
                             $output_str =  " Total: " . $fileCtr;
                             echo $output_str;
                             $line_size = strlen($output_str);
@@ -100,10 +98,11 @@ class LoadXboxGamesTable extends Command
                             array_push($data, $this->loadJson($a));
                             $ctr++;
                         }
-                        // If the Counter hits 40, Inert
+                        // If the Counter hits 40, Insert
                         else {
                             array_push($data, $this->loadJson($a));
-                            $this->massInsert($data);
+                            DB::table('xbox_games')->insert($data);
+                            echo PHP_EOL;
                             $output_str =  "Total: " . $fileCtr;
                             echo $output_str;
                             $line_size = strlen($output_str);
@@ -136,12 +135,12 @@ class LoadXboxGamesTable extends Command
         $gameController = new XboxGamesController($file);
 
         $gameId                         =   $gameController->getGameId();
-        $gameTitle                      =   $this->processString($gameController->getGameTitle());
+        $gameTitle                      =   $this->cleanString($gameController->getGameTitle());
         $release_date                   =   $gameController->getReleaseDate();
         $genres                         =   $gameController->getGameGenre();
-        $platforms                      =   $gameController->getAvailablePlatforms();
-        $provider_name                  =   $this->processString($gameController->getProviderName());
-        $developer_name                 =   $this->processString($gameController->getDeveloperName());
+        $platforms                      =   $gameController->getPlatforms();
+        $provider_name                  =   $this->cleanString($gameController->getProviderName());
+        $developer_name                 =   $this->cleanString($gameController->getDeveloperName());
         $content_descriptors            =   $gameController->getContentDescriptors();
         $store_url                      =   $gameController->getStoreUrl();
         $images                         =   $gameController->getImages();
@@ -186,13 +185,7 @@ class LoadXboxGamesTable extends Command
         ];
     }
 
-    private function massInsert ($data)
-    {
-        echo PHP_EOL;
-        DB::table('xbox_games')->insert($data);
-    }
-
-    private function processString($string)
+    private function cleanString($string)
     {
         // Strip special characters
         $string = preg_replace("/(™|®|©|&trade;|&reg;|&copy;|&#8482;|&#174;|&#169;)/", "", $string);
