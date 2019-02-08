@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Utilities\SpectreUtilities;
 
 /**
  * Class XboxGamesController
- *
- *
  *
  * @package App\Http\Controllers
  */
@@ -15,15 +13,62 @@ class XboxGamesController extends Controller
 {
     private $gameJson;
 
-    public function __construct ($gameJson) {
-        $this->gameJson = $gameJson;
+    private $gameId;
+    private $gameTitle;
+    private $release_date;
+    private $provider_name;
+    private $developer_name;
+    private $content_descriptors;
+    private $store_url;
+    private $images;
+    private $thumbnailUrl;
+    private $videos;
+    private $star_rating_score;
+    private $star_rating_count;
+    private $game_content_type;
+    private $actual_price_display;
+    private $actual_price_value;
+    private $strikethrough_price_display;
+    private $strikethrough_price_value;
+    private $discount_percentage;
+    private $sale_start_date;
+    private $sale_end_date;
+
+    /**
+     * XboxGamesController constructor.
+     * Pass in the Xbox Game ID to retrieve the JSON file Data
+     *
+     * @param $fileName
+     */
+    public function __construct ($fileName) {
+        $filePath = "resources/xbox/games/" . substr($fileName,0,2) . "/" . $fileName;
+        $jsonOutput = file_get_contents($filePath);
+        $this->gameJson = json_decode($jsonOutput,true);
+
+        $this->setGameId($this->gameJson['ProductId']);
+        $this->setGameTitle($this->gameJson['LocalizedProperties'][0]['ProductTitle']);
+        $this->setReleaseDate((isset($this->gameJson['MarketProperties'][0]['OriginalReleaseDate'])) ? date("Y-m-d", strtotime($this->gameJson['MarketProperties'][0]['OriginalReleaseDate'])) : null);
+        $this->setProviderName((isset($this->gameJson['LocalizedProperties'][0]['PublisherName'])) ? $this->gameJson['LocalizedProperties'][0]['PublisherName'] : null);
+        $this->setDeveloperName((isset($this->gameJson['LocalizedProperties'][0]['DeveloperName'])) ? $this->gameJson['LocalizedProperties'][0]['DeveloperName'] : null);
+        $this->setStoreUrl($store_url = "https://www.microsoft.com/en-us/p/" . (new SpectreUtilities)->slugify($this->gameJson['LocalizedProperties'][0]['ProductTitle']) . "/" . $this->getGameId());
+        $this->setContentDescriptors();
+        $this->processImages();
+        $this->processVideos();
+        $this->setStarRatingCount();
+        $this->setStarRatingScore();
+        $this->setGameContentType();
+        $this->setActualPriceDisplay();
+        $this->setActualPriceValue();
+        $this->setStrikethroughPriceDisplay();
+        $this->setStrikethroughPriceValue();
+        $this->setDiscountPercentage();
+        $this->setSaleStartDate();
+        $this->setSaleEndDate();
     }
 
     /**
      * This will return a JSON array of the Thumbnail and all the screenshots available
      *
-     * @param $gameJson
-     * @return array
      */
     public function processImages () {
         $gameJson = $this->gameJson;
@@ -32,16 +77,16 @@ class XboxGamesController extends Controller
         if (isset($gameJson['LocalizedProperties'][0]['Images']) && count($gameJson['LocalizedProperties'][0]['Images'])>0){
             foreach($gameJson['LocalizedProperties'][0]['Images'] as $image){
                 if($image['ImagePurpose'] == 'TitledHeroArt'){
-                    if(strpos($image['Uri'],"http")!=0){
-                        $thumbnail_url_base = $image['Uri'];
-                    } else {
+                    if(strpos($image['Uri'],"http")===false){
                         $thumbnail_url_base = "https:".$image['Uri'];
+                    } else {
+                        $thumbnail_url_base = $image['Uri'];
                     }
                 } else if ($image['ImagePurpose'] == 'Screenshot' || $image['ImagePurpose'] == "ImageGallery"){
-                    if(strpos($image['Uri'],"http")!=0){
-                        array_push($images,$image['Uri']);
-                    } else {
+                    if(strpos($image['Uri'],"https:")===false){
                         array_push($images,"https:".$image['Uri']);
+                    } else {
+                        array_push($images,$image['Uri']);
                     }
                 }
             }
@@ -50,17 +95,15 @@ class XboxGamesController extends Controller
         }
 
         $images = json_encode($images);
-
-        return [$thumbnail_url_base,$images];
+        $this->setThumbnail($thumbnail_url_base);
+        $this->setImages($images);
     }
 
     /**
      * This returns all of the Genres (categories) for each game
-     *
-     * @param $xboxGameProperties
      * @return array|false|null|string
      */
-    public function processCategory () {
+    public function getGameGenre () {
         $gameJson = $this->gameJson;
         if (isset($gameJson['Properties']['Categories']) && count($gameJson['Properties']['Categories'])>0){
             $genres = json_encode($gameJson['Properties']['Categories']);
@@ -76,12 +119,17 @@ class XboxGamesController extends Controller
     }
 
     /**
+     * @return mixed
+     */
+    public function getContentDescriptors () {
+        return $this->content_descriptors;
+    }
+
+    /**
      * This returns an Array of all the ESRB Ratings that are attached to the game
      *
-     * @param $gameJson
-     * @return false|string
      */
-    public function processContentDescriptors ()
+    public function setContentDescriptors ()
     {
         $gameJson = $this->gameJson;
         $content_descriptors=[];
@@ -94,21 +142,25 @@ class XboxGamesController extends Controller
                             array_push($content_descriptors,$content);
                         }
                     } else {
-                        $content_descriptors = null;
+                        if(isset($market['RatingId'])){
+                            $content = $this->processRatingSystem($market['RatingId']);
+                            array_push($content_descriptors,$content);
+                        } else {
+                            $content_descriptors = null;
+                        }
                     }
                 }
             }
         }
-        return json_encode($content_descriptors);
+        $this->content_descriptors = json_encode($content_descriptors);
     }
 
     /**
-     * Some games are available on Desktop or Mobile, so I thought it would be nice to have that distinguised
+     * Some games are available on Desktop or Mobile, so I thought it would be nice to have that distinguished
      *
-     * @param $gameJson
      * @return array|false|null|string
      */
-    public function processPlatforms ()
+    public function getAvailablePlatforms ()
     {
         $gameJson = $this->gameJson;
         $platforms=[];
@@ -153,68 +205,19 @@ class XboxGamesController extends Controller
     }
 
     /**
-     * This is just the typical output display for the actual Listed price
+     * processVideos is not configured yet
      *
-     * @param $gameJson
-     * @return string
-     */
-    public function processPriceDisplay ()
-    {
-        $gameJson = $this->gameJson;
-        $actual_price_display           =   (isset($gameJson['DisplaySkuAvailabilities'][0]['Availabilities'][0]['OrderManagementData']['Price']['ListPrice']))  ? $gameJson['DisplaySkuAvailabilities'][0]['Availabilities'][0]['OrderManagementData']['Price']['ListPrice'] : null;
-        if(strpos($actual_price_display,".")===false){
-            $actual_price_display       = $actual_price_display . ".00";
-        }
-
-        if($actual_price_display == ".00"){
-            $actual_price_display = "0.00";
-        }
-        $cents = explode(".",$actual_price_display);
-        if(strlen($cents[1]) == 1){
-            $actual_price_display = $actual_price_display . "0";
-        }
-
-        return ($actual_price_display == '0.00') ? "FREE" : "$" . $actual_price_display;
-    }
-
-    /**
-     * Under Construction
      * TODO: The way that the current JSON is setup, video links are a bit cryptic and I need to figure out how to make them work
-     * @param $gameJson
-     * @return array|false|string
+     *
      */
     public function processVideos ()
     {
-        $gameJson = $this->gameJson;
+        //$gameJson = $this->gameJson;
         $videos = [];
         $videos = json_encode($videos);
-        return $videos;
+        $this->setVideos($videos);
     }
 
-    /**
-     * This is just the typical output display for the base MSRP price
-     *
-     * @param $gameJson
-     * @return string
-     */
-    public function processBasePriceDisplay ()
-    {
-        $gameJson = $this->gameJson;
-        $strikethrough_price_display           =   (isset($gameJson['DisplaySkuAvailabilities'][0]['Availabilities'][0]['OrderManagementData']['Price']['ListPrice']))  ? $gameJson['DisplaySkuAvailabilities'][0]['Availabilities'][0]['OrderManagementData']['Price']['MSRP'] : null;
-        if(strpos($strikethrough_price_display,".")===false){
-            $strikethrough_price_display       = $strikethrough_price_display . ".00";
-        }
-
-        if($strikethrough_price_display == ".00"){
-            $strikethrough_price_display = "0.00";
-        }
-        $cents = explode(".",$strikethrough_price_display);
-        if(strlen($cents[1]) == 1){
-            $strikethrough_price_display = $strikethrough_price_display . "0";
-        }
-
-        return ($strikethrough_price_display == '0.00') ? "FREE" : "$" . $strikethrough_price_display;
-    }
 
     /**
      * I am only using the ESRB rating system at this time
@@ -255,6 +258,12 @@ class XboxGamesController extends Controller
                 break;
             case "ESRB:DruRef":
                 $cleanedRating = "Drug Reference";
+                break;
+            case "ESRB:E":
+                $cleanedRating = "Everyone";
+                break;
+            case "ESRB:E10":
+                $cleanedRating = "Everyone";
                 break;
             case "ESRB:FanVio":
                 $cleanedRating = "Fantasy Violence";
@@ -319,6 +328,12 @@ class XboxGamesController extends Controller
             case "ESRB:ReaGam":
                 $cleanedRating ="Real Gambling";
                 break;
+            case "ESRB:RPEveryone":
+                $cleanedRating = "Everyone";
+                break;
+            case "ESRB:RPTeen":
+                $cleanedRating = "Everyone";
+                break;
             case "ESRB:SexCon":
                 $cleanedRating ="Sexual Content";
                 break;
@@ -342,6 +357,9 @@ class XboxGamesController extends Controller
                 break;
             case "ESRB:SugThe":
                 $cleanedRating ="Suggestive Themes";
+                break;
+            case "ESRB:T":
+                $cleanedRating = "Everyone";
                 break;
             case "ESRB:TobRef":
                 $cleanedRating ="Tobacco Reference";
@@ -370,5 +388,320 @@ class XboxGamesController extends Controller
         }
 
         return $cleanedRating;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGameTitle () {
+        return $this->gameTitle;
+    }
+
+    /**
+     * @param mixed $gameTitle
+     */
+    public function setGameTitle ($gameTitle) {
+        $this->gameTitle = $gameTitle;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReleaseDate () {
+        return $this->release_date;
+    }
+
+    /**
+     * @param mixed $release_date
+     */
+    public function setReleaseDate ($release_date) {
+        $this->release_date = $release_date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGameId () {
+        return $this->gameId;
+    }
+
+    /**
+     * @param mixed $gameId
+     */
+    public function setGameId ($gameId) {
+        $this->gameId = $gameId;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getProviderName () {
+        return $this->provider_name;
+    }
+
+    /**
+     * @param mixed $provider_name
+     */
+    public function setProviderName ($provider_name) {
+        $this->provider_name = $provider_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeveloperName () {
+        return $this->developer_name;
+    }
+
+    /**
+     * @param mixed $developer_name
+     */
+    public function setDeveloperName ($developer_name) {
+        $this->developer_name = $developer_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStoreUrl () {
+        return $this->store_url;
+    }
+
+    /**
+     * @param mixed $store_url
+     */
+    public function setStoreUrl ($store_url) {
+        $this->store_url = $store_url;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImages () {
+        return $this->images;
+    }
+
+    /**
+     * @param mixed $images
+     */
+    public function setImages ($images) {
+        $this->images = $images;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getThumbnail () {
+        return $this->thumbnailUrl;
+    }
+
+    /**
+     * @param mixed $thumbnailUrl
+     */
+    public function setThumbnail ($thumbnailUrl) {
+        $this->thumbnailUrl = $thumbnailUrl;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVideos () {
+        return $this->videos;
+    }
+
+    /**
+     * @param mixed $videos
+     */
+    public function setVideos ($videos) {
+        $this->videos = $videos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStarRatingScore () {
+        return $this->star_rating_score;
+    }
+
+    /**
+     *
+     */
+    public function setStarRatingScore ()
+    {
+        $gameJson = $this->gameJson;
+        $this->star_rating_score = (isset($gameJson['MarketProperties'][0]['UsageData'][2]['AverageRating'])) ? $gameJson['MarketProperties'][0]['UsageData'][2]['AverageRating'] : null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStarRatingCount () {
+        return $this->star_rating_count;
+    }
+
+    /**
+     *
+     */
+    public function setStarRatingCount ()
+    {
+        $gameJson = $this->gameJson;
+        $this->star_rating_count = (isset($gameJson['MarketProperties'][0]['UsageData'][2]['RatingCount'])) ? $gameJson['MarketProperties'][0]['UsageData'][2]['RatingCount'] : null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGameContentType () {
+        return $this->game_content_type;
+    }
+
+    /**
+     *
+     */
+    private function setGameContentType ()
+    {
+        $gameJson = $this->gameJson;
+        $this->game_content_type = (isset($gameJson['ProductId'])) ? $gameJson['ProductId'] : null;;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActualPriceDisplay () {
+        return $this->actual_price_display;
+    }
+
+    /**
+     *
+     */
+    public function setActualPriceDisplay () {
+        $gameJson = $this->gameJson;
+        $actual_price_display           =   (isset($gameJson['DisplaySkuAvailabilities'][0]['Availabilities'][0]['OrderManagementData']['Price']['ListPrice']))  ? $gameJson['DisplaySkuAvailabilities'][0]['Availabilities'][0]['OrderManagementData']['Price']['ListPrice'] : null;
+        if(strpos($actual_price_display,".")===false){
+            $actual_price_display       = $actual_price_display . ".00";
+        }
+
+        if($actual_price_display == ".00"){
+            $actual_price_display = "0.00";
+        }
+        $cents = explode(".",$actual_price_display);
+        if(strlen($cents[1]) == 1){
+            $actual_price_display = $actual_price_display . "0";
+        }
+
+        $this->actual_price_display = ($actual_price_display == '0.00') ? "FREE" : "$" . $actual_price_display;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActualPriceValue () {
+        return $this->actual_price_value;
+    }
+
+    /**
+     *
+     */
+    public function setActualPriceValue () {
+        $this->actual_price_value = ($this->actual_price_display!="FREE") ? str_replace(["$","."],"",$this->actual_price_display) : "0.00";
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStrikethroughPriceDisplay () {
+
+        return $this->strikethrough_price_display;
+    }
+
+    /**
+     *
+     */
+    public function setStrikethroughPriceDisplay () {
+        $gameJson = $this->gameJson;
+        $strikethrough_price_display           =   (isset($gameJson['DisplaySkuAvailabilities'][0]['Availabilities'][0]['OrderManagementData']['Price']['ListPrice']))  ? $gameJson['DisplaySkuAvailabilities'][0]['Availabilities'][0]['OrderManagementData']['Price']['MSRP'] : null;
+        if(strpos($strikethrough_price_display,".")===false){
+            $strikethrough_price_display       = $strikethrough_price_display . ".00";
+        }
+
+        if($strikethrough_price_display == ".00"){
+            $strikethrough_price_display = "0.00";
+        }
+        $cents = explode(".",$strikethrough_price_display);
+        if(strlen($cents[1]) == 1){
+            $strikethrough_price_display = $strikethrough_price_display . "0";
+        }
+
+        $this->strikethrough_price_display = ($strikethrough_price_display == '0.00') ? "FREE" : "$" . $strikethrough_price_display;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStrikethroughPriceValue () {
+        return $this->strikethrough_price_value;
+    }
+
+    /**
+     *
+     */
+    public function setStrikethroughPriceValue () {
+        $this->strikethrough_price_value = ($this->strikethrough_price_display!="FREE") ? str_replace(["$","."],"",$this->strikethrough_price_display) : "0.00";
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDiscountPercentage () {
+        return $this->discount_percentage;
+    }
+
+    /**
+     *
+     */
+    public function setDiscountPercentage ()
+    {
+        $msrp = $this->strikethrough_price_value;
+        $list = $this->actual_price_value;
+
+        if(is_numeric($msrp) && is_numeric($list)){
+            if(($msrp - $list) != 0){
+                $discount_percentage    =   round((($msrp - $list) / $msrp) * 100,0);
+            } else {
+                $discount_percentage    =   0;
+            }
+        } else {
+            $discount_percentage        =   0;
+        }
+        $this->discount_percentage = $discount_percentage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSaleStartDate () {
+        return $this->sale_start_date;
+    }
+
+    /**
+     *
+     */
+    public function setSaleStartDate () {
+        $this->sale_start_date = null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSaleEndDate () {
+        return $this->sale_end_date;
+    }
+
+    /**
+     *
+     */
+    public function setSaleEndDate () {
+        $this->sale_end_date = null;
     }
 }

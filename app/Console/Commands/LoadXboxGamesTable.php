@@ -83,7 +83,7 @@ class LoadXboxGamesTable extends Command
                         $fileCtr++;
                         // 1) Insert for the last time
                         if($totalCtr==count($arrDocs) && $subDirCtr == count($subDirectoryList)) {
-                            array_push($data, $this->loadJson($dirName,$a));
+                            array_push($data, $this->loadJson($a));
                             $this->massInsert($data);
                             $output_str =  " Total: " . $fileCtr;
                             echo $output_str;
@@ -97,12 +97,12 @@ class LoadXboxGamesTable extends Command
                         }
                         // if the loop count is less than 40, just add the data for later
                         else if ($ctr<5) {
-                            array_push($data, $this->loadJson($dirName,$a));
+                            array_push($data, $this->loadJson($a));
                             $ctr++;
                         }
                         // If the Counter hits 40, Inert
                         else {
-                            array_push($data, $this->loadJson($dirName,$a));
+                            array_push($data, $this->loadJson($a));
                             $this->massInsert($data);
                             $output_str =  "Total: " . $fileCtr;
                             echo $output_str;
@@ -129,51 +129,44 @@ class LoadXboxGamesTable extends Command
         echo PHP_EOL . "TOTAL FILES FOUND and ADDED: " . $fileCtr . PHP_EOL;
     }
 
-    private function loadJson ($dirName,$file) {
+    private function loadJson ($file)
+    {
+        // The XboxGamesController will take the "file" reference and
+        // then actually pull in the json file and process it
+        $gameController = new XboxGamesController($file);
 
-        // Loop through and pull in each file
-        // Decode File
-        // Insert Contents into table
-        $filePath = "resources/xbox/games/" . $dirName . "/" . $file;
-        $jsonOutput = file_get_contents($filePath);
-        $myJson     = json_decode($jsonOutput,true);
-
-        $xboxController = new XboxGamesController($myJson);
-
-        ### Process JSON ###
-        $xbox_id                        =   $myJson['ProductId'];
-        $name                           =   $this->processString($myJson['LocalizedProperties'][0]['ProductTitle']);
-        $release_date                   =   (isset($myJson['MarketProperties'][0]['OriginalReleaseDate'])) ? date("Y-m-d", strtotime($myJson['MarketProperties'][0]['OriginalReleaseDate'])) : null;
-        $genres                         =   $xboxController->processCategory();
-        $platforms                      =   $xboxController->processPlatforms();
-        $provider_name                  =   $this->processString((isset($myJson['LocalizedProperties'][0]['PublisherName'])) ? $myJson['LocalizedProperties'][0]['PublisherName'] : null);
-        $developer_name                 =   $this->processString((isset($myJson['LocalizedProperties'][0]['DeveloperName'])) ? $myJson['LocalizedProperties'][0]['DeveloperName'] : null);
-        $content_descriptors            =   $xboxController->processContentDescriptors();
-        $xbox_store_url                 =   "https://www.microsoft.com/en-us/p/" . $this->slugify($myJson['LocalizedProperties'][0]['ProductTitle']) . "/" . $xbox_id;
-        $xboxImages                     =   $xboxController->processImages();
-        $images                         =   $xboxImages[1];
-        $thumbnail_url_base             =   $xboxImages[0];
-        $videos                         =   $xboxController->processVideos();
-        $star_rating_score              =   (isset($myJson['MarketProperties'][0]['UsageData'][2]['AverageRating'])) ? $myJson['MarketProperties'][0]['UsageData'][2]['AverageRating'] : null;
-        $star_rating_count              =   (isset($myJson['MarketProperties'][0]['UsageData'][2]['RatingCount'])) ? $myJson['MarketProperties'][0]['UsageData'][2]['RatingCount'] : null;
-        $game_content_type              =   (isset($myJson['ProductId'])) ? $myJson['ProductId'] : null;
-        $actual_price_display           =   $xboxController->processPriceDisplay();
-        $actual_price_value             =   ($actual_price_display!="FREE") ? str_replace(["$","."],"",$actual_price_display) : "0.00";
-        $strikethrough_price_display    =   $xboxController->processBasePriceDisplay();
-        $strikethrough_price_value      =   ($strikethrough_price_display!="FREE") ? str_replace(["$","."],"",$strikethrough_price_display) : "0.00";
-        $discount_percentage            =   $this->getDiscount($strikethrough_price_value,$actual_price_value);
-        $sale_start_date                =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['start-date'])) ? date("Y-m-d H:i:s", strtotime($myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['start-date'])) : null;
-        $sale_end_date                  =   (isset($myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['end-date'])) ? date("Y-m-d H:i:s", strtotime($myJson['attributes']['skus'][0]['prices']['plus-user']['availability']['end-date'])) : null;
+        $gameId                         =   $gameController->getGameId();
+        $gameTitle                      =   $this->processString($gameController->getGameTitle());
+        $release_date                   =   $gameController->getReleaseDate();
+        $genres                         =   $gameController->getGameGenre();
+        $platforms                      =   $gameController->getAvailablePlatforms();
+        $provider_name                  =   $this->processString($gameController->getProviderName());
+        $developer_name                 =   $this->processString($gameController->getDeveloperName());
+        $content_descriptors            =   $gameController->getContentDescriptors();
+        $store_url                      =   $gameController->getStoreUrl();
+        $images                         =   $gameController->getImages();
+        $thumbnail_url_base             =   $gameController->getThumbnail();
+        $videos                         =   $gameController->getVideos();
+        $star_rating_score              =   $gameController->getStarRatingScore();
+        $star_rating_count              =   $gameController->getStarRatingCount();
+        $game_content_type              =   $gameController->getGameContentType();
+        $actual_price_display           =   $gameController->getActualPriceDisplay();
+        $actual_price_value             =   $gameController->getActualPriceValue();
+        $strikethrough_price_display    =   $gameController->getStrikethroughPriceDisplay();
+        $strikethrough_price_value      =   $gameController->getStrikethroughPriceValue();
+        $discount_percentage            =   $gameController->getDiscountPercentage();
+        $sale_start_date                =   $gameController->getSaleStartDate();
+        $sale_end_date                  =   $gameController->getSaleEndDate();
 
         return [
-            'xbox_id'                       => $xbox_id,
-            'name'                          => $name,
+            'xbox_id'                       => $gameId,
+            'name'                          => $gameTitle,
             'release_date'                  => $release_date,
             'genres'                        => $genres,
             'platforms'                     => $platforms,
             'provider_name'                 => $provider_name,
             'developer_name'                => $developer_name,
-            'xbox_store_url'                => $xbox_store_url,
+            'xbox_store_url'                => $store_url,
             'content_descriptors'           => $content_descriptors,
             'thumbnail_url_base'            => $thumbnail_url_base,
             'images'                        => $images,
@@ -193,21 +186,6 @@ class LoadXboxGamesTable extends Command
         ];
     }
 
-    private function getDiscount($msrp, $list)
-    {
-        if(is_numeric($msrp) && is_numeric($list)){
-            if(($msrp - $list) != 0){
-                $discount_percentage    =   round((($msrp - $list) / $msrp) * 100,0);
-            } else {
-                $discount_percentage    =   0;
-            }
-        } else {
-            $discount_percentage        =   0;
-        }
-
-        return $discount_percentage;
-    }
-
     private function massInsert ($data)
     {
         echo PHP_EOL;
@@ -223,32 +201,5 @@ class LoadXboxGamesTable extends Command
         $string = str_replace("’","'",$string);
 
         return $string;
-    }
-
-    private function slugify($text)
-    {
-        // replace non letter or digits by -
-        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
-
-        // transliterate
-        $text = iconv('utf-8', 'us-ascii//IGNORE', $text);
-
-        // remove unwanted characters
-        $text = preg_replace('~[^-\w]+~', '', $text);
-
-        // trim
-        $text = trim($text, '-');
-
-        // remove duplicate -
-        $text = preg_replace('~-+~', '-', $text);
-
-        // lowercase
-        $text = strtolower($text);
-
-        if (empty($text)) {
-            return 'n-a';
-        }
-
-        return $text;
     }
 }
