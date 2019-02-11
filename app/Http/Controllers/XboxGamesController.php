@@ -11,106 +11,182 @@ use App\Http\Controllers\Utilities\SpectreUtilities;
  */
 class XboxGamesController extends Controller
 {
+
+    /**
+     * Table Column: vendor_games-> api
+     *
+     * @var
+     */
+    public $api = "xbox";
+
+    /**
+     * Table Column: vendor_games-> game_id
+     *
+     * @var
+     */
+    private $gameId;
+
+    # Unused Table field
+    // vendor_games-> igdb_id
+
+    /**
+     * Table Column: vendor_games-> title
+     *
+     * @var
+     */
+    private $gameTitle;
+
+    /**
+     * Table Column: vendor_games-> release_date_na
+     *
+     * @var
+     */
+    private $release_date_na;
+
+    /**
+     * Table Column: vendor_games-> genres
+     *
+     * @var
+     */
+    private $genres;
+
+    /**
+     * Table Column: vendor_games-> platforms
+     *
+     * @var
+     */
+    private $platforms;
+
+    /**
+     * Table Column: vendor_games-> publishers
+     *
+     * @var
+     */
+    private $publishers;
+
+    /**
+     * Table Column: vendor_games-> developers
+     *
+     * @var
+     */
+    private $developers;
+
+    /**
+     * Table Column: vendor_games-> content_descriptors
+     *
+     * @var
+     */
+    private $content_descriptors;
+
+    /**
+     * Table Column: vendor_games-> store_url
+     *
+     * @var
+     */
+    private $store_url;
+
+    /**
+     * Table Column: vendor_games-> thumbnail_url
+     *
+     * @var
+     */
+    private $thumbnailUrl;
+
+    /**
+     * Table Column: vendor_games-> images
+     *
+     * @var
+     */
+    private $images;
+
+    /**
+     * Table Column: vendor_games-> videos
+     *
+     * @var
+     */
+    private $videos;
+//    vendor_games-> file_size
+
+    /**
+     * Table Column: vendor_games-> star_rating_score
+     *
+     * @var
+     */
+    private $star_rating_score;
+
+    /**
+     * Table Column: vendor_games-> star_rating_count
+     *
+     * @var
+     */
+    private $star_rating_count;
+
+    /**
+     * Table Column: vendor_games-> game_content_type
+     *
+     * @var
+     */
+    private $game_content_type;
+
+    /**
+     * Table Column: vendor_games-> actual_price_display
+     *
+     * @var
+     */
+    private $actual_price_display;
+
+    /**
+     * Table Column: vendor_games-> actual_price_value
+     *
+     * @var
+     */
+    private $actual_price_value;
+
+    /**
+     * Table Column: vendor_games-> msrp_price_display
+     *
+     * @var
+     */
+    private $msrp_price_display;
+
+    /**
+     * Table Column: vendor_games-> msrp_price_value
+     *
+     * @var
+     */
+    private $msrp_price_value;
+
+    /**
+     * Table Column: vendor_games-> discount_percentage
+     *
+     * @var
+     */
+    private $discount_percentage;
+
+    # Unused Table fields
+    //    vendor_games-> best_value_price
+    //    vendor_games-> best_value_date
+    //    vendor_games-> psn_primary_classification
+    //    vendor_games-> psn_secondary_classification
+    //    vendor_games-> psn_tertiary_classification
+    //    vendor_games-> psn_ps_camera_compatibility
+    //    vendor_games-> psn_ps_move_compatibility
+    //    vendor_games-> psn_ps_vr_compatibility
+
     /**
      * @var mixed
      */
     private $gameJson;
+
     /**
      * @var string
      */
     private $jsonDir = "resources/xbox/games";
+
     /**
      * @var
      */
     private $jsonSubDir;
-    /**
-     * @var
-     */
-    private $gameId;
-    /**
-     * @var
-     */
-    private $gameTitle;
-    /**
-     * @var
-     */
-    private $release_date;
-    /**
-     * @var
-     */
-    private $provider_name;
-    /**
-     * @var
-     */
-    private $developer_name;
-    /**
-     * @var
-     */
-    private $platforms;
-    /**
-     * @var
-     */
-    private $genre;
-    /**
-     * @var
-     */
-    private $content_descriptors;
-    /**
-     * @var
-     */
-    private $store_url;
-    /**
-     * @var
-     */
-    private $images;
-    /**
-     * @var
-     */
-    private $thumbnailUrl;
-    /**
-     * @var
-     */
-    private $videos;
-    /**
-     * @var
-     */
-    private $star_rating_score;
-    /**
-     * @var
-     */
-    private $star_rating_count;
-    /**
-     * @var
-     */
-    private $game_content_type;
-    /**
-     * @var
-     */
-    private $actual_price_display;
-    /**
-     * @var
-     */
-    private $actual_price_value;
-    /**
-     * @var
-     */
-    private $strikethrough_price_display;
-    /**
-     * @var
-     */
-    private $strikethrough_price_value;
-    /**
-     * @var
-     */
-    private $discount_percentage;
-    /**
-     * @var
-     */
-    private $sale_start_date;
-    /**
-     * @var
-     */
-    private $sale_end_date;
 
     /**
      * XboxGamesController constructor.
@@ -128,7 +204,7 @@ class XboxGamesController extends Controller
         $this->setGameId();
         $this->setGameTitle();
         $this->setReleaseDate();
-        $this->setProviderName();
+        $this->setPublisherName();
         $this->setDeveloperName();
         $this->setPlatforms();
         $this->setGameGenre();
@@ -141,11 +217,9 @@ class XboxGamesController extends Controller
         $this->setGameContentType();
         $this->setActualPriceDisplay();
         $this->setActualPriceValue();
-        $this->setStrikethroughPriceDisplay();
-        $this->setStrikethroughPriceValue();
+        $this->setMsrpPriceDisplay();
+        $this->setMsrpPriceValue();
         $this->setDiscountPercentage();
-        $this->setSaleStartDate();
-        $this->setSaleEndDate();
     }
 
     /**
@@ -167,7 +241,7 @@ class XboxGamesController extends Controller
      */
     public function getGameGenre ()
     {
-        return $this->genre;
+        return $this->genres;
     }
 
     /**
@@ -185,7 +259,7 @@ class XboxGamesController extends Controller
             $genres = null;
         }
 
-        $this->genre = $genres;
+        $this->genres = $genres;
     }
 
     /**
@@ -282,10 +356,14 @@ class XboxGamesController extends Controller
     /**
      * @return mixed
      */
-    public function getGameTitle ()
+    public function getGameTitle ($cleanTitle = true)
     {
+        if ($cleanTitle){
+            return $this->cleanTitle($this->gameTitle);
+        }
         return $this->gameTitle;
     }
+
 
     /**
      *
@@ -300,7 +378,7 @@ class XboxGamesController extends Controller
      */
     public function getReleaseDate ()
     {
-        return $this->release_date;
+        return $this->release_date_na;
     }
 
     /**
@@ -308,7 +386,7 @@ class XboxGamesController extends Controller
      */
     private function setReleaseDate ()
     {
-        $this->release_date = (isset($this->gameJson['MarketProperties'][0]['OriginalReleaseDate'])) ? date("Y-m-d", strtotime($this->gameJson['MarketProperties'][0]['OriginalReleaseDate'])) : null;
+        $this->release_date_na = (isset($this->gameJson['MarketProperties'][0]['OriginalReleaseDate'])) ? date("Y-m-d", strtotime($this->gameJson['MarketProperties'][0]['OriginalReleaseDate'])) : null;
     }
 
     /**
@@ -330,17 +408,17 @@ class XboxGamesController extends Controller
     /**
      * @return mixed
      */
-    public function getProviderName ()
+    public function getPublisherName ()
     {
-        return $this->provider_name;
+        return $this->publishers;
     }
 
     /**
      *
      */
-    private function setProviderName ()
+    private function setPublisherName ()
     {
-        $this->provider_name = (isset($this->gameJson['LocalizedProperties'][0]['PublisherName'])) ? $this->gameJson['LocalizedProperties'][0]['PublisherName'] : null;
+        $this->publishers = (isset($this->gameJson['LocalizedProperties'][0]['PublisherName'])) ? $this->gameJson['LocalizedProperties'][0]['PublisherName'] : null;
     }
 
     /**
@@ -348,7 +426,7 @@ class XboxGamesController extends Controller
      */
     public function getDeveloperName ()
     {
-        return $this->developer_name;
+        return $this->developers;
     }
 
     /**
@@ -356,7 +434,7 @@ class XboxGamesController extends Controller
      */
     private function setDeveloperName ()
     {
-        $this->developer_name = (isset($this->gameJson['LocalizedProperties'][0]['DeveloperName'])) ? $this->gameJson['LocalizedProperties'][0]['DeveloperName'] : null;
+        $this->developers = (isset($this->gameJson['LocalizedProperties'][0]['DeveloperName'])) ? $this->gameJson['LocalizedProperties'][0]['DeveloperName'] : null;
     }
 
     /**
@@ -469,7 +547,7 @@ class XboxGamesController extends Controller
      */
     private function setGameContentType ()
     {
-        $this->game_content_type = (isset($this->gameJson['ProductId'])) ? $this->gameJson['ProductId'] : null;;
+        $this->game_content_type = (isset($this->gameJson['ProductKind'])) ? $this->gameJson['ProductKind'] : null;
     }
 
     /**
@@ -518,44 +596,44 @@ class XboxGamesController extends Controller
     /**
      * @return mixed
      */
-    public function getStrikethroughPriceDisplay () {
+    public function getMsrpPriceDisplay () {
 
-        return $this->strikethrough_price_display;
+        return $this->msrp_price_display;
     }
 
     /**
      *
      */
-    private function setStrikethroughPriceDisplay ()
+    private function setMsrpPriceDisplay ()
     {
-        $strikethrough_price_display           =   (isset($this->gameJson['DisplaySkuAvailabilities'][0]['Availabilities'][0]['OrderManagementData']['Price']['ListPrice']))  ? $this->gameJson['DisplaySkuAvailabilities'][0]['Availabilities'][0]['OrderManagementData']['Price']['MSRP'] : null;
-        if(strpos($strikethrough_price_display,".")===false){
-            $strikethrough_price_display       = $strikethrough_price_display . ".00";
+        $msrp_price_display           =   (isset($this->gameJson['DisplaySkuAvailabilities'][0]['Availabilities'][0]['OrderManagementData']['Price']['ListPrice']))  ? $this->gameJson['DisplaySkuAvailabilities'][0]['Availabilities'][0]['OrderManagementData']['Price']['MSRP'] : null;
+        if(strpos($msrp_price_display,".")===false){
+            $msrp_price_display       = $msrp_price_display . ".00";
         }
 
-        if($strikethrough_price_display == ".00"){
-            $strikethrough_price_display = "0.00";
+        if($msrp_price_display == ".00"){
+            $msrp_price_display = "0.00";
         }
-        $cents = explode(".",$strikethrough_price_display);
+        $cents = explode(".",$msrp_price_display);
         if(strlen($cents[1]) == 1){
-            $strikethrough_price_display = $strikethrough_price_display . "0";
+            $msrp_price_display = $msrp_price_display . "0";
         }
 
-        $this->strikethrough_price_display = ($strikethrough_price_display == '0.00') ? "FREE" : "$" . $strikethrough_price_display;
+        $this->msrp_price_display = ($msrp_price_display == '0.00') ? "FREE" : "$" . $msrp_price_display;
     }
 
     /**
      * @return mixed
      */
-    public function getStrikethroughPriceValue () {
-        return $this->strikethrough_price_value;
+    public function getMsrpPriceValue () {
+        return $this->msrp_price_value;
     }
 
     /**
      *
      */
-    private function setStrikethroughPriceValue () {
-        $this->strikethrough_price_value = ($this->strikethrough_price_display!="FREE") ? str_replace(["$","."],"",$this->strikethrough_price_display) : "0.00";
+    private function setMsrpPriceValue () {
+        $this->msrp_price_value = ($this->msrp_price_display!="FREE") ? str_replace(["$","."],"",$this->msrp_price_display) : "0.00";
     }
 
     /**
@@ -570,7 +648,7 @@ class XboxGamesController extends Controller
      */
     private function setDiscountPercentage ()
     {
-        $msrp = $this->strikethrough_price_value;
+        $msrp = $this->msrp_price_value;
         $list = $this->actual_price_value;
 
         if(is_numeric($msrp) && is_numeric($list)){
@@ -588,29 +666,43 @@ class XboxGamesController extends Controller
     /**
      * @return mixed
      */
-    public function getSaleStartDate () {
-        return $this->sale_start_date;
-    }
-
-    /**
-     *
-     */
-    private function setSaleStartDate () {
-        $this->sale_start_date = null;
+    public function getPsnPrimaryClassification () {
+        return null;
     }
 
     /**
      * @return mixed
      */
-    public function getSaleEndDate () {
-        return $this->sale_end_date;
+    public function getPsnSecondaryClassification () {
+        return null;
     }
 
     /**
-     *
+     * @return mixed
      */
-    private function setSaleEndDate () {
-        $this->sale_end_date = null;
+    public function getPsnTertiaryClassification () {
+        return null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPsnPsCameraCompatibility () {
+        return null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPsnPsMoveCompatibility () {
+        return null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPsnPsVrCompatibility () {
+        return null;
     }
 
     /**
@@ -827,5 +919,16 @@ class XboxGamesController extends Controller
         }
 
         return $cleanedRating;
+    }
+
+    private function cleanTitle ($title)
+    {
+        // Strip special characters
+        $title = preg_replace("/(™|®|©|&trade;|&reg;|&copy;|&#8482;|&#174;|&#169;)/", "", $title);
+
+        // Replace apostrophe to standard style
+        $title = str_replace("’","'",$title);
+
+        return $title;
     }
 }

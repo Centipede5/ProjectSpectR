@@ -45,7 +45,9 @@ class LoadXboxGamesTable extends Command
     public function handle()
     {
         $gamesDir = "resources/xbox/games";   //Directory to be scanned
-        DB::table('xbox_games')->delete();
+        $dbTable = "vendor_games";
+
+        DB::table($dbTable)->delete();
 
         $subDirectoryList = [];
         $arrDocs = array_diff(scandir($gamesDir), array('..', '.', '.db'));  //Scan the $gamesDir and create an array list of all of the files and directories
@@ -81,7 +83,7 @@ class LoadXboxGamesTable extends Command
                         // 1) Insert for the last time
                         if($totalCtr==count($arrDocs) && $subDirCtr == count($subDirectoryList)) {
                             array_push($data, $this->loadJson($a));
-                            DB::table('xbox_games')->insert($data);
+                            DB::table($dbTable)->insert($data);
                             echo PHP_EOL;
                             $output_str =  " Total: " . $fileCtr;
                             echo $output_str;
@@ -101,7 +103,7 @@ class LoadXboxGamesTable extends Command
                         // If the Counter hits 40, Insert
                         else {
                             array_push($data, $this->loadJson($a));
-                            DB::table('xbox_games')->insert($data);
+                            DB::table($dbTable)->insert($data);
                             echo PHP_EOL;
                             $output_str =  "Total: " . $fileCtr;
                             echo $output_str;
@@ -123,7 +125,7 @@ class LoadXboxGamesTable extends Command
             $subDirCtr++;
         }
 
-        DB::table('xbox_games')->update(['created_at'=> \Carbon\Carbon::now(),'updated_at'=>\Carbon\Carbon::now()]);
+        DB::table($dbTable)->update(['created_at'=> \Carbon\Carbon::now(),'updated_at'=>\Carbon\Carbon::now()]);
 
         echo PHP_EOL . "TOTAL FILES FOUND and ADDED: " . $fileCtr . PHP_EOL;
     }
@@ -133,13 +135,13 @@ class LoadXboxGamesTable extends Command
         // The XboxGamesController will take the "file" reference and
         // then actually pull in the json file and process it
         $gameController = new XboxGamesController($file);
-
+        $api                            =   $gameController->api;
         $gameId                         =   $gameController->getGameId();
         $gameTitle                      =   $this->cleanString($gameController->getGameTitle());
         $release_date                   =   $gameController->getReleaseDate();
         $genres                         =   $gameController->getGameGenre();
         $platforms                      =   $gameController->getPlatforms();
-        $provider_name                  =   $this->cleanString($gameController->getProviderName());
+        $provider_name                  =   $this->cleanString($gameController->getPublisherName());
         $developer_name                 =   $this->cleanString($gameController->getDeveloperName());
         $content_descriptors            =   $gameController->getContentDescriptors();
         $store_url                      =   $gameController->getStoreUrl();
@@ -151,23 +153,22 @@ class LoadXboxGamesTable extends Command
         $game_content_type              =   $gameController->getGameContentType();
         $actual_price_display           =   $gameController->getActualPriceDisplay();
         $actual_price_value             =   $gameController->getActualPriceValue();
-        $strikethrough_price_display    =   $gameController->getStrikethroughPriceDisplay();
-        $strikethrough_price_value      =   $gameController->getStrikethroughPriceValue();
+        $msrp_price_display             =   $gameController->getMsrpPriceDisplay();
+        $msrp_price_value               =   $gameController->getMsrpPriceValue();
         $discount_percentage            =   $gameController->getDiscountPercentage();
-        $sale_start_date                =   $gameController->getSaleStartDate();
-        $sale_end_date                  =   $gameController->getSaleEndDate();
 
         return [
-            'xbox_id'                       => $gameId,
-            'name'                          => $gameTitle,
-            'release_date'                  => $release_date,
+            'api'                           => $api,
+            'game_id'                       => $gameId,
+            'title'                         => $gameTitle,
+            'release_date_na'               => $release_date,
             'genres'                        => $genres,
             'platforms'                     => $platforms,
-            'provider_name'                 => $provider_name,
-            'developer_name'                => $developer_name,
-            'xbox_store_url'                => $store_url,
+            'publishers'                    => $provider_name,
+            'developers'                    => $developer_name,
             'content_descriptors'           => $content_descriptors,
-            'thumbnail_url_base'            => $thumbnail_url_base,
+            'store_url'                     => $store_url,
+            'thumbnail_url'                 => $thumbnail_url_base,
             'images'                        => $images,
             'videos'                        => $videos,
             'star_rating_score'             => $star_rating_score,
@@ -175,11 +176,9 @@ class LoadXboxGamesTable extends Command
             'game_content_type'             => $game_content_type,
             'actual_price_display'          => $actual_price_display,
             'actual_price_value'            => $actual_price_value,
-            'strikethrough_price_display'   => $strikethrough_price_display,
-            'strikethrough_price_value'     => $strikethrough_price_value,
+            'msrp_price_display'            => $msrp_price_display,
+            'msrp_price_value'              => $msrp_price_value,
             'discount_percentage'           => $discount_percentage,
-            'sale_start_date'               => $sale_start_date,
-            'sale_end_date'                 => $sale_end_date,
             'created_at'                    => \Carbon\Carbon::now(),
             'updated_at'                    => \Carbon\Carbon::now()
         ];
