@@ -295,6 +295,11 @@ class XboxGamesController extends Controller
                 }
             }
         }
+
+        if(count($content_descriptors)==0){
+            $this->createAlert("Missing Content Descriptors");
+        }
+
         $this->content_descriptors = json_encode($content_descriptors);
     }
 
@@ -653,12 +658,12 @@ class XboxGamesController extends Controller
 
         if(is_numeric($msrp) && is_numeric($list)){
             if(($msrp - $list) != 0){
-                $discount_percentage    =   round((($msrp - $list) / $msrp) * 100,0);
+                $discount_percentage = round((($msrp - $list) / $msrp) * 100,0);
             } else {
-                $discount_percentage    =   0;
+                $discount_percentage = 0;
             }
         } else {
-            $discount_percentage        =   0;
+            $discount_percentage = 0;
         }
         $this->discount_percentage = $discount_percentage;
     }
@@ -930,5 +935,10 @@ class XboxGamesController extends Controller
         $title = str_replace("’","'",$title);
 
         return $title;
+    }
+
+    public function createAlert ($title)
+    {
+        (new AlertController)->addAlert($title, $this->getGameId() . " - " . $this->getGameTitle());
     }
 }

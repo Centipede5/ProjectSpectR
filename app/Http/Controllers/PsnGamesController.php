@@ -797,4 +797,8 @@ class PsnGamesController extends Controller
         return $title;
     }
 
+    public function createAlert ($title)
+    {
+        (new AlertController)->addAlert($title, $this->getGameId() . " - " . $this->getGameTitle());
+    }
 }
