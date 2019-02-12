@@ -28,7 +28,13 @@ class NINAPI
      *
      * @var int
      */
-    protected $maxReturnSize = 60;
+    protected $maxReturnSize = 40;
+
+
+    protected $market = "US";
+    protected $languages = "en-us";
+    protected $mscv = "DGU1mcuYo0WMMp+F.1";
+
     /**
      * These are a list of valid endpoints that can be
      * used with a readable variable name
@@ -40,7 +46,7 @@ class NINAPI
     ];
 
     /**
-     * Nintendo API constructor
+     * NIN API constructor
      *
      * url is defined within the .env file under NINAPI_URL
      * @param $url
@@ -59,27 +65,22 @@ class NINAPI
         $this->httpClient = new Client();
     }
 
-    /**
-     * MAIN Method: Takes a given endpoint and returns the data as JSON
-     *
-     * @param $endPoint
-     * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getGamesByEndpoint($endPoint)
+    public function getGamesByEndpoint($endPoint="game",$system="all")
     {
+        $system="switch";
+        $apiUrl =  rtrim($this->baseUrl, '/').'/'.$endPoint.'/';
+
         # 1) Get the Total Item Results Count
         //   This will return a small result set that contains the total count of games available with the API CALL
-        $apiUrl =  rtrim($this->baseUrl, '/').'/'.$endPoint.'/';
         $paramsForTotal = [
-            'size'=>0,
-            'bucket'=>'games',
-            'start'=>0
+            'limit'=>0,
+            "system"=>$system
         ];
 
         $apiDataForTotal = $this->apiGet($apiUrl, $paramsForTotal);
         $dataWithTotal = $this->decodeResponse($apiDataForTotal);
-        $totalResults =  $dataWithTotal->{'data'}->{'attributes'}->{'total-results'};
+        $totalResults =  $dataWithTotal->{'filter'}->{'systems'}->{'total'};
+
         echo "Games Expected: " . $totalResults . PHP_EOL;
 
         # 2) Determine the amount of API Iterations
@@ -92,9 +93,10 @@ class NINAPI
         for($i=0;$i<$apiCallCount;$i++){
             $apiStart = $this->maxReturnSize * $i;
             $params = [
-                'start'  => $apiStart,
-                'size'   => $this->maxReturnSize,
-                'bucket' => 'games'
+                'offset'  => $apiStart,
+                'limit'   => $this->maxReturnSize,
+                'sort' => 'title',
+                "system"=>$system
             ];
 
             echo $i+1 . ") " . $apiStart . "/" . $totalResults. PHP_EOL;
@@ -102,13 +104,9 @@ class NINAPI
             $apiData = $this->apiGet($apiUrl, $params);
             $apiGames = $this->decodeResponse($apiData);
 
-            // Build a list of ALL the Game Data and Clean Up
-            // Duplicate Game Listings by stripping out the legacy-sku's
-            foreach($apiGames->{'included'} as $game){
-                if($game->{'type'} != 'legacy-sku'){
-                    $totalCounter++;
-                    array_push($games,$game);
-                }
+            foreach($apiGames->{'games'}->{'game'} as $game){
+                $totalCounter++;
+                array_push($games,$game);
             }
         }
 
@@ -290,7 +288,7 @@ class NINAPI
     }
 
     /**
-     * Decode the response from Nintendo eShop, extract the multiple resource object.
+     * Decode the response from Nintendo, extract the multiple resource object.
      * This was migrated from the IGDB Controller that had extra logic that was unnecessary.
      * This might be a great place to refactor the API response
      *

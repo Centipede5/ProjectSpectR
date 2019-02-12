@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Http\Controllers\XboxGamesController;
 use App\Http\Controllers\PsnGamesController;
+use App\Http\Controllers\NinGamesController;
 
 class SpectreLoadGameJsonUtility extends Command
 {
@@ -13,7 +14,7 @@ class SpectreLoadGameJsonUtility extends Command
      *
      * @var string
      */
-    protected $signature = 'spectre:loadGameJsonTest {--usePsn}';
+    protected $signature = 'spectre:loadGameJsonTest {--usePsn}{--useXbox}';
 
     /**
      * The console command description.
@@ -40,8 +41,10 @@ class SpectreLoadGameJsonUtility extends Command
     {
         if($this->option('usePsn')) {
             $file = "UP2613-CUSA09143_00-USSUPERHOTVRGAME.json";
-        }else{
+        } else if($this->option('useXbox')){
             $file = "BV6BRSLFJW3W.json";
+        } else {
+            $file = "yAKJO3LB7zlPsJlbQIMpmmN7o2ffLTB6.json";
         }
         $myGameJson = $this->loadJson($file);
         dd($myGameJson);
@@ -53,14 +56,16 @@ class SpectreLoadGameJsonUtility extends Command
         // The XboxGamesController will take the "file" reference and
         // then actually pull in the json file and process it
         if($this->option('usePsn')) {
-
             echo "PSN";
             $gameController = new PsnGamesController($file);
-
-        } else {
+        } else if($this->option('useXbox')) {
             echo "XBOX";
             $gameController = new XboxGamesController($file);
+        } else {
+            echo "NIN";
+            $gameController = new NinGamesController($file);
         }
+        echo PHP_EOL;
 
         $api                            =   $gameController->api;
         $gameId                         =   $gameController->getGameId();
@@ -125,12 +130,13 @@ class SpectreLoadGameJsonUtility extends Command
 
     private function cleanString($string)
     {
-        // Strip special characters
-        $string = preg_replace("/(™|®|©|&trade;|&reg;|&copy;|&#8482;|&#174;|&#169;)/", "", $string);
+        if($string!=null){
+            // Strip special characters
+            $string = preg_replace("/(™|®|©|&trade;|&reg;|&copy;|&#8482;|&#174;|&#169;)/", "", $string);
 
-        // Replace apostrophe to standard style
-        $string = str_replace("’","'",$string);
-
+            // Replace apostrophe to standard style
+            $string = str_replace("’","'",$string);
+        }
         return $string;
     }
 }

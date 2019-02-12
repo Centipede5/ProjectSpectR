@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Http\Controllers\XboxGamesController;
 use App\Http\Controllers\PsnGamesController;
+use App\Http\Controllers\NinGamesController;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,7 @@ class LoadVendorGamesTable extends Command
 
     private $vendor;
 
+    private $time_start;
     /**
      * Create a new command instance.
      *
@@ -35,12 +37,16 @@ class LoadVendorGamesTable extends Command
     public function __construct()
     {
         parent::__construct();
+        // At start of script
+        $this->time_start = microtime(true);
+
         LogIt::utilLog("STARTING loadVendorGamesTable Command");
     }
 
     public function __destruct()
     {
         LogIt::utilLog("COMPLETED loadVendorGamesTable Command");
+        echo PHP_EOL . 'Completed in: ' . (microtime(true) - $this->time_start) . " seconds" .PHP_EOL;
     }
 
     /**
@@ -51,7 +57,7 @@ class LoadVendorGamesTable extends Command
         $dbTable = "vendor_games";
         DB::table($dbTable)->delete();
 
-        $vendors = ['psn','xbox'];
+        $vendors = ['nin','psn','xbox'];
         foreach ($vendors as $vendor) {
             echo "Processing: " . $vendor . PHP_EOL;
             $this->setVendor($vendor);
@@ -92,15 +98,16 @@ class LoadVendorGamesTable extends Command
                             if($totalCtr==count($arrDocs) && $subDirCtr == count($subDirectoryList)) {
                                 array_push($data, $this->loadJson($a));
                                 DB::table($dbTable)->insert($data);
-                                echo PHP_EOL;
-                                $output_str =  " Total: " . $fileCtr;
-                                echo $output_str;
-                                $line_size = strlen($output_str);
-                                while($line_size >= 0){
-                                    echo "\010";
-                                    $line_size--;
+                                if($this->option('verbose')){
+                                    echo PHP_EOL;
+                                    $output_str =  " Total: " . $fileCtr;
+                                    echo $output_str;
+                                    $line_size = strlen($output_str);
+                                    while($line_size >= 0){
+                                        echo "\010";
+                                        $line_size--;
+                                    }
                                 }
-
                                 break;
                             }
                             // if the loop count is less than 40, just add the data for later
@@ -112,13 +119,15 @@ class LoadVendorGamesTable extends Command
                             else {
                                 array_push($data, $this->loadJson($a));
                                 DB::table($dbTable)->insert($data);
-                                echo PHP_EOL;
-                                $output_str =  "Total: " . $fileCtr;
-                                echo $output_str;
-                                $line_size = strlen($output_str);
-                                while($line_size >= 0){
-                                    echo "\010";
-                                    $line_size--;
+                                if($this->option('verbose')) {
+                                    echo PHP_EOL;
+                                    $output_str = "Total: " . $fileCtr;
+                                    echo $output_str;
+                                    $line_size = strlen($output_str);
+                                    while ($line_size >= 0) {
+                                        echo "\010";
+                                        $line_size--;
+                                    }
                                 }
 
                                 // Reset Counter and data
@@ -147,6 +156,8 @@ class LoadVendorGamesTable extends Command
             $gameController = new PsnGamesController($file);
         } else if($this->getVendor()=="xbox") {
             $gameController = new XboxGamesController($file);
+        } else if($this->getVendor()=="nin") {
+            $gameController = new NinGamesController($file);
         }
 
         $api                            =   $gameController->api;
@@ -212,12 +223,13 @@ class LoadVendorGamesTable extends Command
 
     private function cleanString($string)
     {
-        // Strip special characters
-        $string = preg_replace("/(™|®|©|&trade;|&reg;|&copy;|&#8482;|&#174;|&#169;)/", "", $string);
+        if($string!=null){
+            // Strip special characters
+            $string = preg_replace("/(™|®|©|&trade;|&reg;|&copy;|&#8482;|&#174;|&#169;)/", "", $string);
 
-        // Replace apostrophe to standard style
-        $string = str_replace("’","'",$string);
-
+            // Replace apostrophe to standard style
+            $string = str_replace("’","'",$string);
+        }
         return $string;
     }
 
