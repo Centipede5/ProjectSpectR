@@ -12,7 +12,6 @@
 */
 /// Testing
 ///
-Route::post('/oniadmin/gameGetSync', 'SuperAdminController@gameGetSync');
 
 Route::get('/demo/{page}.html', function ($page) {
     return view('demo.'.$page);
@@ -140,15 +139,17 @@ Route::post('/util/sliderImageUpload', 'FileUploadController@sliderImageUpload')
 Route::post('/util/sliderImageCrop', 'FileUploadController@sliderImageCrop');
 
 
+Route::post('/oniadmin/gameGetSync', 'SuperAdminController@gameGetSync');
+Route::post('/oniadmin/manageRoles', 'SuperAdminController@updateRoles');
+Route::post('/oniadmin/searchUser', 'SuperAdminController@searchUser');
+Route::post('/oniadmin/updateUser', 'SuperAdminController@updateUser');
 
 /* SUPER ADMIN */
 Route::get('/oniadmin', 'SuperAdminController@index')
     ->name('super_admin')
     ->middleware('auth');
-//Route::get('/oniadmin/manage-roles', 'SuperAdminController@manageRoles')->middleware('auth');
 
 Route::get('/oniadmin/{thePage}', 'SuperAdminController@pages')->middleware('auth');
-
 
 /* USER ROUTES */
 Route::get('/{user}', 'UserProfileController@index')->name('user-profile');

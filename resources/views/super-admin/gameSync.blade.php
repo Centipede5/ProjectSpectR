@@ -46,7 +46,3 @@
 				</div>
 			</div>
 @endsection
-
-@section('footer-js')
-	<script src="/js/oniadmin/gameSync.js"></script>
-@endsection

@@ -24,6 +24,8 @@ class User extends Authenticatable
         'background_image'
     ];
 
+    public static $uniqueFields = ['email','display_name','uniqid'];
+
     /**
      * The attributes that should be hidden for arrays.
      *

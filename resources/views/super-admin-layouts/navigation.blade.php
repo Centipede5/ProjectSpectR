@@ -7,7 +7,7 @@
             <div id="m_ver_menu" class="m-aside-menu m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark" m-menu-vertical="1" m-menu-scrollable="1" m-menu-dropdown-timeout="500" style="position: relative;">
                 <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
                     <li class="m-menu__item " aria-haspopup="true" >
-                        <a href="/js/oniadmin" class="m-menu__link ">
+                        <a href="/oniadmin" class="m-menu__link ">
                             <i class="m-menu__link-icon flaticon-line-graph"></i>
                             <span class="m-menu__link-title">
                                 <span class="m-menu__link-wrap">
@@ -18,11 +18,42 @@
                             </span>
                         </a>
                     </li>
+                    <li class="m-menu__item">
+                        <a href="/" class="m-menu__link">
+                            <span class="m-menu__link-text">
+                                <img src="/favicon-16x16.png" /> SpectreGaming.club
+                            </span>
+                        </a>
+                    </li>
                     <li class="m-menu__section ">
                         <h4 class="m-menu__section-text">
-                            Components
+                            Database Management
                         </h4>
                         <i class="m-menu__section-icon flaticon-more-v3"></i>
+                    </li>
+                    <li class="m-menu__item">
+                        <a href="/oniadmin/updateGamesTable" class="m-menu__link m-menu__toggle">
+                            <i class="m-menu__link-icon flaticon-grid-menu"></i>
+                            <span class="m-menu__link-text">
+                                Update Game Info
+                            </span>
+                        </a>
+                    </li>
+                    <li class="m-menu__item">
+                        <a href="/oniadmin/manageUsers" class="m-menu__link m-menu__toggle">
+                            <i class="m-menu__link-icon flaticon-profile"></i>
+                            <span class="m-menu__link-text">
+                                Manage Users
+                            </span>
+                        </a>
+                    </li>
+                    <li class="m-menu__item">
+                        <a href="/oniadmin/manageRoles" class="m-menu__link m-menu__toggle">
+                            <i class="m-menu__link-icon flaticon-network"></i>
+                            <span class="m-menu__link-text">
+                                Manage User Roles
+                            </span>
+                        </a>
                     </li>
                     <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  m-menu-submenu-toggle="hover">
                         <a  href="javascript:;" class="m-menu__link m-menu__toggle">

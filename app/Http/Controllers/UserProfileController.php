@@ -224,6 +224,23 @@ class UserProfileController extends Controller
         return redirect()->route('user-profile', ['user' => $user->display_name]);
     }
 
+    public static function adminModifyUser ($recordId, $field, $data) {
+
+        # TODO: Add a method that checks the table for duplicates before trying to update record
+        if(in_array($field,User::$uniqueFields)===true){
+            LogIt::utilLog($field . ": Check for Duplicates");
+        } else{
+            LogIt::utilLog($field . ": Free and Clear");
+        }
+
+        DB::table('users')
+            ->where('id', $recordId)
+            ->update([
+                $field => $data,
+                'updated_at'  => \Carbon\Carbon::now()
+            ]);
+    }
+
     /**
      * When a user has been marked for termination, their profile and all posts will be deleted.
      * Given the severity, it's possible that the users contributions may remain under a new alias,
